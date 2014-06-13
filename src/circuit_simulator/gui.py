@@ -480,7 +480,7 @@ class MainWindow(Gtk.ApplicationWindow):
     def on_button_open_clicked(self, button):
         dialog = Gtk.FileChooserDialog("Please choose a file", self, Gtk.FileChooserAction.OPEN,
                                        (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, Gtk.STOCK_OPEN, Gtk.ResponseType.OK))
-
+        
         netlist_filter = Gtk.FileFilter()
         netlist_filter.set_name("Netlist")
         netlist_filter.add_pattern("*.net")
@@ -492,6 +492,8 @@ class MainWindow(Gtk.ApplicationWindow):
         gschem_filter.set_name("GEDA schematic")
         gschem_filter.add_mime_type("application/x-geda-schematic")
         dialog.add_filter(gschem_filter)
+        
+        dialog.set_filter(gschem_filter)
 
         response = dialog.run()
         if response == Gtk.ResponseType.OK:
