@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
+#
 # Circuit Simulator
 # Copyright (C) 2014 Rafael Bailón-Ruiz <rafaelbailon@ieee.org>
 #
