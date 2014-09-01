@@ -19,6 +19,7 @@
 from gi.repository import Gtk, Gdk, Gio, GtkSource, Pango
 from matplotlib.backends.backend_gtk3cairo import FigureCanvasGTK3Cairo as FigureCanvas
 
+import os
 import os.path
 
 import ngspice_simulation
@@ -125,13 +126,21 @@ class MainWindow(Gtk.ApplicationWindow):
 
         self.circuit = None
         self.netlist_file_path = None
+        self.file_monitor = None
         self._create_menu_models()
 
         ##########
         #headerbar
         self.hb = Gtk.HeaderBar()
         self.hb.props.show_close_button = True
-        self.set_titlebar(self.hb)
+
+        if self.csd_are_supported() == True:
+            self.set_titlebar(self.hb)
+        else: #disable headerbar as titlebar if not supported
+            self.no_csd_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+            self.no_csd_box.pack_start(self.hb, False, False, 0)
+            self.hb.props.show_close_button = False
+            self.add(self.no_csd_box)
 
         ## Right side of headerbar
         self.hb_rbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
@@ -186,7 +195,11 @@ class MainWindow(Gtk.ApplicationWindow):
         self.simulation_box.pack_start(self.canvas, True, True, 0)
         self.stack.add_titled(self.simulation_box, "simulation", "Simulation")
 
-        self.add(self.stack)
+        if self.csd_are_supported() == True:
+            self.add(self.stack)
+        else: #disable headerbar as titlebar if not supported
+            self.no_csd_box.pack_end(self.stack, True, True, 0)
+
         self.overview_view()
         self.connect_after('destroy', self._on_destroy)
 
@@ -425,6 +438,14 @@ class MainWindow(Gtk.ApplicationWindow):
         self.simulation_box.pack_start(self.canvas, True, True, 0)
         self.canvas.show()
 
+    def csd_are_supported(self):
+        sessionType = os.environ.get('DESKTOP_SESSION')
+        if sessionType == "gnome":
+            return True
+        # Other desktop environments doesn't play well with csd for now
+        else:
+            return False
+
     def set_error(self, title=None, message=None, message_type=Gtk.MessageType.ERROR, actions=None):
         '''set_error(self, title=None, message=None, message_type=Gtk.MessageType.ERROR, actions=None) -> None
 
@@ -519,7 +540,8 @@ class MainWindow(Gtk.ApplicationWindow):
         self.file_monitor.connect("changed", self.on_file_changed)
 
     def stop_file_monitor(self):
-        self.file_monitor.cancel()
+        if self.file_monitor is not None:
+            self.file_monitor.cancel()
 
     def on_file_changed(self,file_monitor,_file, other_file, event_type):
         ''' on_file_changed(file_monitor,_file, other_file, event_type) -> None
@@ -626,6 +648,9 @@ class MainWindow(Gtk.ApplicationWindow):
 
     def on_save_button_clicked_overview(self, button):
         self.stop_file_monitor()
+        if not self.netlist_file_path:
+            #TODO: Show a save file dialog
+            pass
         with open(self.netlist_file_path,"w") as f:
             f.write(self.source_buffer.props.text)
         self.start_file_monitor()
