@@ -1,0 +1,6 @@
+#!/bin/sh
+python setup.py install
+
+install -Dm644 "spicegui/data/SpiceGUI.desktop" "/usr/share/applications/SpiceGUI.desktop"
+
+

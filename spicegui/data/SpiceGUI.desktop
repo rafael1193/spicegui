@@ -1,13 +1,15 @@
 [Desktop Entry]
 Version=1.0
 Type=Application
-Name=Circuit Simulator
-Name[es]=Simulador de Circuitos
+Name=SpiceGUI
 GenericName=Circuit Simulator
 GenericName[es]=Simulador de Circuitos
 Comment=Easy SPICE circuit simulation
-Exec=python circuit_simulator/__init__.py %F
-Icon=circuit-simulator
+Exec=spicegui
+Icon=spicegui
 Terminal=false
 Categories=Science;GTK;GNOME;Electricity;Electronics;
 Keywords=SPICE;ngspice;
+Name[es]=SpiceGUI
+MimeType=text/plain;
+
