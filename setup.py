@@ -4,7 +4,6 @@
 """Setup for SpiceGUI
 """
 
-import sys
 from setuptools import setup, find_packages
 
 __prj__ = "SpiceGUI"
@@ -40,7 +39,6 @@ params = {
     "package_data": {'': ['*.png', '*.gif', '*.jpg', '*.json', '*.qss',
         '*.js', '*.html', '*.css', '*.qm', '*.qml']},
 
-    # include ninja pkg and setup the run script
     "packages": find_packages(),
 
     #auto create scripts

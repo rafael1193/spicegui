@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Circuit Simulator
+# SpiceGUI
 # Copyright (C) 2014 Rafael Bailón-Ruiz <rafaelbailon@ieee.org>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -29,7 +29,7 @@ class MainWindow(Gtk.ApplicationWindow):
 
     gear_menu_xml = """
     <?xml version="1.0" encoding="UTF-8"?>
-    <interface domain="circuit-simulator">
+    <interface domain="spicegui">
     <!-- interface-requires gtk+ 3.6 -->
         <menu id="gearmenu-overview">
             <section>
@@ -79,7 +79,7 @@ class MainWindow(Gtk.ApplicationWindow):
 
     insert_menu_xml = """
     <?xml version="1.0" encoding="UTF-8"?>
-    <interface domain="circuit-simulator">
+    <interface domain="spicegui">
     <!-- interface-requires gtk+ 3.6 -->
         <menu id="insertmenu">
             <section>

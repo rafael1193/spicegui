@@ -1,5 +1,5 @@
 {
-  "mainFile": "src/circuit_simulator/__init__.py", 
+  "mainFile": "spicegui/__init__.py", 
   "use-tabs": false, 
   "venv": "", 
   "relatedProjects": [], 

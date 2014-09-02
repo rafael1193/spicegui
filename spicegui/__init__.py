@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-# Circuit Simulator
+# SpiceGUI
 # Copyright (C) 2014 Rafael Bailón-Ruiz <rafaelbailon@ieee.org>
 #
 # This program is free software: you can redistribute it and/or modify
