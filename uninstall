@@ -4,3 +4,5 @@ rm "/usr/local/bin/spicegui"
 rm -r "/usr/local/lib/python2.7/dist-packages/SpiceGUI-0.1-py2.7.egg"
 
 rm "/usr/local/share/applications/SpiceGUI.desktop"
+
+update-desktop-database

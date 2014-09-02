@@ -3,4 +3,6 @@ python setup.py install
 
 install -Dm644 "spicegui/data/SpiceGUI.desktop" "/usr/local/share/applications/SpiceGUI.desktop"
 
+update-desktop-database
+
 
