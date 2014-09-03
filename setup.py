@@ -6,7 +6,7 @@
 
 from setuptools import setup, find_packages
 
-__prj__ = "SpiceGUI"
+__prj__ = "spicegui"
 __author__ = "Rafael Bailón-Ruiz"
 __mail__ = "rafaelbailon at ieee dot org"
 __url__ = ""
