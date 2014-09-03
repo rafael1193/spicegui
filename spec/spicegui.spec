@@ -18,6 +18,8 @@ Requires:       gtk3
 Requires:       glib
 Requires:       gtksourceview3
 Requires:       pango
+Requires:       ngspice
+Requires:       geda-gnetlist
 BuildArch:      noarch
 
 
