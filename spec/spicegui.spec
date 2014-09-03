@@ -15,7 +15,7 @@ Requires:       python
 Requires:       pygobject2
 Requires:       python-matplotlib
 Requires:       gtk3
-Requires:       glib
+Requires:       glib2
 Requires:       gtksourceview3
 Requires:       pango
 Requires:       ngspice
