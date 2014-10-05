@@ -108,7 +108,7 @@ class App(Gtk.Application):
         aboutdialog.set_comments("Graphical user interface for circuit simulation using ngspice")
         aboutdialog.set_copyright("Copyright \xc2\xa9 2014 Rafael Bailón-Ruiz")
         aboutdialog.set_logo_icon_name("spicegui")
-        aboutdialog.set_website("http://rafael1193.github.io")
+        aboutdialog.set_website("http://github.com/rafael1193/spicegui")
         aboutdialog.set_license_type(Gtk.License.GPL_3_0)
 
         authors = ["Rafael Bailón Ruiz <rafaelbailon at ieee dot org>"]
