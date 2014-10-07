@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="org.rafael1193.spicegui" path="/org/rafael1193/spicegui/">
+    <key type="b" name="show-legend">
+      <default>true</default>
+      <summary>Show legend on plot</summary>
+      <description>Wether legend should be shown over plot</description>
+    </key>
+  </schema>
+</schemalist>
+

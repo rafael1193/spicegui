@@ -22,8 +22,10 @@ import csv
 import os.path
 
 from multiprocessing import Pool
-
+from gi.repository import Gio
 from matplotlib.figure import Figure
+
+from application import App
 
 
 class NgspiceOutput():
@@ -207,7 +209,9 @@ class NgspiceOutput():
             a.plot(indep_data_line.values, line.values, label=line.name)
 
         # Decorations
-        a.legend()
+        settings = Gio.Settings.new(App.GSETTINGS_BASE_KEY)
+        if settings.get_boolean("show-legend"):
+            a.legend()
         a.set_title(self.analysis)
 
         if self.analysis == "Transient Analysis":

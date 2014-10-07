@@ -23,7 +23,9 @@ import gui
 
 
 class App(Gtk.Application):
-
+    
+    GSETTINGS_BASE_KEY = "org.rafael1193.spicegui"
+    
     app_menu_xml = """
     <?xml version="1.0" encoding="UTF-8"?>
     <interface domain="spicegui">
