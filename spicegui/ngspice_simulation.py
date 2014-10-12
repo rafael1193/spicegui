@@ -25,6 +25,8 @@ from multiprocessing import Pool
 from gi.repository import Gio
 from matplotlib.figure import Figure
 
+import preferences_gui
+
 
 class NgspiceOutput():
 
@@ -207,9 +209,10 @@ class NgspiceOutput():
             a.plot(indep_data_line.values, line.values, label=line.name)
 
         # Decorations
-        settings = Gio.Settings.new(App.GSETTINGS_BASE_KEY)
+        settings = Gio.Settings.new(preferences_gui.Preferences.GSETTINGS_BASE_KEY)
         if settings.get_boolean("show-legend"):
-            a.legend()
+            legend_position=settings.get_string("legend-position")
+            a.legend(loc=legend_position)
         a.set_title(self.analysis)
 
         if self.analysis == "Transient Analysis":
