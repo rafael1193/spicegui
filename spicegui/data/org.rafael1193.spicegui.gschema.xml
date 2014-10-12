@@ -6,6 +6,14 @@
       <summary>Show legend on plot</summary>
       <description>Wether legend should be shown over plot</description>
     </key>
+    <key name="legend-position" type="s">
+        <default>"best"</default>
+        <summary>Legend position</summary>
+        <description>
+            Set legend position on plot.
+            Legal values are matplotlib.axes.Axes.legend() 'loc' parameter accepted values
+        </description>
+    </key>
   </schema>
 </schemalist>
 

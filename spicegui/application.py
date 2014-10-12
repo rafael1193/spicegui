@@ -20,6 +20,7 @@ import sys
 
 from gi.repository import Gio, Gtk
 import gui
+import preferences_gui
 
 
 class App(Gtk.Application):
@@ -35,7 +36,13 @@ class App(Gtk.Application):
               <item>
                 <attribute name="label" translatable="yes">_New window</attribute>
                 <attribute name="action">app.new</attribute>
-                 <attribute name="accel">&lt;Primary&gt;n</attribute>
+                <attribute name="accel">&lt;Primary&gt;n</attribute>
+              </item>
+            </section>
+            <section>
+              <item>
+                <attribute name="label" translatable="yes">_Preferences</attribute>
+                <attribute name="action">app.preferences</attribute>
               </item>
             </section>
             <section>
@@ -77,6 +84,10 @@ class App(Gtk.Application):
         new_action = Gio.SimpleAction.new("new", None)
         new_action.connect("activate", self.on_new_action)
         self.add_action(new_action)
+        
+        preferences_action = Gio.SimpleAction.new("preferences", None)
+        preferences_action.connect("activate", self.on_preferences_action)
+        self.add_action(preferences_action)
 
 #        help_action = Gio.SimpleAction.new("help", None)
 #        help_action.connect("activate", self.on_help_action)
@@ -97,6 +108,9 @@ class App(Gtk.Application):
 
     def on_new_action(self, action, parameter):
         self.activate()
+    
+    def on_preferences_action(self, action, parameter):
+        preferences_gui.Preferences(self.get_active_window())
 
     def on_help_action(self, action, parameter):
         print("This does nothing. It is only a demonstration.")

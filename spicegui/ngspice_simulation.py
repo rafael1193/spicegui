@@ -25,8 +25,6 @@ from multiprocessing import Pool
 from gi.repository import Gio
 from matplotlib.figure import Figure
 
-from application import App
-
 
 class NgspiceOutput():
 
