@@ -285,8 +285,8 @@ class MainWindow(Gtk.ApplicationWindow):
         svg_filter.set_name("Scalable Vector Graphics")
         svg_filter.add_mime_type("image/svg+xml")
         dialog.add_filter(svg_filter)
-
-        dialog.set_current_name(self.hb.get_title().join(" ").join(self.simulation_output.analysis))
+        print self.hb.get_title()+" - "+self.simulation_output.analysis
+        dialog.set_current_name(self.hb.get_title()+" - "+self.simulation_output.analysis)
 
         response = dialog.run()
         if response == Gtk.ResponseType.OK:
