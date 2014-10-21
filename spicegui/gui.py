@@ -285,18 +285,28 @@ class MainWindow(Gtk.ApplicationWindow):
         svg_filter.set_name("Scalable Vector Graphics")
         svg_filter.add_mime_type("image/svg+xml")
         dialog.add_filter(svg_filter)
-        print self.hb.get_title()+" - "+self.simulation_output.analysis
+
+        
+        
         dialog.set_current_name(self.hb.get_title()+" - "+self.simulation_output.analysis)
 
         response = dialog.run()
+        dialog.set_filter(png_filter)
         if response == Gtk.ResponseType.OK:
             file_name = dialog.get_filename()
-            print(file_name)
             dialog.destroy()
             if file_name.split(".")[-1] == "png":
                 self.figure.savefig(file_name, transparent=True, dpi=None, format="png")
-            if file_name.split(".")[-1] == "svg":
+            elif file_name.split(".")[-1] == "svg":
                 self.figure.savefig(file_name, transparent=True, dpi=None, format="svg")
+            else:
+                self.figure.savefig(file_name+".png", transparent=True, dpi=None, format="png")
+                #TODO: Fix this!
+#                selected_filter = dialog.get_filter()
+#                if selected_filter is png_filter:
+#                    self.figure.savefig(file_name+".png", transparent=True, dpi=None, format="png")
+#                elif selected_filter is png_filter:
+#                    self.figure.savefig(file_name+".png", transparent=True, dpi=None, format="png")
         else:
             dialog.destroy()
 
