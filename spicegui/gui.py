@@ -176,7 +176,7 @@ class MainWindow(Gtk.ApplicationWindow):
         self.source_buffer = GtkSource.Buffer()
         self.source_buffer.set_highlight_syntax(True)
         #TODO: find a better syntax highlight
-        self.source_buffer.set_language(GtkSource.LanguageManager.get_default().get_language("css"))
+        self.source_buffer.set_language(GtkSource.LanguageManager.get_default().get_language("spice-netlist"))
         self.sourceview = GtkSource.View()
         font_desc = Pango.FontDescription('monospace')
         if font_desc:
