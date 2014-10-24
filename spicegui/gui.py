@@ -285,9 +285,7 @@ class MainWindow(Gtk.ApplicationWindow):
         svg_filter.set_name("Scalable Vector Graphics")
         svg_filter.add_mime_type("image/svg+xml")
         dialog.add_filter(svg_filter)
-
-        
-        
+      
         dialog.set_current_name(self.hb.get_title()+" - "+self.simulation_output.analysis)
 
         response = dialog.run()
@@ -318,11 +316,15 @@ class MainWindow(Gtk.ApplicationWindow):
         csv_filter.set_name("Comma-separated values")
         csv_filter.add_mime_type("text/csv")
         dialog.add_filter(csv_filter)
-
+        
+        dialog.set_current_name(self.hb.get_title()+" - "+self.simulation_output.analysis)
+        
         response = dialog.run()
         if response == Gtk.ResponseType.OK:
             file_name = dialog.get_filename()
             dialog.destroy()
+            if file_name.split(".")[-1] != "csv":
+                file_name += ".csv"
             self.simulation_output.save_csv(file_name)
         else:
             dialog.destroy()
