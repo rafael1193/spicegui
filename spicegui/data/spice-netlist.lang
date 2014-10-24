@@ -26,7 +26,7 @@
         <context ref="comment"/>
         <context ref="first-line-comment"/>
         <!--<context ref="named-parameter"/>-->
-        <!--<context ref="model"/>-->
+        <context ref="model"/>
       </include>
     </context>
         
@@ -54,14 +54,13 @@
           </context>
       </include>
     </context>
-<!--    
+  
     <context id="model" style-ref="type">
-      <start>\^\p{InBasicLatin}</start>
-      <end>\p{InBasicLatin}</end>
+      <match>^[ ]*[\w]{2,}</match>
     </context>
--->
+
     <context id="statement" style-ref="keyword">
-      <prefix>^\.</prefix>
+      <prefix>(?i)^\.</prefix>
       <keyword>end</keyword>
       <keyword>title</keyword>
       <keyword>model</keyword>
