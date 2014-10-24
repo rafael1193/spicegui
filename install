@@ -1,8 +1,16 @@
 #!/bin/sh
 python setup.py install
 
+echo "Installing desktop file"
 install -Dm644 "spicegui/data/SpiceGUI.desktop" "/usr/share/applications/SpiceGUI.desktop"
-
 update-desktop-database
 
+echo "Setting schemas"
+install -Dm644 "spicegui/data/org.rafael1193.spicegui.gschema.xml" "/usr/share/glib-2.0/schemas/org.rafael1193.spicegui.gschema.xml"
+glib-compile-schemas /usr/share/glib-2.0/schemas/
 
+echo "Installing syntax highlightning definitions"
+install -Dm644 "spicegui/data/spice-netlist.lang" "/usr/share/gtksourceview-3.0/spice-netlist.lang"
+
+echo "Installing glade files"
+install -Dm644 "spicegui/data/preferences.glade" "/usr/share/spicegui/data/preferences.glade"

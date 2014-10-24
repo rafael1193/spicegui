@@ -6,7 +6,10 @@ class Preferences(object):
        
         # Get window
         self.builder = Gtk.Builder()
-        self.builder.add_from_file("../data/preferences.glade")
+        try:
+            self.builder.add_from_file("data/preferences.glade")
+        except:
+            self.builder.add_from_file("/usr/share/spicegui/data/preferences.glade")
 
         window = self.builder.get_object('preferences_window')
         window.set_transient_for(parent)
