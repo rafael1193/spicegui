@@ -1,4 +1,5 @@
 from gi.repository import Gio, Gtk
+import os.path
 
 class Preferences(object):
     GSETTINGS_BASE_KEY = "org.rafael1193.spicegui"
@@ -6,10 +7,7 @@ class Preferences(object):
        
         # Get window
         self.builder = Gtk.Builder()
-        try:
-            self.builder.add_from_file("data/preferences.glade")
-        except:
-            self.builder.add_from_file("/usr/share/spicegui/data/preferences.glade")
+        self.builder.add_from_file(os.path.join(os.path.dirname(__file__), "data", "preferences.glade"))
 
         window = self.builder.get_object('preferences_window')
         window.set_transient_for(parent)

@@ -1,6 +1,6 @@
 Name:       spicegui
 Version:    0.1
-Release:    0%{?dist}
+Release:    1%{?dist}
 Summary:    SpiceGUI for circuit simulation
 
 License:    GPLv3
@@ -37,24 +37,20 @@ desktop.
 
 
 %install
-%{__python} setup.py install -O1 --skip-build --root %{buildroot}
-
-desktop-file-install \
-    --dir %{buildroot}%{_datadir}/applications \
-    %{SOURCE1}
+%{__python} setup.py install -O1 --skip-build --root %{buildroot} --record=INSTALLED_FILES
 
 
 %check
 %{__python} setup.py test
 
 
-%files
-%{python_sitelib}/spicegui/
-%{python_sitelib}/spicegui-%{version}-py2.7.egg-info/
-%{_bindir}/%{name}
-%{_datadir}/applications/%{name}.desktop
+%files -f INSTALLED_FILES
+%defattr(-,root,root)
 
 
 %changelog
+* Mon Oct 27 2014 Rafael Bailón-Ruiz <rafaelbailon at ieee dot org> - 0.1-1
+- Update build system
+
 * Wed Sep 03 2014 Rafael Bailón-Ruiz <rafaelbailon at ieee dot org> - 0.1-0
 - Initial package
