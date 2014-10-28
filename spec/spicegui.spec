@@ -6,7 +6,6 @@ Summary:    SpiceGUI for circuit simulation
 License:    GPLv3
 URL:        http://rafael1193.github.io
 Source0:    spicegui-%{version}.tar.gz
-Source1:    %{name}.desktop
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  python2-devel
