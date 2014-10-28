@@ -1,6 +1,6 @@
 Name:       spicegui
 Version:    0.1
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    SpiceGUI for circuit simulation
 
 License:    GPLv3
@@ -19,6 +19,7 @@ Requires:       gtksourceview3
 Requires:       pango
 Requires:       ngspice
 Requires:       geda-gnetlist
+
 BuildArch:      noarch
 
 
@@ -41,13 +42,29 @@ desktop.
 
 %check
 %{__python} setup.py test
+desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/SpiceGUI.desktop
 
+
+%postun
+if [ $1 -eq 0 ] ; then
+  /bin/touch --no-create %{_datadir}/icons/hicolor/ &>/dev/null
+  /usr/bin/gtk-update-icon-cache -f %{_datadir}/icons/hicolor/ &>/dev/null || :
+fi
+/usr/bin/glib-compile-schemas %{_datadir}/glib-2.0/schemas &>/dev/null || :
+
+
+%posttrans
+/usr/bin/gtk-update-icon-cache -f %{_datadir}/icons/hicolor &>/dev/null || :
+/usr/bin/glib-compile-schemas %{_datadir}/glib-2.0/schemas &>/dev/null || :
 
 %files -f INSTALLED_FILES
 %defattr(-,root,root)
 
 
 %changelog
+* Tue Oct 28 2014 Rafael Bailón-Ruiz <rafaelbailon at ieee dot org> - 0.1-2
+- Add gtk-update-icon-cache fix glib-compile-schemas
+
 * Mon Oct 27 2014 Rafael Bailón-Ruiz <rafaelbailon at ieee dot org> - 0.1-1
 - Update build system
 
