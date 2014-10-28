@@ -60,9 +60,13 @@ params = {
 
 def update_icon_cache():
     subprocess.call(["gtk-update-icon-cache","/usr/share/icons/hicolor"])
+    
+def glib_compile_schemas():
+    subprocess.call(["glib-compile-schemas","/usr/share/glib-2.0/schemas/"])
 
 setup(**params)
 
 update_icon_cache()
+glib_compile_schemas()
 
 
