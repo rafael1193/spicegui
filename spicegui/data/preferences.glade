@@ -66,10 +66,10 @@
                 <items>
                   <item id="best" translatable="yes">Best</item>
                   <item id="upper right" translatable="yes">Upper right</item>
-                  <item id="top right" translatable="yes">Upper left</item>
-                  <item id="bottom left" translatable="yes">Lower left</item>
-                  <item id="bottom center" translatable="yes">Lower right</item>
-                  <item id="bottom right" translatable="yes">Right</item>
+                  <item id="upper left" translatable="yes">Upper left</item>
+                  <item id="lower left" translatable="yes">Lower left</item>
+                  <item id="lower right" translatable="yes">Lower right</item>
+                  <item id="right" translatable="yes">Right</item>
                   <item id="center left" translatable="yes">Center left</item>
                   <item id="center right" translatable="yes">Center right</item>
                   <item id="lower center" translatable="yes">Lower center</item>
