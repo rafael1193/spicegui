@@ -14,6 +14,11 @@
             Legal values are matplotlib.axes.Axes.legend() 'loc' parameter accepted values
         </description>
     </key>
+    <key type="b" name="show-grids">
+      <default>true</default>
+      <summary>Show grid on plot</summary>
+      <description>Wether axes grids should be shown over plot</description>
+    </key>
   </schema>
 </schemalist>
 

@@ -195,6 +195,8 @@ class NgspiceOutput():
         to be drawn on a gtk3 canvas.
         """
 
+        settings = Gio.Settings.new(preferences_gui.Preferences.GSETTINGS_BASE_KEY)
+
         f = Figure(figsize=(16, 7), dpi=100)
         a = f.add_subplot(111)
         indep_data_line = None
@@ -209,7 +211,6 @@ class NgspiceOutput():
             a.plot(indep_data_line.values, line.values, label=line.name)
 
         # Decorations
-        settings = Gio.Settings.new(preferences_gui.Preferences.GSETTINGS_BASE_KEY)
         if settings.get_boolean("show-legend"):
             legend_position=settings.get_string("legend-position")
             a.legend(loc=legend_position)
@@ -249,8 +250,9 @@ class NgspiceOutput():
         else:
             pass
 
-        a.grid(b=True, which='major', color='0.65', linestyle='-')
-        a.grid(b=True, which='minor', color='0.9', linestyle='-')
+        if settings.get_boolean("show-grids"):
+            a.grid(b=True, which='major', color='0.65', linestyle='-')
+            a.grid(b=True, which='minor', color='0.9', linestyle='-')
 
         f.subplots_adjust(left=0.11, bottom=0.150, right=0.9, top=0.90, wspace=0.2, hspace=0.2)
 

@@ -316,9 +316,9 @@ class MainWindow(Gtk.ApplicationWindow):
         csv_filter.set_name("Comma-separated values")
         csv_filter.add_mime_type("text/csv")
         dialog.add_filter(csv_filter)
-        
+
         dialog.set_current_name(self.hb.get_title()+" - "+self.simulation_output.analysis)
-        
+
         response = dialog.run()
         if response == Gtk.ResponseType.OK:
             file_name = dialog.get_filename()
@@ -484,8 +484,8 @@ class MainWindow(Gtk.ApplicationWindow):
         if actions is not None:
             for action in actions:
                 print action
-                self.infobar.add_button(action[0],action[1]) #TODO: Fix self.infobar.add_button(action[0],action[1]) -> TypeError: Must be number, not str
-                self.infobar.user_responses[action[1]]=action[2]
+                self.infobar.add_button(action[0], action[1]) #TODO: Fix self.infobar.add_button(action[0],action[1]) -> TypeError: Must be number, not str
+                self.infobar.user_responses[action[1]] = action[2]
 
         self.infobar.show_all()
 
@@ -555,7 +555,7 @@ class MainWindow(Gtk.ApplicationWindow):
         if self.file_monitor is not None:
             self.file_monitor.cancel()
 
-    def on_file_changed(self,file_monitor,_file, other_file, event_type):
+    def on_file_changed(self, file_monitor, _file, other_file, event_type):
         ''' on_file_changed(file_monitor,_file, other_file, event_type) -> None
 
         Callback function for file monitor on netlist file
@@ -573,7 +573,7 @@ class MainWindow(Gtk.ApplicationWindow):
         if self.schematic_file_path is not None:
             self.load_file(self.schematic_file_path)
         elif self.netlist_file_path is not None:
-            self.load_file( self.netlist_file_path)
+            self.load_file(self.netlist_file_path)
         else:
             raise Exception("self.schematic_file_path and self.netlist_file_path are None")
 
@@ -593,7 +593,7 @@ class MainWindow(Gtk.ApplicationWindow):
                 self.netlist_file_path = path + ".net"
                 self.schematic_file_path = path
             except Exception as e:
-                print(e.message)
+                print e.message
                 self.set_error(title="Schematic could not be converted to netlist", message=str(e.message))
                 self.netlist_file_path = None
                 self.schematic_file_path = None
@@ -663,7 +663,7 @@ class MainWindow(Gtk.ApplicationWindow):
         if not self.netlist_file_path:
             #TODO: Show a save file dialog
             pass
-        with open(self.netlist_file_path,"w") as f:
+        with open(self.netlist_file_path, "w") as f:
             f.write(self.source_buffer.props.text)
         self.start_file_monitor()
 
@@ -795,7 +795,7 @@ class TransientSimulationWindow(Gtk.Dialog):
 
         self.show_all()
 
-    def on_cancel_button_clicked(self,button):
+    def on_cancel_button_clicked(self, button):
         self.response(Gtk.ResponseType.CANCEL)
 
     def on_simulate_button_clicked(self, button):
