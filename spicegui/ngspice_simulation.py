@@ -215,37 +215,37 @@ class NgspiceOutput():
             a.legend(loc=legend_position)
         a.set_title(self.analysis)
 
+        # Set x axis
         if self.analysis == "Transient Analysis":
             a.set_xlabel("Time [s]")
-            if dep_data_lines[0].name.endswith("#branch"):
-                a.set_ylabel("Current [A]")
-            elif dep_data_lines[0].name.startswith("v"):
-                a.set_ylabel("Voltage [V]")
-            else:
-                pass
         elif self.analysis == "AC Analysis":
             a.set_xlabel("Frequency [Hz]")
             a.set_xscale('log')
-            if dep_data_lines[0].name.startswith("vdb"):
-                a.set_ylabel("Voltage [dB]")
-            else:
-                a.set_yscale('log')
-                a.set_ylabel("Voltage [V]")
         elif self.analysis == "DC transfer characteristic":
             if indep_data_line.name == "res-sweep":
                 a.set_xlabel("Resistance [ohm]")
-                a.set_ylabel("Voltage [V]")
             elif indep_data_line.name == "v-sweep":
                 a.set_xlabel("Voltage [V]")
-                a.set_ylabel("Voltage [V]")
             elif indep_data_line.name == "temp-sweep":
                 a.set_xlabel("Temperature [Degrees Celsius]")
-                a.set_ylabel("Voltage [V]")
             elif indep_data_line.name == "i-sweep":
                 a.set_xlabel("Current [A]")
-                a.set_ylabel("Voltage [V]")
             else:
                 pass
+        else:
+            pass
+
+        # Set y axis
+        if dep_data_lines[0].name.endswith("#branch"):
+            a.set_ylabel("Current [A]")
+        elif dep_data_lines[0].name.startswith("v"):
+            a.set_ylabel("Voltage [V]")
+            # On AC analyses y axis is in dB
+            if self.analysis == "AC Analysis":
+                a.set_ylabel("Voltage [dB]")
+        elif dep_data_lines[0].name.startswith("vdb"):
+            a.set_yscale('log')
+            a.set_ylabel("Voltage [V]")
         else:
             pass
 
