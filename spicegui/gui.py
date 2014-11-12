@@ -466,10 +466,11 @@ class MainWindow(Gtk.ApplicationWindow):
         params:
             actions -> (button_text, response_id, callback_function)
         '''
-        if self.infobar is None:
-            self.infobar = InfoMessageBar()
-            self.infobar.set_message_type(message_type)
-            self.overview_box.pack_start(self.infobar, False, True, 0)
+        if self.infobar is not None:
+            self.infobar.close()
+        self.infobar = InfoMessageBar()
+        self.infobar.set_message_type(message_type)
+        self.overview_box.pack_start(self.infobar, False, True, 0)
 
         if title is not None:
             self.infobar.message_title = title
