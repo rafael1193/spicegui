@@ -1,6 +1,6 @@
 Name:       spicegui
-Version:    0.1
-Release:    3%{?dist}
+Version:    0.2
+Release:    1%{?dist}
 Summary:    SpiceGUI for circuit simulation
 
 License:    GPLv3
@@ -63,6 +63,9 @@ fi
 
 
 %changelog
+* Wed Nov 12 2014 Rafael Bailón-Ruiz <rafaelbailon at ieee dot org> - 0.2-1
+- New SpiceGUI release
+
 * Wed Nov 12 2014 Rafael Bailón-Ruiz <rafaelbailon at ieee dot org> - 0.1-3
 - Add geda-gschem dependency
 

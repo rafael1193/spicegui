@@ -13,7 +13,7 @@ __author__ = "Rafael Bailón-Ruiz"
 __mail__ = "rafaelbailon at ieee dot org"
 __url__ = "https://github.com/rafael1193/spicegui"
 __source__ = "https://github.com/rafael1193/spicegui"
-__version__ = "0.1"
+__version__ = "0.2"
 __license__ = "GPL3"
 
 dependencies = []
