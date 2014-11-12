@@ -1,11 +1,12 @@
 Name:       spicegui
 Version:    0.2
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    SpiceGUI for circuit simulation
 
 License:    GPLv3
 URL:        http://rafael1193.github.io
-Source0:    spicegui-%{version}.tar.gz
+Source0:    http://github.com/rafael1193/spicegui/releases/download/v%{version}/spicegui-%{version}.tar.gz
+
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  python2-devel
@@ -63,6 +64,9 @@ fi
 
 
 %changelog
+* Wed Nov 12 2014 Rafael Bailón-Ruiz <rafaelbailon at ieee dot org> - 0.2-2
+- Update Source0
+
 * Wed Nov 12 2014 Rafael Bailón-Ruiz <rafaelbailon at ieee dot org> - 0.2-1
 - New SpiceGUI release
 
