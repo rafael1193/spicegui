@@ -1,6 +1,6 @@
 Name:       spicegui
 Version:    0.1
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    SpiceGUI for circuit simulation
 
 License:    GPLv3
@@ -19,6 +19,7 @@ Requires:       gtksourceview3
 Requires:       pango
 Requires:       ngspice
 Requires:       geda-gnetlist
+Requires:       geda-gschem
 
 BuildArch:      noarch
 
@@ -62,6 +63,9 @@ fi
 
 
 %changelog
+* Wed Nov 12 2014 Rafael Bailón-Ruiz <rafaelbailon at ieee dot org> - 0.1-3
+- Add geda-gschem dependency
+
 * Tue Oct 28 2014 Rafael Bailón-Ruiz <rafaelbailon at ieee dot org> - 0.1-2
 - Add gtk-update-icon-cache fix glib-compile-schemas
 
