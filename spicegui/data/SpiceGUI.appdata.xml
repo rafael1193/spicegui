@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2014 Rafael Bailón-Ruiz <rafaelbailon_at_ieee.org> -->
+<component type="desktop">
+ <id>SpiceGUI.desktop</id>
+ <metadata_license>CC0-1.0</metadata_license>
+ <project_license>GPL-3.0+</project_license>
+ <name>SpiceGUI</name>
+ <description>
+  <p>
+	SpiceGUI is a graphical user interface for ngspice circuit simulator. It aims 
+	to make easier circuit simulation on GNU/Linux and integrate well with the GNOME 
+	desktop.
+  </p>
+ </description>
+ <screenshots>
+  <screenshot>
+   <image>https://cloud.githubusercontent.com/assets/436547/4139260/06007db0-3399-11e4-8127-2fa4eded0590.png</image>
+   <caption>Netlist view</caption>
+  </screenshot>
+  <screenshot type="default">
+   <image>https://cloud.githubusercontent.com/assets/436547/4139264/0a6d404a-3399-11e4-9ac1-92799f66ba3b.png</image>
+   <caption>Simulation results view</caption>
+  </screenshot>
+ </screenshots>
+ <url type="homepage">https://github.com/rafael1193/spicegui</url>
+ <updatecontact>rafaelbailon_at_ieee.org</updatecontact>
+</component>

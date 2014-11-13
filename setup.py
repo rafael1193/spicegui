@@ -45,7 +45,8 @@ params = {
     "data_files":[('/usr/share/applications/', ['spicegui/data/SpiceGUI.desktop']),
                   ('/usr/share/glib-2.0/schemas/', ['spicegui/data/org.rafael1193.spicegui.gschema.xml']),
                   ('/usr/share/gtksourceview-3.0/language-specs/', ['spicegui/data/spice-netlist.lang']),
-                  ('/usr/share/icons/hicolor/scalable/apps/', ['spicegui/data/spicegui.svg'])],
+                  ('/usr/share/icons/hicolor/scalable/apps/', ['spicegui/data/spicegui.svg']),
+                  ('/usr/share/appdata/',['spicegui/data/SpiceGUI.appdata.xml'])],
 
     #auto create scripts
     "entry_points": {
