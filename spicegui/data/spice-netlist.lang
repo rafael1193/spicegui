@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <language id="spice-netlist" _name="SPICE netlist" version="2.0" _section="Scientific">
-  
   <metadata>
     <property name="mimetypes">text/x-spice-netlist</property>
-    <property name="globs">*.net;*.cir</property>
+    <property name="globs">*.net;*.cir;*.lib;*.subckt;*.mod;*.model</property>
   </metadata>
   <styles>
     <style id="comment"           _name="Comment"           map-to="def:comment"/>
@@ -17,34 +16,43 @@
     <style id="statement"         _name="Statement"         map-to="def:identifier"/>
   </styles>
   <definitions>
-
-    <context id="spice-netlist" class="no-spell-check">
-      <include>
-        <context ref="def:string"/>
-        <context ref="def:single-quoted-string"/>
-        <context ref="statement"/>
-        <context ref="comment"/>
-        <context ref="first-line-comment"/>
-        <!--<context ref="named-parameter"/>-->
-        <context ref="model"/>
-      </include>
-    </context>
-        
+  	<define-regex id="name">[[:alpha:]_][[:alnum:].:_-]*</define-regex>
+  	
     <context id="first-line-comment" style-ref="comment" first-line-only="true">
       <start>^</start>
       <end>$</end>
     </context>
     
-    <context id="comment" style-ref="comment">
-      <start>\*</start>
+    <context id="asterisk-comment" style-ref="comment">
+      <start>^\*</start>
       <end>$</end>
     </context>
-<!--     
-    <context id="named-parameter" style-ref="comment">
-      <start>.*=</start>
-      <end>\b</end>
+    
+    <context id="semicolon-comment" style-ref="comment">
+      <start> ;</start>
+      <end>$</end>
     </context>
--->    
+    <context id="dollar-space-comment" style-ref="comment">
+      <start> \$ </start>
+      <end>$</end>
+    </context>
+    
+    <context id="c-comment" style-ref="comment">
+      <start> //</start>
+      <end>$</end>
+    </context>
+    
+    <context id="parameter-name" style-ref="type">
+      <start>\b[\w]*=</start>
+      <end>[^ ,=()]*</end>
+      <include>
+				<context id="parameter-value" style-ref="string">
+				  <match>[^ ,=()]*</match>
+				</context>
+      </include>
+    </context>
+
+    
     <context id="string" end-at-line-end="true" style-ref="string">
       <start>"</start>
       <end>"</end>
@@ -54,11 +62,11 @@
           </context>
       </include>
     </context>
-  
-    <context id="model" style-ref="type">
-      <match>^[ ]*[\w]{2,}</match>
+    
+    <context id="model" style-ref="statement">
+      <match>^[ ]*[\w.:]{2,}</match>
     </context>
-
+    
     <context id="statement" style-ref="keyword">
       <prefix>(?i)^\.</prefix>
       <keyword>end</keyword>
@@ -96,5 +104,19 @@
       <keyword>width</keyword>
     </context>
     
+    <context id="spice-netlist" class="no-spell-check">
+      <include>
+        <context ref="def:string"/>
+        <context ref="def:single-quoted-string"/>
+        <context ref="statement"/>
+        <context ref="asterisk-comment"/>
+        <context ref="semicolon-comment"/>
+        <context ref="dollar-space-comment"/>
+        <context ref="c-comment"/>
+        <context ref="first-line-comment"/>
+        <context ref="parameter-name"/>
+        <context ref="model"/>
+      </include>
+    </context>
   </definitions>
 </language>
