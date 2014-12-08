@@ -23,6 +23,7 @@ import os
 import os.path
 
 import ngspice_simulation
+import running_dialog
 
 
 class MainWindow(Gtk.ApplicationWindow):
@@ -526,20 +527,28 @@ class MainWindow(Gtk.ApplicationWindow):
         self.figure.axes[0].legend(loc='lower left')
 
     def on_simulate_button_clicked(self, button):
+        # Dismiss infobar messages (if they exists)
         self.dismiss_error()
+        simulator = ngspice_simulation.Ngspice_async()
+        dialog = running_dialog.RunningDialog(self,simulator.end_event)
         try:
             #First, save changes on disk
             self.on_save_button_clicked_overview(None)
 
-            # Dismiss infobar messages (if they exists)
-
-            ngspice_simulation.Ngspice.simulatefile(self.netlist_file_path)
-            self.simulation_output = ngspice_simulation.NgspiceOutput.parse_file(self.netlist_file_path + ".out")
-            self.figure = self.simulation_output.get_figure()
-            self._update_canvas(self.figure)
-            self.simulation_view()
+            simulator.simulatefile("/home/rafael/Documentos/Convertidor DC-AC.sch.net")
+            
+            if dialog.run() == 1: # Not cancelled
+                self.simulation_output = ngspice_simulation.NgspiceOutput.parse_file(self.netlist_file_path + ".out")
+                self.figure = self.simulation_output.get_figure()
+                self._update_canvas(self.figure)
+                self.simulation_view()
+            else:
+                simulator.terminate()
+                self.set_error(title="Simulation failed", message=simulator.error.message)            
         except Exception as e:
             self.set_error(title="Simulation failed", message=e.message)
+        finally:
+            dialog.destroy()
 
     def start_file_monitor(self):
         if self.schematic_file_path is not None:

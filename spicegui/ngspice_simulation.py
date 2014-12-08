@@ -21,7 +21,7 @@ import re
 import csv
 import os.path
 
-from multiprocessing import Pool
+from threading import Event, Thread, Lock
 from gi.repository import Gio
 from matplotlib.figure import Figure
 
@@ -300,14 +300,57 @@ class Ngspice():
                 print error_lines
                 raise Exception(error_lines)
 
-    @classmethod
-    def simulate_async(cls, netlist_path):
-        def simulation_completed():
-            return
 
-        pool = Pool(processes=4) # start 4 worker processes
-        result = pool.apply_async(Ngspice.simulatefile, [netlist_path]) # evaluate "f(10)" asynchronously
-        print result.get(timeout=1)
+class Ngspice_async():
+
+    def __init__(self):
+        self.thread = None
+        self.result = None
+        self.errors = None
+        self.end_event = Event()
+        self._lock_result = Lock()
+        self._lock_errors = Lock()
+           
+    def simulatefile(self, netlist_path):
+        """
+        simulate asyncrhonously netlist_path file with ngspice
+        
+        set self.result with (stout, stderr)
+        """
+        self.result = None
+        self.error = None
+        self.end_event.clear()
+        self.thread = Thread(group=None, name="ngspice-thread",
+                             target=self._run_simulation, args=(netlist_path,))
+        self.thread.start()
+    
+    def _run_simulation(self, netlist_path):
+        self.process = subprocess.Popen(["ngspice", "-b", "-o",
+                                         str(netlist_path) + ".out",
+                                         str(netlist_path)],
+                                         shell=False,
+                                         stdout=subprocess.PIPE,
+                                         stderr=subprocess.PIPE)
+        stdout, stderr = self.process.communicate()
+        with self._lock_result:
+            self.result = (stdout, stderr)
+        if stderr:
+            stderr_l = stderr.split("\n")
+            error_lines=""
+            for line in stderr_l:
+                if line.startswith("Error:"):
+                    if len(error_lines) > 0:
+                        error_lines += "\n"
+                    error_lines += line
+            if error_lines != "":
+                with self._lock_errors:
+                    self.errors = Exception(error_lines)
+        self.end_event.set()
+    
+    def terminate(self):
+        if self.process is not None:
+            if self.process.poll() is None:
+                self.process.terminate()
 
 
 class Gnetlist():
