@@ -535,9 +535,10 @@ class MainWindow(Gtk.ApplicationWindow):
             #First, save changes on disk
             self.on_save_button_clicked_overview(None)
 
-            simulator.simulatefile("/home/rafael/Documentos/Convertidor DC-AC.sch.net")
+            simulator.simulatefile(self.netlist_file_path)
             
             if dialog.run() == 1: # Not cancelled
+                print simulator.result
                 self.simulation_output = ngspice_simulation.NgspiceOutput.parse_file(self.netlist_file_path + ".out")
                 self.figure = self.simulation_output.get_figure()
                 self._update_canvas(self.figure)
