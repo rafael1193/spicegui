@@ -55,39 +55,6 @@ class NgspiceOutput():
         with open(ngspice_result_file) as f:
             return cls(f.read())
 
-    def _parse_legacy(self, raw_text):
-        file_content = raw_text.split("\n")
-        table_start_pos = None
-        data_row_number = None
-        for i in range(len(file_content)):
-            if file_content[i].strip().startswith("Error"):
-                raise Exception(file_content[i].strip())
-            if file_content[i].strip().startswith("No. of Data Rows : "):
-                table_start_pos = i + 1
-                data_row_number = int(file_content[i].strip()[len("No. of Data Rows : "):])  #keep number of rows
-                break
-        data_content = file_content[table_start_pos:]
-        self.description = data_content[0].strip()
-        # self.analysis = data_content[1].strip()
-        self.analysis = "tran"
-        self.date = ""
-        # Line of dashes
-        headers = tuple(filter(None, data_content[3].strip().split(" ")))
-        tuple_values = []
-        # Line of dashes
-        for row_i in range(data_row_number):
-            tuple_values.append(tuple(filter(None, data_content[5+row_i].strip().split("\t"))))
-
-        # Simulation data is given as tuples and need to be converted to lists
-        list_values = self._transpose_table(tuple_values)
-        self.data_lines = []
-
-        #Finally, DataLine objects are created from list data
-        for i in range(len(headers)):
-            if headers != "Index":  # "Index" data-line is discarded because is not useful
-                self.data_lines.append(NgspiceOutput.DataLine(headers[i], list_values[i]))
-        ### consulta "cat caca.out | less" para seguir interpretando el archivo
-
     def _parse(self, raw_text):
         """
         ngspice simulation output parser.
