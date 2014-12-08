@@ -45,6 +45,58 @@ class NgspiceOutput():
             parentheses_index = self.name.find("(")
             if parentheses_index > 0:
                 self.magnitude = self.name[:parentheses_index]
+        
+        def get_magnitude_and_unit(self):
+            """
+            Guess magnitude and unit of DataLine from name
+            """
+            
+            if self.name == "Index":
+                return ("Index","")
+            elif self.name == "time":
+                return ("Time", "s")
+            elif self.name == "frequency":
+                return ("Frequency", "Hz")
+            elif self.name == "v-sweep":
+                return ("Voltage", "V")
+            elif self.name == "res-sweep":
+                return ("Resistance", u"Ω")
+            elif self.name == "temp-sweep":
+                return ("Temperature", u"℃")
+            elif self.name == "i-sweep":
+                return ("Current", "A")
+            elif self.name.endswith("#branch"):
+                return ("Current", "A")
+            elif self.name.startswith("v"):
+                if self.name.startswith("vdb("):
+                    return ("Voltage", u"dB")
+                elif self.name.startswith("vr("):
+                    return ("Voltage", "V")
+                elif self.name.startswith("vi("):
+                    return ("Voltage", "V")
+                elif self.name.startswith("vm("):
+                    return ("Voltage", "V")
+                elif self.name.startswith("vp("):
+                    return ("Phase", u"rad")
+                else:
+                    return ("Voltage","V")
+            elif self.name.startswith("i"):
+                return ("Current","A")
+            elif self.name.startswith("@"):
+                inst_parameter = self.name[self.name.find("[") + 1: -1]
+                if inst_parameter.startswith("i"):
+                    return ("Current","A")
+                elif inst_parameter.startswith("p"):
+                    return ("Power","W")
+                elif inst_parameter.startswith("c"):
+                    return ("Capacitance","F")
+                elif inst_parameter == "gm":
+                    return ("Transconductance",u"A⁄V")
+                else:
+                    return ("","")
+            else:
+                return ("","")
+            
 
     def __init__(self, raw_text):
         self.circuit_name = None
@@ -184,38 +236,19 @@ class NgspiceOutput():
         a.set_title(self.analysis)
 
         # Set x axis
-        if self.analysis == "Transient Analysis":
-            a.set_xlabel("Time [s]")
-        elif self.analysis == "AC Analysis":
-            a.set_xlabel("Frequency [Hz]")
-            a.set_xscale('log')
-        elif self.analysis == "DC transfer characteristic":
-            if indep_data_line.name == "res-sweep":
-                a.set_xlabel("Resistance [ohm]")
-            elif indep_data_line.name == "v-sweep":
-                a.set_xlabel("Voltage [V]")
-            elif indep_data_line.name == "temp-sweep":
-                a.set_xlabel("Temperature [Degrees Celsius]")
-            elif indep_data_line.name == "i-sweep":
-                a.set_xlabel("Current [A]")
-            else:
-                pass
-        else:
-            pass
+        x_axe_magnitude, x_axe_unit = indep_data_line.get_magnitude_and_unit()
+        print x_axe_magnitude, x_axe_unit
+        if x_axe_magnitude and x_axe_unit:
+            a.set_xlabel(str(x_axe_magnitude) + " [" + str(x_axe_unit)+"]")
+            if x_axe_unit == "Hz":
+                a.set_xscale("log")
 
-        # Set y axis
-        if dep_data_lines[0].name.endswith("#branch"):
-            a.set_ylabel("Current [A]")
-        elif dep_data_lines[0].name.startswith("v"):
-            a.set_ylabel("Voltage [V]")
-            # On AC analyses y axis is in dB
-            if self.analysis == "AC Analysis":
-                a.set_ylabel("Voltage [dB]")
-        elif dep_data_lines[0].name.startswith("vdb"):
-            a.set_yscale('log')
-            a.set_ylabel("Voltage [V]")
-        else:
-            pass
+        y_axe_magnitude, y_axe_unit = dep_data_lines[0].get_magnitude_and_unit()
+        print y_axe_magnitude, y_axe_unit
+        if y_axe_magnitude and y_axe_unit:
+            a.set_ylabel(str(y_axe_magnitude) + " [" + str(y_axe_unit)+"]")
+            if self.analysis == "AC Analysis" and y_axe_unit == "V":
+                a.set_yscale("log")
 
         if settings.get_boolean("show-grids"):
             a.grid(b=True, which='major', color='0.65', linestyle='-')
