@@ -18,6 +18,26 @@
   <definitions>
   	<define-regex id="name">[[:alpha:]_][[:alnum:].:_-]*</define-regex>
   	
+    <context id="device-model">
+      <match extended="true">
+        (?i)^(.model)\s+([\w.:]*)
+      </match>
+      <include>
+        <context sub-pattern="1" style-ref="keyword"/>
+        <context sub-pattern="2" style-ref="statement"/>
+      </include>
+    </context>
+
+    <context id="subcircuit-definition">
+      <match extended="true">
+        (?i)^(.subckt)\s+([\w.:]*)
+      </match>
+      <include>
+        <context sub-pattern="1" style-ref="keyword"/>
+        <context sub-pattern="2" style-ref="statement"/>
+      </include>
+    </context>
+
     <context id="first-line-comment" style-ref="comment" first-line-only="true">
       <start>^</start>
       <end>$</end>
@@ -52,18 +72,7 @@
       </include>
     </context>
 
-    
-    <context id="string" end-at-line-end="true" style-ref="string">
-      <start>"</start>
-      <end>"</end>
-      <include>
-          <context id="escape" style-ref="escaped-character">
-            <match>\\.</match>
-          </context>
-      </include>
-    </context>
-    
-    <context id="model" style-ref="statement">
+    <context id="device-instance" style-ref="statement">
       <match>^[ ]*[\w.:]{2,}</match>
     </context>
     
@@ -107,6 +116,8 @@
     
     <context id="spice-netlist" class="no-spell-check">
       <include>
+        <context ref="device-model"/>
+        <context ref="subcircuit-definition"/>
         <context ref="def:string"/>
         <context ref="def:single-quoted-string"/>
         <context ref="statement"/>
@@ -116,7 +127,7 @@
         <context ref="c-comment"/>
         <context ref="first-line-comment"/>
         <context ref="parameter-name"/>
-        <context ref="model"/>
+        <context ref="device-instance"/>
       </include>
     </context>
   </definitions>
