@@ -683,8 +683,16 @@ class MainWindow(Gtk.ApplicationWindow):
         gschem_filter.set_name("GEDA schematic")
         gschem_filter.add_mime_type("application/x-geda-schematic")
         dialog.add_filter(gschem_filter)
+        
+        all_filter = Gtk.FileFilter()
+        all_filter.set_name("Supported files")
+        all_filter.add_pattern("*.net")
+        all_filter.add_pattern("*.cir")
+        all_filter.add_pattern("*.ckt")
+        all_filter.add_mime_type("application/x-geda-schematic")
+        dialog.add_filter(all_filter)
 
-        dialog.set_filter(gschem_filter)
+        dialog.set_filter(all_filter)
 
         response = dialog.run()
 
