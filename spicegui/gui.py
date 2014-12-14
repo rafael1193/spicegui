@@ -169,23 +169,9 @@ class MainWindow(Gtk.ApplicationWindow):
 
         ## Overview stack
         self.overview_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        self.source_view = None
+        self._open_state("new")
 
-        scrolled = Gtk.ScrolledWindow(None, None)
-        scrolled.set_hexpand(True)
-        scrolled.set_vexpand(True)
-
-        self.source_buffer = GtkSource.Buffer()
-        self.source_buffer.set_highlight_syntax(True)
-        #TODO: find a better syntax highlight
-        self.source_buffer.set_language(GtkSource.LanguageManager.get_default().get_language("spice-netlist"))
-        self.sourceview = GtkSource.View()
-        font_desc = Pango.FontDescription('monospace')
-        if font_desc:
-            self.sourceview.modify_font(font_desc)
-        self.sourceview.set_buffer(self.source_buffer)
-        self.sourceview.set_show_line_numbers(True)
-        scrolled.add(self.sourceview)
-        self.overview_box.pack_end(scrolled, True, True, 0)
 
         self.infobar = None
         self.stack.add_titled(self.overview_box, "overview", "Circuit")
@@ -203,6 +189,45 @@ class MainWindow(Gtk.ApplicationWindow):
 
         self.overview_view()
         self.connect_after('destroy', self._on_destroy)
+    
+    def _open_state(self, state="opened"):
+        """
+        show sourceview state="opened" or suggest opening a file state="new"
+        """
+        if state == "opened":
+            for child in self.overview_box.get_children():
+                self.overview_box.remove(child)
+            self.source_scrolled = Gtk.ScrolledWindow(None, None)
+            self.source_scrolled.set_hexpand(True)
+            self.source_scrolled.set_vexpand(True)
+    
+            self.source_buffer = GtkSource.Buffer()
+            self.source_buffer.set_highlight_syntax(True)
+            self.source_buffer.set_language(GtkSource.LanguageManager.get_default().get_language("spice-netlist"))
+            self.sourceview = GtkSource.View()
+            font_desc = Pango.FontDescription('monospace')
+            if font_desc:
+                self.sourceview.modify_font(font_desc)
+            self.sourceview.set_buffer(self.source_buffer)
+            self.sourceview.set_show_line_numbers(True)
+            self.source_scrolled.add(self.sourceview)
+            self.overview_box.pack_end(self.source_scrolled, True, True, 0)
+            self.overview_box.show_all()
+        elif state == "new":
+            if self.source_view is not None:
+                self.overview_box.remove(self.source_scrolled)
+                self.source_view = None
+            else:
+                self.emptyGrid = Gtk.Grid(orientation=Gtk.Orientation.HORIZONTAL, hexpand=True, vexpand=True, halign=Gtk.Align.CENTER, valign=Gtk.Align.CENTER, column_spacing=12, margin=30)
+                self.overview_box.add(self.emptyGrid);
+                emptyPageImage = Gtk.Image(icon_name='document-open-symbolic', icon_size=Gtk.IconSize.DIALOG)
+                emptyPageImage.get_style_context().add_class('dim-label')
+                self.emptyGrid.add(emptyPageImage)
+                emptyPageDirections = Gtk.Label(label="Use the <b>Open</b> button to load a circuit", use_markup=True, max_width_chars=30, halign=Gtk.Align.CENTER, valign=Gtk.Align.CENTER )
+                emptyPageDirections.get_style_context().add_class('dim-label');
+                self.emptyGrid.add(emptyPageDirections);
+                self.emptyGrid.show_all();
+                self.overview_box.pack_end(self.emptyGrid, True, True, 0)
 
     def _create_menu_models(self):
         # gear_menu overview xml #
@@ -634,6 +659,7 @@ class MainWindow(Gtk.ApplicationWindow):
             self.dismiss_error()
 
             # Set content on source view
+            self._open_state("opened")
             self.source_buffer.props.text = file_content
             self.simulate_button.props.sensitive = True
             self.canvas.show()

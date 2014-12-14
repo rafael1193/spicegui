@@ -243,6 +243,7 @@ class NgspiceOutput():
             if x_axe_unit == "Hz":
                 a.set_xscale("log")
 
+        # Set y axis
         y_axe_magnitude, y_axe_unit = dep_data_lines[0].get_magnitude_and_unit()
         print y_axe_magnitude, y_axe_unit
         if y_axe_magnitude and y_axe_unit:
@@ -250,11 +251,13 @@ class NgspiceOutput():
             if self.analysis == "AC Analysis" and y_axe_unit == "V":
                 a.set_yscale("log")
 
+        # Set grids
         if settings.get_boolean("show-grids"):
             a.grid(b=True, which='major', color='0.65', linestyle='-')
             a.grid(b=True, which='minor', color='0.9', linestyle='-')
 
         f.subplots_adjust(left=0.11, bottom=0.150, right=0.9, top=0.90, wspace=0.2, hspace=0.2)
+        a.autoscale(enable=None, axis=u'y', tight=False)
 
         return f
 
