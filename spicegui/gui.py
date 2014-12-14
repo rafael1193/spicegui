@@ -16,6 +16,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+from __future__ import print_function
+
 from gi.repository import Gtk, Gdk, Gio, GtkSource, Pango
 from matplotlib.backends.backend_gtk3cairo import FigureCanvasGTK3Cairo as FigureCanvas
 
@@ -513,7 +515,7 @@ class MainWindow(Gtk.ApplicationWindow):
 
         if actions is not None:
             for action in actions:
-                print action
+                print(action)
                 self.infobar.add_button(action[0], action[1]) #TODO: Fix self.infobar.add_button(action[0],action[1]) -> TypeError: Must be number, not str
                 self.infobar.user_responses[action[1]] = action[2]
 
@@ -566,7 +568,7 @@ class MainWindow(Gtk.ApplicationWindow):
             simulator.simulatefile(self.netlist_file_path)
             
             if dialog.run() == 1: # Not cancelled
-                print simulator.result
+                print(simulator.result)
                 self.simulation_output = ngspice_simulation.NgspiceOutput.parse_file(self.netlist_file_path + ".out")
                 self.figure = self.simulation_output.get_figure()
                 self._update_canvas(self.figure)
@@ -600,10 +602,10 @@ class MainWindow(Gtk.ApplicationWindow):
         Callback function for file monitor on netlist file
         '''
 
-        print file_monitor
-        print _file
-        print other_file
-        print event_type
+        print(file_monitor)
+        print(_file)
+        print(other_file)
+        print(event_type)
 
         if event_type == Gio.FileMonitorEvent.CHANGED or event_type == Gio.FileMonitorEvent.CREATED:
             self.set_error(title="Opened file changed on disk", message=None, message_type=Gtk.MessageType.WARNING, actions=[("Reload", 1000, self.on_infobar_reload_clicked)])
@@ -632,7 +634,7 @@ class MainWindow(Gtk.ApplicationWindow):
                 self.netlist_file_path = path + ".net"
                 self.schematic_file_path = path
             except Exception as e:
-                print e.message
+                print(e.message)
                 self.set_error(title="Schematic could not be converted to netlist", message=str(e.message))
                 self.netlist_file_path = None
                 self.schematic_file_path = None

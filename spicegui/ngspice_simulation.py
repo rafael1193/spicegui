@@ -16,10 +16,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+from __future__ import print_function
+
 import subprocess
 import re
 import csv
 import os.path
+import locale
 
 from threading import Event, Thread, Lock
 from gi.repository import Gio
@@ -237,7 +240,6 @@ class NgspiceOutput():
 
         # Set x axis
         x_axe_magnitude, x_axe_unit = indep_data_line.get_magnitude_and_unit()
-        print x_axe_magnitude, x_axe_unit
         if x_axe_magnitude and x_axe_unit:
             a.set_xlabel(str(x_axe_magnitude) + " [" + str(x_axe_unit)+"]")
             if x_axe_unit == "Hz":
@@ -245,7 +247,6 @@ class NgspiceOutput():
 
         # Set y axis
         y_axe_magnitude, y_axe_unit = dep_data_lines[0].get_magnitude_and_unit()
-        print y_axe_magnitude, y_axe_unit
         if y_axe_magnitude and y_axe_unit:
             a.set_ylabel(str(y_axe_magnitude) + " [" + str(y_axe_unit)+"]")
             if self.analysis == "AC Analysis" and y_axe_unit == "V":
@@ -289,8 +290,11 @@ class Ngspice():
     def simulatefile(cls, netlist_path):
         process = subprocess.Popen(["ngspice", "-b", "-o", str(netlist_path) + ".out", str(netlist_path)], shell=False,
                                    stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        stdout, stderr = process.communicate()
-        print (stdout, stderr)
+        
+        encoding = locale.getdefaultlocale()[1]
+        stdout_b, stderr_b = process.communicate()
+        stdout, stderr = stdout_b.decode(encoding), stderr_b.decode(encoding)
+        print(stdout, stderr)
         if stderr:
             stderr_l = stderr.split("\n")
             error_lines=""
@@ -300,7 +304,7 @@ class Ngspice():
                         error_lines += "\n"
                     error_lines += line
             if error_lines != "":
-                print error_lines
+                print(error_lines)
                 raise Exception(error_lines)
 
 
@@ -334,7 +338,10 @@ class Ngspice_async():
                                          shell=False,
                                          stdout=subprocess.PIPE,
                                          stderr=subprocess.PIPE)
-        stdout, stderr = self.process.communicate()
+                                         
+        encoding = locale.getdefaultlocale()[1]
+        stdout_b, stderr_b = self.process.communicate()
+        stdout, stderr = stdout_b.decode(encoding), stderr_b.decode(encoding)
         with self._lock_result:
             self.result = (stdout, stderr)
         if stderr:
@@ -367,8 +374,11 @@ class Gnetlist():
         raises ValueError when gnetlist process writes on stderr
         """
         process = subprocess.Popen(["gnetlist", "-g", "spice-sdb", "-o", str(netlist_path), "--", str(schematic_path)], shell=False, cwd=os.path.dirname(netlist_path), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        stdout, stderr = process.communicate()
-        print (stderr)
+        
+        encoding = locale.getdefaultlocale()[1]
+        stdout_b, stderr_b = process.communicate()
+        stdout, stderr = stdout_b.decode(encoding), stderr_b.decode(encoding)
+        print(stdout, stderr)
         if stderr:
             stderr_l = stderr.split("\n")
             error_lines=""
@@ -378,8 +388,10 @@ class Gnetlist():
                         error_lines += "\n"
                     error_lines += line
             if error_lines != "":
-                print error_lines
+                print(error_lines)
                 raise Exception(error_lines)
+            print("Error: " + stderr)
+            
 
 ###############################################################################
 ###############################################################################
