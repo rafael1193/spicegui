@@ -392,6 +392,9 @@ class MainWindow(Gtk.ApplicationWindow):
 
         #Set content
         icon = Gio.ThemedIcon(name="emblem-system-symbolic")
+        # Use open-menu-symbolic on Gtk+>=3.14
+        if Gtk.check_version(3, 14, 0) is None:
+            icon = Gio.ThemedIcon(name="open-menu-symbolic")
         image = Gtk.Image.new_from_gicon(icon, Gtk.IconSize.MENU)
         self.gear_button.add(image)
 
