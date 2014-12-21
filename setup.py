@@ -32,7 +32,8 @@ params = {
                "License :: OSI Approved :: GNU General Public License (GPL)",
                "Natural Language :: English",
                "Operating System :: OS Independent",
-               "Programming Language :: Python :: 2"],
+               "Programming Language :: Python :: 2",
+               "Programming Language :: Python :: 3"],
 
     "install_requires": dependencies,
 
