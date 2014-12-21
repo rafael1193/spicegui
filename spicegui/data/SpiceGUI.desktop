@@ -11,5 +11,5 @@ Terminal=false
 Categories=Science;GTK;GNOME;Electricity;Electronics;
 Keywords=SPICE;ngspice;
 Name[es]=SpiceGUI
-MimeType=text/plain;
+MimeType=application/x-geda-schematic;application/x-pcb-netlist;text/plain
 
