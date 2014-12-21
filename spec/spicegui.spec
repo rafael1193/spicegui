@@ -4,7 +4,7 @@ Release:    4%{?dist}
 Summary:    SpiceGUI for circuit simulation
 
 License:    GPLv3
-URL:        http://rafael1193.github.io
+URL:        http://github.com/rafael1193/spicegui
 Source0:    spicegui-%{version}.tar.gz
 
 
