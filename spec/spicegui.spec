@@ -1,6 +1,6 @@
 Name:       spicegui
-Version:    0.2
-Release:    4%{?dist}
+Version:    0.3
+Release:    1%{?dist}
 Summary:    SpiceGUI for circuit simulation
 
 License:    GPLv3
@@ -64,6 +64,9 @@ fi
 
 
 %changelog
+* Sun Dec 21 2014 Rafael Bailón-Ruiz <rafaelbailon at ieee dot org> - 0.3-1
+- Update to 0.3
+
 * Thu Nov 13 2014 Rafael Bailón-Ruiz <rafaelbailon at ieee dot org> - 0.2-4
 - Include appdata file
 
