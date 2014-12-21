@@ -123,7 +123,7 @@ class MainWindow(Gtk.ApplicationWindow):
     </interface>
     """
 
-    def __init__(self):
+    def __init__(self, file_path=None):
         Gtk.Window.__init__(self)
         self.set_default_size(900, 600)
 
@@ -191,6 +191,9 @@ class MainWindow(Gtk.ApplicationWindow):
 
         self.overview_view()
         self.connect_after('destroy', self._on_destroy)
+        
+        if file_path is not None:
+            self.load_file(file_path)
     
     def _open_state(self, state="opened"):
         """

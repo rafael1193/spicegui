@@ -19,8 +19,9 @@
 from __future__ import print_function
 
 import sys
+import argparse
 
-from gi.repository import Gio, Gtk
+from gi.repository import Gio, Gtk, GObject
 import gui
 import preferences_gui
 
@@ -69,10 +70,13 @@ class App(Gtk.Application):
     def __init__(self):
         Gtk.Application.__init__(self,
                                  application_id="org.rafael1193.spicegui",
-                                 flags=Gio.ApplicationFlags.FLAGS_NONE)
+                                 flags=Gio.ApplicationFlags.HANDLES_OPEN)
 
         self.connect("activate", self.on_activate)
         self.connect("startup", self.on_startup)
+        self.connect("open", self.on_open)
+        
+        self.file_args = []
 
     def on_startup(self, app):
         #Gtk.Application.do_startup(self)
@@ -107,6 +111,12 @@ class App(Gtk.Application):
         window = gui.MainWindow()
         app.add_window(window)
         window.show_all()
+    
+    def on_open(self, app, files, hint, user_data):
+        for f in files:
+            window = gui.MainWindow(f.get_path())
+            app.add_window(window)
+            window.show_all()
 
     def on_new_action(self, action, parameter):
         self.activate()
