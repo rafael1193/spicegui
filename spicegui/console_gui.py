@@ -18,7 +18,7 @@
 
 from __future__ import print_function
 
-from gi.repository import Gtk, Vte, Pango
+from gi.repository import Gtk, Pango
 
 class ConsoleOutputWindow(Gtk.Window):
 
@@ -54,6 +54,9 @@ class ConsoleOutputWindow(Gtk.Window):
         end_iter = self.text_view.props.buffer.get_end_iter()
         self.text_view.props.buffer.delete(start_iter, end_iter)
     
+    def set_subtitle(self, text):
+        self.hb.set_subtitle(text)
+    
     def on_window_destroy(self, widget, data=None):
         Gtk.main_quit()
 
@@ -62,4 +65,5 @@ if __name__ == "__main__":
     window.show_all()
     window.insert_text("test\n  Test\tTEST")
     window.clear_buffer()
+    window.set_subtitle("Spawned command")
     Gtk.main()
