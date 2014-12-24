@@ -18,7 +18,7 @@
 
 from __future__ import print_function
 
-from gi.repository import Gtk, Vte
+from gi.repository import Gtk, Vte, Pango
 
 class ConsoleOutputWindow(Gtk.Window):
 
@@ -33,16 +33,33 @@ class ConsoleOutputWindow(Gtk.Window):
         self.set_titlebar(self.hb)
         
         # Content
-        self.vte = Vte.Terminal()
-        self.add(self.vte)
+        self.scrolled = Gtk.ScrolledWindow()
+        self.text_view = Gtk.TextView(buffer=Gtk.TextBuffer())
+
+        font_desc = Pango.FontDescription('monospace')
+        if font_desc:
+            self.text_view.modify_font(font_desc)
+
+        self.scrolled.add(self.text_view)
+        self.add(self.scrolled)
 
         # Connect signals
         self.connect_after('destroy', self.on_window_destroy)
-                                 
+    
+    def insert_text(self, text):
+        self.text_view.props.buffer.insert_at_cursor(text)
+    
+    def clear_buffer(self):
+        start_iter = self.text_view.props.buffer.get_start_iter()
+        end_iter = self.text_view.props.buffer.get_end_iter()
+        self.text_view.props.buffer.delete(start_iter, end_iter)
+    
     def on_window_destroy(self, widget, data=None):
         Gtk.main_quit()
 
 if __name__ == "__main__":
     window = ConsoleOutputWindow()
     window.show_all()
+    window.insert_text("test\n  Test\tTEST")
+    window.clear_buffer()
     Gtk.main()
