@@ -18,11 +18,11 @@
 
 from __future__ import print_function
 
-from gi.repository import Gtk, Gdk, Gio, GtkSource, Pango
-from matplotlib.backends.backend_gtk3cairo import FigureCanvasGTK3Cairo as FigureCanvas
-
 import os
 import os.path
+
+from gi.repository import Gtk, Gdk, Gio, GtkSource, Pango
+from matplotlib.backends.backend_gtk3cairo import FigureCanvasGTK3Cairo as FigureCanvas
 
 import console_gui
 import ngspice_simulation

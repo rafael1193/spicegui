@@ -18,9 +18,10 @@
 
 from __future__ import print_function
 
+import os.path
+
 from gi.repository import Gio, Gtk
 
-import os.path
 
 class Preferences(object):
     GSETTINGS_BASE_KEY = "org.rafael1193.spicegui"

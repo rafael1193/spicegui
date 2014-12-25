@@ -20,6 +20,7 @@ from __future__ import print_function
 
 from gi.repository import Gtk, Pango
 
+
 class ConsoleOutputWindow(Gtk.Window):
 
     def __init__(self):

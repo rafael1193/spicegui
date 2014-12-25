@@ -19,9 +19,9 @@
 from __future__ import print_function
 
 import sys
-import argparse
 
-from gi.repository import Gio, Gtk, GObject
+from gi.repository import Gio, Gtk
+
 import gui
 import preferences_gui
 

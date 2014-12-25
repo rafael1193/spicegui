@@ -18,15 +18,15 @@
 
 from __future__ import print_function
 
-import subprocess
-import re
 import csv
-import os.path
 import locale
+import os.path
+import re
+import subprocess
 
-from threading import Event, Thread, Lock
 from gi.repository import Gio
 from matplotlib.figure import Figure
+from threading import Event, Lock, Thread
 
 import preferences_gui
 
@@ -391,7 +391,7 @@ class Gnetlist():
                 print(error_lines)
                 raise Exception(error_lines)
             print("Error: " + stderr)
-            
+
 
 ###############################################################################
 ###############################################################################
