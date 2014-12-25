@@ -24,6 +24,7 @@ from matplotlib.backends.backend_gtk3cairo import FigureCanvasGTK3Cairo as Figur
 import os
 import os.path
 
+import console_gui
 import ngspice_simulation
 import running_dialog
 
@@ -62,6 +63,12 @@ class MainWindow(Gtk.ApplicationWindow):
                 <item>
                     <attribute name="label" translatable="yes">Save data</attribute>
                     <attribute name="action">win.save-data</attribute>
+                </item>
+            </section>
+            <section>
+                <item>
+                    <attribute name="label" translatable="yes">Simulation log</attribute>
+                    <attribute name="action">win.simulation-log</attribute>
                 </item>
             </section>
             <section>
@@ -130,6 +137,7 @@ class MainWindow(Gtk.ApplicationWindow):
         self.circuit = None
         self.netlist_file_path = None
         self.file_monitor = None
+        self.console_output_window = console_gui.ConsoleOutputWindow()
         self._create_menu_models()
 
         ##########
@@ -270,6 +278,10 @@ class MainWindow(Gtk.ApplicationWindow):
         save_data_action = Gio.SimpleAction.new("save-data", None)
         save_data_action.connect("activate", self.save_data_cb)
         self.add_action(save_data_action)
+        
+        simulation_log_action = Gio.SimpleAction.new("simulation-log", None)
+        simulation_log_action.connect("activate", self.simulation_log_action_cb)
+        self.add_action(simulation_log_action)
 
         # insert_menu_xml #
         ## Create menu model
@@ -365,6 +377,11 @@ class MainWindow(Gtk.ApplicationWindow):
             self.simulation_output.save_csv(file_name)
         else:
             dialog.destroy()
+            
+    def simulation_log_action_cb(self, action, parameters):
+        if self.console_output_window is None:
+            self.console_output_window = console_gui.ConsoleOutputWindow()
+        self.console_output_window.show_all()
 
     def close_cb(self, action, parameters):
         self.destroy()
@@ -584,11 +601,22 @@ class MainWindow(Gtk.ApplicationWindow):
                 self.simulation_view()
             else:
                 simulator.terminate()
-                self.set_error(title="Simulation failed", message=simulator.error.message)            
+                self.set_error(title="Simulation failed", message=simulator.error.message)
+            self.show_ngspice_output(self.netlist_file_path + ".out")
         except Exception as e:
             self.set_error(title="Simulation failed", message=e.message)
         finally:
             dialog.destroy()
+    
+    def show_ngspice_output(self, output_file):
+        self.console_output_window.clear_buffer()
+
+        with open(output_file, 'r') as f:
+            lines = f.readlines()
+            for line in lines:
+                self.console_output_window.insert_text(line)
+        
+        self.console_output_window.set_subtitle(output_file)
 
     def start_file_monitor(self):
         if self.schematic_file_path is not None:

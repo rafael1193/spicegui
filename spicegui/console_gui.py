@@ -29,7 +29,7 @@ class ConsoleOutputWindow(Gtk.Window):
         # headerbar
         self.hb = Gtk.HeaderBar()
         self.hb.props.show_close_button = True
-        self.hb.set_title("Console output")
+        self.hb.set_title("Simulation log")
         self.set_titlebar(self.hb)
         
         # Content
@@ -44,6 +44,7 @@ class ConsoleOutputWindow(Gtk.Window):
         self.add(self.scrolled)
 
         # Connect signals
+        self.connect('delete-event', self.on_delete_event)
         self.connect_after('destroy', self.on_window_destroy)
     
     def insert_text(self, text):
@@ -57,13 +58,16 @@ class ConsoleOutputWindow(Gtk.Window):
     def set_subtitle(self, text):
         self.hb.set_subtitle(text)
     
+    def on_delete_event(self, widget, data):
+        return self.hide_on_delete()
+    
     def on_window_destroy(self, widget, data=None):
-        Gtk.main_quit()
+        self.destroy()
 
 if __name__ == "__main__":
     window = ConsoleOutputWindow()
+    window.set_subtitle("Spawned command")
     window.show_all()
     window.insert_text("test\n  Test\tTEST")
     window.clear_buffer()
-    window.set_subtitle("Spawned command")
     Gtk.main()
