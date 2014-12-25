@@ -39,7 +39,8 @@ class ConsoleOutputWindow(Gtk.Window):
         font_desc = Pango.FontDescription('monospace')
         if font_desc:
             self.text_view.modify_font(font_desc)
-
+        self.text_view.set_editable(False)
+        
         self.scrolled.add(self.text_view)
         self.add(self.scrolled)
 
