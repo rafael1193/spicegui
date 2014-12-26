@@ -308,7 +308,7 @@ class Ngspice():
                 raise Exception(error_lines)
 
 
-class Ngspice_async():
+class NgspiceAsync():
 
     def __init__(self):
         self.thread = None
@@ -320,9 +320,10 @@ class Ngspice_async():
            
     def simulatefile(self, netlist_path):
         """
-        simulate asyncrhonously netlist_path file with ngspice
+        Simulate asyncrhonously netlist_path file with ngspice
         
-        set self.result with (stout, stderr)
+        Set self.result with (stout, stderr)
+        Set self.errors with list of ExecutionError
         """
         self.result = None
         self.error = None
@@ -345,16 +346,9 @@ class Ngspice_async():
         with self._lock_result:
             self.result = (stdout, stderr)
         if stderr:
-            stderr_l = stderr.split("\n")
-            error_lines=""
-            for line in stderr_l:
-                if line.startswith("Error:"):
-                    if len(error_lines) > 0:
-                        error_lines += "\n"
-                    error_lines += line
-            if error_lines != "":
-                with self._lock_errors:
-                    self.errors = Exception(error_lines)
+            with self._lock_errors:
+                print(stderr)
+                self.errors = list(ExecutionError(stderr))
         self.end_event.set()
     
     def terminate(self):
@@ -362,6 +356,8 @@ class Ngspice_async():
             if self.process.poll() is None:
                 self.process.terminate()
 
+class ExecutionError(Exception):
+    pass
 
 class Gnetlist():
 
