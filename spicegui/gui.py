@@ -67,8 +67,8 @@ class MainWindow(Gtk.ApplicationWindow):
             </section>
             <section>
                 <item>
-                    <attribute name="label" translatable="yes">Simulation log</attribute>
-                    <attribute name="action">win.simulation-log</attribute>
+                    <attribute name="label" translatable="yes">Simulation output</attribute>
+                    <attribute name="action">win.simulation-output</attribute>
                 </item>
             </section>
             <section>
@@ -137,7 +137,8 @@ class MainWindow(Gtk.ApplicationWindow):
         self.circuit = None
         self.netlist_file_path = None
         self.file_monitor = None
-        self.raw_data_window = console_gui.ConsoleOutputWindow()
+        self.raw_data_window = console_gui.ConsoleOutputWindow("Simulation output")
+        self.execution_log_window = console_gui.ConsoleOutputWindow("Execution log")
         self._create_menu_models()
 
         ##########
@@ -279,8 +280,8 @@ class MainWindow(Gtk.ApplicationWindow):
         save_data_action.connect("activate", self.save_data_cb)
         self.add_action(save_data_action)
         
-        simulation_log_action = Gio.SimpleAction.new("simulation-log", None)
-        simulation_log_action.connect("activate", self.simulation_log_action_cb)
+        simulation_log_action = Gio.SimpleAction.new("simulation-output", None)
+        simulation_log_action.connect("activate", self.simulation_output_action_cb)
         self.add_action(simulation_log_action)
 
         # insert_menu_xml #
@@ -378,9 +379,9 @@ class MainWindow(Gtk.ApplicationWindow):
         else:
             dialog.destroy()
             
-    def simulation_log_action_cb(self, action, parameters):
+    def simulation_output_action_cb(self, action, parameters):
         if self.raw_data_window is None:
-            self.raw_data_window = console_gui.ConsoleOutputWindow()
+            self.raw_data_window = console_gui.ConsoleOutputWindow("Simulation output")
         self.raw_data_window.show_all()
 
     def close_cb(self, action, parameters):
@@ -602,7 +603,8 @@ class MainWindow(Gtk.ApplicationWindow):
                 else:
                     print(simulator.errors[0])
                     errors_str = [str(x) for x in simulator.errors]
-                    self.set_error(title="Simulation failed", message="\n".join(errors_str))
+                    self.set_execution_log(self.netlist_file_path,"\n".join(errors_str))
+                    self.set_error(title="Simulation failed", actions=[("Execution log", 1000, self.on_execution_log_clicked)])
             else:
                 simulator.terminate()
             self.set_output_file_content(self.netlist_file_path + ".out")
@@ -620,6 +622,18 @@ class MainWindow(Gtk.ApplicationWindow):
                 self.raw_data_window.insert_text(line)
         
         self.raw_data_window.set_subtitle(output_file)
+        
+    def on_execution_log_clicked(self, button, response_id):
+        if self.execution_log_window is None:
+            self.execution_log_window = console_gui.ConsoleOutputWindow("Execution log")
+        self.execution_log_window.show_all()
+    
+    def set_execution_log(self, file_name, content):
+        self.execution_log_window.clear_buffer()
+        self.execution_log_window.insert_text(content)
+        
+        self.execution_log_window.set_subtitle(file_name)
+        
 
     def start_file_monitor(self):
         if self.schematic_file_path is not None:
