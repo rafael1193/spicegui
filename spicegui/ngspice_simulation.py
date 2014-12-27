@@ -346,9 +346,10 @@ class NgspiceAsync():
         with self._lock_result:
             self.result = (stdout, stderr)
         if stderr:
-            errors = [ExecutionError(err) for err in stderr.splitlines() if err]
-            with self._lock_errors:
-                self.errors = errors
+            if "Error:" in stderr:
+                errors = [ExecutionError(err) for err in stderr.splitlines() if err]
+                with self._lock_errors:
+                    self.errors = errors
         self.end_event.set()
     
     def terminate(self):
