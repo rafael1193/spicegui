@@ -580,9 +580,6 @@ class MainWindow(Gtk.ApplicationWindow):
     def on_forward_button_clicked(self, button):
         self.simulation_view()
 
-    def on_gear_button_clicked(self, button):
-        self.figure.axes[0].legend(loc='lower left')
-
     def on_simulate_button_clicked(self, button):
         # Dismiss infobar messages (if they exists)
         self.dismiss_error()
