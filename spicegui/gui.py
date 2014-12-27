@@ -137,7 +137,7 @@ class MainWindow(Gtk.ApplicationWindow):
         self.circuit = None
         self.netlist_file_path = None
         self.file_monitor = None
-        self.console_output_window = console_gui.ConsoleOutputWindow()
+        self.raw_data_window = console_gui.ConsoleOutputWindow()
         self._create_menu_models()
 
         ##########
@@ -379,9 +379,9 @@ class MainWindow(Gtk.ApplicationWindow):
             dialog.destroy()
             
     def simulation_log_action_cb(self, action, parameters):
-        if self.console_output_window is None:
-            self.console_output_window = console_gui.ConsoleOutputWindow()
-        self.console_output_window.show_all()
+        if self.raw_data_window is None:
+            self.raw_data_window = console_gui.ConsoleOutputWindow()
+        self.raw_data_window.show_all()
 
     def close_cb(self, action, parameters):
         self.destroy()
@@ -585,38 +585,41 @@ class MainWindow(Gtk.ApplicationWindow):
     def on_simulate_button_clicked(self, button):
         # Dismiss infobar messages (if they exists)
         self.dismiss_error()
-        simulator = ngspice_simulation.Ngspice_async()
+        simulator = ngspice_simulation.NgspiceAsync()
         dialog = running_dialog.RunningDialog(self,simulator.end_event)
         try:
-            #First, save changes on disk
+            # First, save changes on disk
             self.on_save_button_clicked_overview(None)
-
+            # Start simulation
             simulator.simulatefile(self.netlist_file_path)
-            
-            if dialog.run() == 1: # Not cancelled
-                print(simulator.result)
-                self.simulation_output = ngspice_simulation.NgspiceOutput.parse_file(self.netlist_file_path + ".out")
-                self.figure = self.simulation_output.get_figure()
-                self._update_canvas(self.figure)
-                self.simulation_view()
+            # Show dialog
+            if dialog.run() == 1: # Not cancelled by the user
+                if not simulator.errors:
+                    self.simulation_output = ngspice_simulation.NgspiceOutput.parse_file(self.netlist_file_path + ".out")
+                    self.figure = self.simulation_output.get_figure()
+                    self._update_canvas(self.figure)
+                    self.simulation_view()
+                else:
+                    print(simulator.errors[0])
+                    errors_str = [str(x) for x in simulator.errors]
+                    self.set_error(title="Simulation failed", message="\n".join(errors_str))
             else:
                 simulator.terminate()
-                self.set_error(title="Simulation failed", message=simulator.error.message)
-            self.show_ngspice_output(self.netlist_file_path + ".out")
+            self.set_output_file_content(self.netlist_file_path + ".out")
         except Exception as e:
-            self.set_error(title="Simulation failed", message=e.message)
+            self.set_error(title="Simulation failed", message=str(e))
         finally:
             dialog.destroy()
     
-    def show_ngspice_output(self, output_file):
-        self.console_output_window.clear_buffer()
+    def set_output_file_content(self, output_file):
+        self.raw_data_window.clear_buffer()
 
         with open(output_file, 'r') as f:
             lines = f.readlines()
             for line in lines:
-                self.console_output_window.insert_text(line)
+                self.raw_data_window.insert_text(line)
         
-        self.console_output_window.set_subtitle(output_file)
+        self.raw_data_window.set_subtitle(output_file)
 
     def start_file_monitor(self):
         if self.schematic_file_path is not None:
@@ -671,8 +674,7 @@ class MainWindow(Gtk.ApplicationWindow):
                 self.netlist_file_path = path + ".net"
                 self.schematic_file_path = path
             except Exception as e:
-                print(e.message)
-                self.set_error(title="Schematic could not be converted to netlist", message=str(e.message))
+                self.set_error(title="Schematic could not be converted to netlist", message=str(e))
                 self.netlist_file_path = None
                 self.schematic_file_path = None
                 return

@@ -326,7 +326,7 @@ class NgspiceAsync():
         Set self.errors with list of ExecutionError
         """
         self.result = None
-        self.error = None
+        self.errors = None
         self.end_event.clear()
         self.thread = Thread(group=None, name="ngspice-thread",
                              target=self._run_simulation, args=(netlist_path,))
@@ -346,9 +346,9 @@ class NgspiceAsync():
         with self._lock_result:
             self.result = (stdout, stderr)
         if stderr:
+            errors = [ExecutionError(err) for err in stderr.splitlines()]
             with self._lock_errors:
-                print(stderr)
-                self.errors = list(ExecutionError(stderr))
+                self.errors = errors
         self.end_event.set()
     
     def terminate(self):

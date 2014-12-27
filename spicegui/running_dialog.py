@@ -78,7 +78,9 @@ class RunningDialog(Gtk.Dialog):
         
     def on_timeout(self, user_data):
         """
-        Update value on the progress bar
+        Update value in the progress bar.
+        
+        If simulation event is set, dialog emits response 1
         """
         self.progress_bar.pulse()
         if self.event.is_set(): # if thread finished
