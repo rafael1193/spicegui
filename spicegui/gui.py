@@ -542,7 +542,6 @@ class MainWindow(Gtk.ApplicationWindow):
 
         if actions is not None:
             for action in actions:
-                print(action)
                 self.infobar.add_button(action[0], action[1]) #TODO: Fix self.infobar.add_button(action[0],action[1]) -> TypeError: Must be number, not str
                 self.infobar.user_responses[action[1]] = action[2]
 
@@ -598,7 +597,6 @@ class MainWindow(Gtk.ApplicationWindow):
                     self._update_canvas(self.figure)
                     self.simulation_view()
                 else:
-                    print(simulator.errors[0])
                     errors_str = [str(x) for x in simulator.errors]
                     self.set_execution_log(self.netlist_file_path,"\n".join(errors_str))
                     self.set_error(title="Simulation failed", actions=[("Execution log", 1000, self.on_execution_log_clicked)])
@@ -652,12 +650,6 @@ class MainWindow(Gtk.ApplicationWindow):
 
         Callback function for file monitor on netlist file
         '''
-
-        print(file_monitor)
-        print(_file)
-        print(other_file)
-        print(event_type)
-
         if event_type == Gio.FileMonitorEvent.CHANGED or event_type == Gio.FileMonitorEvent.CREATED:
             self.set_error(title="Opened file changed on disk", message=None, message_type=Gtk.MessageType.WARNING, actions=[("Reload", 1000, self.on_infobar_reload_clicked)])
 
