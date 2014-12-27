@@ -22,15 +22,22 @@ from gi.repository import Gtk, Pango
 
 
 class ConsoleOutputWindow(Gtk.Window):
+    """Window for showing monospaced raw content"""
 
-    def __init__(self):
+    def __init__(self, title=None):
+        """Inits ConsoleOutputWindow with title.
+        
+        Args:
+            title: Desired window title string.
+        """
         Gtk.Window.__init__(self)
         self.set_default_size(640, 480)
 
         # headerbar
         self.hb = Gtk.HeaderBar()
         self.hb.props.show_close_button = True
-        self.hb.set_title("Simulation log")
+        if title is not None:
+            self.hb.set_title(title)
         self.set_titlebar(self.hb)
         
         # Content
@@ -50,25 +57,58 @@ class ConsoleOutputWindow(Gtk.Window):
         self.connect_after('destroy', self.on_window_destroy)
     
     def insert_text(self, text):
+        """Appends text to TextView buffer
+        
+        Args:
+            text: str to be appended."""
         self.text_view.props.buffer.insert_at_cursor(text)
     
     def clear_buffer(self):
+        """Clears TextView buffer"""
         start_iter = self.text_view.props.buffer.get_start_iter()
         end_iter = self.text_view.props.buffer.get_end_iter()
         self.text_view.props.buffer.delete(start_iter, end_iter)
+
+    def set_title(self, text):
+        """Sets window title
+                
+        Args:
+            title: Desired window title string."""
+        self.hb.set_title(text)
     
     def set_subtitle(self, text):
+        """Sets window subtitle
+                
+        Args:
+            subtitle: Desired window subtitle string."""
         self.hb.set_subtitle(text)
     
     def on_delete_event(self, widget, data):
+        """Hides window.
+        
+        Delete-event signal handler.
+        
+        Args:
+            widget: Caller widget.
+            data: User-defined data.
+        """
         return self.hide_on_delete()
     
     def on_window_destroy(self, widget, data=None):
+        """Destroys window.
+        
+        Destroy signal handler.
+        
+        Args:
+            widget: Caller widget.
+            data: User-defined data.
+        """
         self.destroy()
 
 if __name__ == "__main__":
     window = ConsoleOutputWindow()
-    window.set_subtitle("Spawned command")
+    window.set_title("Title")
+    window.set_subtitle("Subtitle")
     window.show_all()
     window.insert_text("test\n  Test\tTEST")
     window.clear_buffer()
