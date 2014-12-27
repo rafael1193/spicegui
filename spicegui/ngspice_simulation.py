@@ -241,14 +241,14 @@ class NgspiceOutput():
         # Set x axis
         x_axe_magnitude, x_axe_unit = indep_data_line.get_magnitude_and_unit()
         if x_axe_magnitude and x_axe_unit:
-            a.set_xlabel(str(x_axe_magnitude) + " [" + str(x_axe_unit)+"]")
+            a.set_xlabel(unicode(x_axe_magnitude) + " [" + unicode(x_axe_unit)+"]")
             if x_axe_unit == "Hz":
                 a.set_xscale("log")
 
         # Set y axis
         y_axe_magnitude, y_axe_unit = dep_data_lines[0].get_magnitude_and_unit()
         if y_axe_magnitude and y_axe_unit:
-            a.set_ylabel(str(y_axe_magnitude) + " [" + str(y_axe_unit)+"]")
+            a.set_ylabel(unicode(y_axe_magnitude) + " [" + unicode(y_axe_unit)+"]")
             if self.analysis == "AC Analysis" and y_axe_unit == "V":
                 a.set_yscale("log")
 
