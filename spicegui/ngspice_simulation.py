@@ -32,12 +32,34 @@ import preferences_gui
 
 
 class NgspiceOutput():
+    """Ngspice output management.
+
+    Attributes:
+        name: Name.
+        values: Data.
+        SUPPORTED_ANALYSES: Supported analyses.
+    """
 
     SUPPORTED_ANALYSES = ["Transient Analysis", "AC Analysis", "DC transfer characteristic"]
 
     class DataLine():
+        """Set of values obtained from simulation.
+
+        Represents a table column in a ngspice output.
+
+        Attributes:
+            name: Name.
+            values: Data.
+            independent: True if it is an independent data set.
+        """
 
         def __init__(self, name, values):
+            """Inits DataLine with name and values.
+
+            Args:
+                name: Column name.
+                values: Column data.
+            """
             self.name = name
             self.values = values
             if name in ["Index", "time", "frequency", "v-sweep", "res-sweep", "temp-sweep", "i-sweep"]:
@@ -51,9 +73,13 @@ class NgspiceOutput():
 
         def get_magnitude_and_unit(self):
             """
-            Guess magnitude and unit of DataLine from name
-            """
+            Guess magnitude and unit of DataLine from name.
 
+            Returns:
+                Magnitude, unit.
+
+                If magnitude is unknown returns ``("","")``
+            """
             if self.name == "Index":
                 return ("Index","")
             elif self.name == "time":
@@ -102,17 +128,26 @@ class NgspiceOutput():
 
 
     def __init__(self, raw_text):
+        """Inits NgspiceOutput with ngspice output text.
+
+        Args:
+            raw_text: Ngspice output text.
+        """
         self.circuit_name = None
         self._parse(raw_text)
 
     @classmethod
     def parse_file(cls, ngspice_result_file):
+        """Inits NgspiceOutput with ngspice output file path.
+
+        Args:
+            ngspice_result_file: Ngspice output file path.
+        """
         with open(ngspice_result_file) as f:
             return cls(f.read())
 
     def _parse(self, raw_text):
-        """
-        ngspice simulation output parser.
+        """Ngspice simulation output parser.
 
          1. Find "Circuit: 'circuit name'
          2. Keep iterating until an space--striped line is 'circuit name'
@@ -130,9 +165,10 @@ class NgspiceOutput():
 
         def table_parser(table_start_pos):
             """
-            Parses a ngspice output table
+            Parses a ngspice output table.
 
-            Returns (analysis, date, data_lines, table_end_pos)
+            Returns:
+                (analysis, date, data_lines, table_end_pos)
             """
             table_content = file_content[table_start_pos:]
 
@@ -199,9 +235,7 @@ class NgspiceOutput():
         self.date = date
 
     def _transpose_table(self, table):
-        """
-        Returns list of columns in table formed by rows
-        """
+        """Returns a list of columns in table formed by rows"""
         transposed = []
         for item in table[0]:
             transposed.append([])
@@ -212,11 +246,13 @@ class NgspiceOutput():
         return transposed
 
     def get_figure(self):
-        """
-        returns a Figure representing simulation data output, suitable
-        to be drawn on a gtk3 canvas.
-        """
+        """Creates a Figure representing simulation data output.
 
+        Returned object is suitable to be drawn on a gtk3 canvas.
+
+        Returns:
+            A ``matplotlib.figure.Figure`` object.
+        """
         settings = Gio.Settings.new(preferences_gui.Preferences.GSETTINGS_BASE_KEY)
 
         f = Figure(figsize=(16, 7), dpi=100)
@@ -263,8 +299,10 @@ class NgspiceOutput():
         return f
 
     def save_csv(self, file_path):
-        """
-        Saves simulation data to csv file
+        """Saves simulation data to csv file.
+
+        Args:
+            file_path: Output file path.
         """
         with open(file_path, 'wb') as csvfile:
             writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
@@ -288,6 +326,11 @@ class Ngspice():
 
     @classmethod
     def simulatefile(cls, netlist_path):
+        """Launches ngspice simulation o netlist file.
+
+        Args:
+            netlist_path: Netlist file path.
+        """
         process = subprocess.Popen(["ngspice", "-b", "-o", str(netlist_path) + ".out", str(netlist_path)], shell=False,
                                    stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
@@ -311,6 +354,7 @@ class Ngspice():
 class NgspiceAsync():
 
     def __init__(self):
+        """Inits NgspiceAsync."""
         self.thread = None
         self.result = None
         self.errors = None
@@ -320,10 +364,16 @@ class NgspiceAsync():
 
     def simulatefile(self, netlist_path):
         """
-        Simulate asyncrhonously netlist_path file with ngspice
+        Simulate asyncrhonously netlist_path file with ngspice.
 
-        Set self.result with (stout, stderr)
-        Set self.errors with list of ExecutionError
+        Args:
+            netlist_path: Netlist file path.
+
+        Returns:
+            None.
+
+            Sets self.result with (``stout``, ``stderr``).
+            Sets self.errors with a list of ``ExecutionError`` if ``stderr`` is not void.
         """
         self.result = None
         self.errors = None
@@ -353,29 +403,37 @@ class NgspiceAsync():
         self.end_event.set()
 
     def terminate(self):
+        """Kills executing ngspice process.
+
+        Calls ``terminate()`` method of ``subprocess.Popen``.
+        """
         if self.process is not None:
             if self.process.poll() is None:
                 self.process.terminate()
 
 class ExecutionError(Exception):
+    """Execution of process failed."""
     pass
 
 class Gnetlist():
 
     @classmethod
     def create_netlist_file(cls, schematic_path, netlist_path):
-        """
-        Calls gnetlist with spice-sdb backend and converts a gschem file
-        to netlist.
+        """Creates a spice netlist file from a gschem file with spice-sdb backend.
 
-        raises ValueError when gnetlist process writes on stderr
+        Args:
+            schematic_path: Gschem file path.
+            netlist_path: Netlist file path.
+
+        Raises:
+            ExecutionError: When gnetlist process writes on stderr.
         """
         process = subprocess.Popen(["gnetlist", "-g", "spice-sdb", "-o", str(netlist_path), "--", str(schematic_path)], shell=False, cwd=os.path.dirname(netlist_path), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
         encoding = locale.getdefaultlocale()[1]
         stdout_b, stderr_b = process.communicate()
         stdout, stderr = stdout_b.decode(encoding), stderr_b.decode(encoding)
-        print(stdout, stderr)
+#        print(stdout, stderr)
         if stderr:
             stderr_l = stderr.split("\n")
             error_lines=""
@@ -385,9 +443,9 @@ class Gnetlist():
                         error_lines += "\n"
                     error_lines += line
             if error_lines != "":
-                print(error_lines)
-                raise Exception(error_lines)
-            print("Error: " + stderr)
+#                print(error_lines)
+                raise ExecutionError(error_lines)
+#            print("Error: " + stderr)
 
 
 class Netlist(object):
