@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#
+
+"""SpiceGUI main script."""
+
 # SpiceGUI
 # Copyright (C) 2014 Rafael Bailón-Ruiz <rafaelbailon@ieee.org>
 #
@@ -21,11 +23,11 @@ from __future__ import print_function
 
 
 def start():
-    import application
+    """Starts SpiceGUI application."""
+    import spicegui.application as application
     import sys
     app = application.App()
     app.run(sys.argv)
 
 if __name__ == "__main__":
     start()
-
