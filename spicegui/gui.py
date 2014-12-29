@@ -200,10 +200,10 @@ class MainWindow(Gtk.ApplicationWindow):
 
         self.overview_view()
         self.connect_after('destroy', self._on_destroy)
-        
+
         if file_path is not None:
             self.load_file(file_path)
-    
+
     def _open_state(self, state="opened"):
         """
         show sourceview state="opened" or suggest opening a file state="new"
@@ -214,7 +214,7 @@ class MainWindow(Gtk.ApplicationWindow):
             self.source_scrolled = Gtk.ScrolledWindow(None, None)
             self.source_scrolled.set_hexpand(True)
             self.source_scrolled.set_vexpand(True)
-    
+
             self.source_buffer = GtkSource.Buffer()
             self.source_buffer.set_highlight_syntax(True)
             self.source_buffer.set_language(GtkSource.LanguageManager.get_default().get_language("spice-netlist"))
@@ -279,7 +279,7 @@ class MainWindow(Gtk.ApplicationWindow):
         save_data_action = Gio.SimpleAction.new("save-data", None)
         save_data_action.connect("activate", self.save_data_cb)
         self.add_action(save_data_action)
-        
+
         simulation_log_action = Gio.SimpleAction.new("simulation-output", None)
         simulation_log_action.connect("activate", self.simulation_output_action_cb)
         self.add_action(simulation_log_action)
@@ -335,7 +335,7 @@ class MainWindow(Gtk.ApplicationWindow):
         svg_filter.set_name("Scalable Vector Graphics")
         svg_filter.add_mime_type("image/svg+xml")
         dialog.add_filter(svg_filter)
-      
+
         dialog.set_current_name(self.hb.get_title()+" - "+self.simulation_output.analysis)
 
         response = dialog.run()
@@ -378,7 +378,7 @@ class MainWindow(Gtk.ApplicationWindow):
             self.simulation_output.save_csv(file_name)
         else:
             dialog.destroy()
-            
+
     def simulation_output_action_cb(self, action, parameters):
         if self.raw_data_window is None:
             self.raw_data_window = console_gui.ConsoleOutputWindow("Simulation output")
@@ -607,7 +607,7 @@ class MainWindow(Gtk.ApplicationWindow):
             self.set_error(title="Simulation failed", message=str(e))
         finally:
             dialog.destroy()
-    
+
     def set_output_file_content(self, output_file):
         self.raw_data_window.clear_buffer()
 
@@ -615,20 +615,20 @@ class MainWindow(Gtk.ApplicationWindow):
             lines = f.readlines()
             for line in lines:
                 self.raw_data_window.insert_text(line)
-        
+
         self.raw_data_window.set_subtitle(output_file)
-        
+
     def on_execution_log_clicked(self, button, response_id):
         if self.execution_log_window is None:
             self.execution_log_window = console_gui.ConsoleOutputWindow("Execution log")
         self.execution_log_window.show_all()
-    
+
     def set_execution_log(self, file_name, content):
         self.execution_log_window.clear_buffer()
         self.execution_log_window.insert_text(content)
-        
+
         self.execution_log_window.set_subtitle(file_name)
-        
+
 
     def start_file_monitor(self):
         if self.schematic_file_path is not None:
@@ -727,7 +727,7 @@ class MainWindow(Gtk.ApplicationWindow):
         gschem_filter.set_name("GEDA schematic")
         gschem_filter.add_mime_type("application/x-geda-schematic")
         dialog.add_filter(gschem_filter)
-        
+
         all_filter = Gtk.FileFilter()
         all_filter.set_name("Supported files")
         all_filter.add_pattern("*.net")
@@ -800,102 +800,3 @@ class InfoMessageBar(Gtk.InfoBar):
         else:
             self.user_responses[response_id](button, response_id)
             self.props.visible = False
-
-
-class TransientSimulationWindow(Gtk.Dialog):
-
-    def __init__(self, parent):
-        Gtk.Dialog.__init__(self, "Transient Simulation", parent, 0,
-                            (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
-                             Gtk.STOCK_OK, Gtk.ResponseType.OK))
-
-#        self.set_border_width(10)
-#        self.resize(800, 800)
-        self.set_default_size(900, 600)
-        self.props.resizable = False
-#        self.hb = Gtk.HeaderBar()
-#        self.hb.props.show_close_button = False
-#        self.hb.props.title = "Transient Simulation"
-#        self.set_titlebar(self.hb)
-#
-#        self.cancel_button = Gtk.Button("Cancel")
-#        self.cancel_button.connect("clicked", self.on_cancel_button_clicked)
-#        self.simulate_button = Gtk.Button("Simulate")
-#        self.simulate_button.connect("clicked", self.on_simulate_button_clicked)
-
-#        self.hb.pack_start(self.cancel_button)
-#        self.hb.pack_end(self.simulate_button)
-
-        # main box
-        hbox = Gtk.Box(spacing=6)
-        self.get_content_area().add(hbox)
-        self.get_content_area().set_border_width(6)
-        #Parameter box
-        sbox = Gtk.Box(spacing=6)
-        hbox.pack_end(sbox, False, False, 0)
-
-        # simulation parameters
-        grid = Gtk.Grid(row_spacing=6, column_spacing=6)
-
-        label_start = Gtk.Label("Start time")
-        label_start.props.xalign = 1
-        label_end = Gtk.Label("End time")
-        label_end.props.xalign = 1
-        label_interval = Gtk.Label("Sample interval")
-        label_interval.props.xalign = 1
-        entry_start = Gtk.Entry()
-        entry_start.set_hexpand(True)
-        entry_end = Gtk.Entry()
-        entry_end.set_hexpand(True)
-        entry_interval = Gtk.Entry()
-        entry_interval.set_hexpand(True)
-
-        grid.attach(label_start, 0, 0, 1, 1)
-        grid.attach(label_end, 0, 1, 1, 1)
-        grid.attach(label_interval, 0, 2, 1, 1)
-        grid.attach_next_to(entry_start, label_start, Gtk.PositionType.RIGHT, 1, 1)
-        grid.attach_next_to(entry_end, label_end, Gtk.PositionType.RIGHT, 1, 1)
-        grid.attach_next_to(entry_interval, label_interval, Gtk.PositionType.RIGHT, 1, 1)
-
-        hbox.pack_start(grid, True, True, 1)
-
-        # Nodes listbox
-        scrolled = Gtk.ScrolledWindow(None, None)
-#        scrolled.set_hexpand(True);
-#        scrolled.set_hexpand(True)
-#        scrolled.set_vexpand(True)
-#        scrolled.props.expand = True
-
-        listbox = Gtk.ListBox()
-        listbox.props.expand = True
-        listbox.set_selection_mode(Gtk.SelectionMode.NONE)
-
-        scrolled.add(listbox)
-
-        hbox.pack_start(scrolled, False, True, 0)
-
-        for i in range(4):
-            row = Gtk.ListBoxRow()
-            hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=12)
-            row.add(hbox)
-            check = Gtk.CheckButton()
-            label = Gtk.Label("V"+str(i), xalign=0)
-            hbox.pack_start(check, False, True, 0)
-            hbox.pack_start(label, True, True, 0)
-
-            listbox.add(row)
-
-        self.show_all()
-
-    def on_cancel_button_clicked(self, button):
-        self.response(Gtk.ResponseType.CANCEL)
-
-    def on_simulate_button_clicked(self, button):
-        self.response(Gtk.ResponseType.OK)
-
-if __name__ == '__main__':
-    win = MainWindow()
-    win.connect("delete-event", Gtk.main_quit)
-
-    win.show_all()
-    Gtk.main()

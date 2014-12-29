@@ -48,12 +48,12 @@ class NgspiceOutput():
             parentheses_index = self.name.find("(")
             if parentheses_index > 0:
                 self.magnitude = self.name[:parentheses_index]
-        
+
         def get_magnitude_and_unit(self):
             """
             Guess magnitude and unit of DataLine from name
             """
-            
+
             if self.name == "Index":
                 return ("Index","")
             elif self.name == "time":
@@ -99,7 +99,7 @@ class NgspiceOutput():
                     return ("","")
             else:
                 return ("","")
-            
+
 
     def __init__(self, raw_text):
         self.circuit_name = None
@@ -290,7 +290,7 @@ class Ngspice():
     def simulatefile(cls, netlist_path):
         process = subprocess.Popen(["ngspice", "-b", "-o", str(netlist_path) + ".out", str(netlist_path)], shell=False,
                                    stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        
+
         encoding = locale.getdefaultlocale()[1]
         stdout_b, stderr_b = process.communicate()
         stdout, stderr = stdout_b.decode(encoding), stderr_b.decode(encoding)
@@ -317,11 +317,11 @@ class NgspiceAsync():
         self.end_event = Event()
         self._lock_result = Lock()
         self._lock_errors = Lock()
-           
+
     def simulatefile(self, netlist_path):
         """
         Simulate asyncrhonously netlist_path file with ngspice
-        
+
         Set self.result with (stout, stderr)
         Set self.errors with list of ExecutionError
         """
@@ -331,7 +331,7 @@ class NgspiceAsync():
         self.thread = Thread(group=None, name="ngspice-thread",
                              target=self._run_simulation, args=(netlist_path,))
         self.thread.start()
-    
+
     def _run_simulation(self, netlist_path):
         self.process = subprocess.Popen(["ngspice", "-b", "-o",
                                          str(netlist_path) + ".out",
@@ -339,7 +339,7 @@ class NgspiceAsync():
                                          shell=False,
                                          stdout=subprocess.PIPE,
                                          stderr=subprocess.PIPE)
-                                         
+
         encoding = locale.getdefaultlocale()[1]
         stdout_b, stderr_b = self.process.communicate()
         stdout, stderr = stdout_b.decode(encoding), stderr_b.decode(encoding)
@@ -351,7 +351,7 @@ class NgspiceAsync():
                 with self._lock_errors:
                     self.errors = errors
         self.end_event.set()
-    
+
     def terminate(self):
         if self.process is not None:
             if self.process.poll() is None:
@@ -371,7 +371,7 @@ class Gnetlist():
         raises ValueError when gnetlist process writes on stderr
         """
         process = subprocess.Popen(["gnetlist", "-g", "spice-sdb", "-o", str(netlist_path), "--", str(schematic_path)], shell=False, cwd=os.path.dirname(netlist_path), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        
+
         encoding = locale.getdefaultlocale()[1]
         stdout_b, stderr_b = process.communicate()
         stdout, stderr = stdout_b.decode(encoding), stderr_b.decode(encoding)
@@ -388,188 +388,6 @@ class Gnetlist():
                 print(error_lines)
                 raise Exception(error_lines)
             print("Error: " + stderr)
-
-
-###############################################################################
-###############################################################################
-###############################################################################
-
-
-class Component(object):
-
-    def __init__(self, **kwargs):
-        """
-        __init__(self,component_type, id ,nodes)
-
-        ================ ======================================================
-        *component_type* str of component type. ie. R for resistor, V
-                         for independent voltaje source...
-        ---------------- ------------------------------------------------------
-        *id*             str that identifies a component within a type
-        ---------------- ------------------------------------------------------
-        *terminals*      component terminals as tuple
-        ---------------- ------------------------------------------------------
-
-        ================ ======================================================
-        """
-        self.device = kwargs["device"]
-        self.name = kwargs["name"]
-        self.terminals = kwargs["terminals"]
-        self.parameters = kwargs["parameters"]
-
-    def __str__(self):
-        result = self.device + " " + self.name
-        for term in self.terminals:
-            result += " " + term
-
-        for param in self.parameters:
-            result += " " + param
-
-        return result
-
-
-class Circuit(object):
-
-    def __init__(self, netlist):
-        """ Netlist as str """
-
-        self._netlist = netlist.split("\n")
-        self._parser = NetlistParser()
-        self._components, self._nodes = self.parser.parse(self._netlist)
-        self._options = ["nopage"]
-
-    def get_netlist(self):
-        return self._netlist
-
-    def get_components(self):
-        return self._components
-
-    def get_nodes(self):
-        return self._nodes
-
-    def __str__(self):
-        if self.simulation:
-            pass
-
-    def transient_simulation(self, start, end, steps=50, devices=None, nodes=None, uic=False):
-        tran_stm = TransientSimulation(start, end, steps, uic)
-        #print_stm =
-
-        end_index = _find_statement(netlist, ".ends")
-
-    def _find_statement(self, l, statement):
-        """
-        returns first occurrence index of 'statment' on list 'l'
-        if 'statment' is not found, returns None
-        """
-        for i in range(len(l)):
-            if l[i] == statement:
-                return i
-        return None
-
-    def _simulate_file(self, netlistfile):
-        subprocess.call(["ngspice", "-b", "-c " + str(netlistfile), "-o " + str(netlistfile) + ".out"])
-
-    def _parse_ngspice_result(self, ngspice_result_file):
-        result = {}
-        with open(ngspice_result_file) as f:
-            file_content = f.read().split("\n")
-            table_start_pos = None
-            data_row_number = None
-            for i in range(len(file_content)):
-                if file_content[i].strip().starts_with("No. of Data Rows:"):
-                    table_start_pos = i + 1
-                    data_row_number = int(file_content[i].strip()[len("No. of Data Rows:"):])  # keep number of rows
-                    break
-            data_content = file_content[table_start_pos:]
-            result["description"] = data_content[0].strip()
-            result["analysis type"] = data_content[1].strip()
-            #result["data"] =
-            ### consulta "cat caca.out | less" para seguir interpretando el archivo
-
-
-class ControlStatement(object):
-
-    def __init__(self, statement, **kwargs):
-        pass
-
-
-class TransientSimulation(ControlStatement):
-
-    def __init__(self, start, end, steps=50, uic=False):
-        ControlStatement.__init__(self, "tran", {"start":start, "end":end, "steps":steps, "uic":uic})
-        self.start = start
-        self.end = end
-        self.steps = steps
-        #TODO: Use initial conditions
-
-    def __str__(self):
-        """tran tstep tstop <tstart <tmax>> <uic>"""
-
-        directive = ".tran"
-
-        if self.start:
-            if self.start >= 0:
-                tstart = str(self.start)
-            else:
-                tstart = str(0)
-        else:
-            tstart = str(0)
-
-        if self.end:
-            if self.end > self.start:
-                tstop = str(self.end)
-            else:
-                raise ValueError("stop time must be greater than start time")
-        else:
-            raise ValueError("stop time must be set")
-
-        if self.steps > 0:
-            tstep = str((self.end - self.start) / float(self.steps))
-        else:
-            tstep = str(50)
-
-        return directive + " " + tstep + " " + tstop + " " + tstart
-
-
-class PrintSimulation(ControlStatement):
-
-    def __init__(self, nodes, components):
-        ControlStatement.__init__(self, "print", {"start":start, "end":end, "steps":steps, "uic":uic})
-        self.start = start
-        self.end = end
-        self.steps = steps
-        #TODO: Use initial conditions
-
-    def __str__(self):
-        """
-        tran tstep tstop <tstart <tmax>> <uic>
-        """
-
-        directive = ".tran"
-
-        if self.start:
-            if self.start >= 0:
-                tstart = str(self.start)
-            else:
-                tstart = str(0)
-        else:
-            tstart = str(0)
-
-        if self.end:
-            if self.end > self.start:
-                tstop = str(self.end)
-            else:
-                raise ValueError("stop time must be greater than start time")
-        else:
-            raise ValueError("stop time must be set")
-
-        if self.steps > 0:
-            tstep = str((self.end - self.start) / float(self.steps))
-        else:
-            tstep = str(50)
-
-        return directive + " " + tstep + " " + tstop + " " + tstart
 
 
 class Netlist(object):
