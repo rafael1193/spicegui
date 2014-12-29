@@ -24,9 +24,9 @@ from __future__ import print_function
 
 def start():
     """Starts SpiceGUI application."""
-    import spicegui.application as application
+    import application
     import sys
-    app = application.App()
+    app = application.SpiceGUI()
     app.run(sys.argv)
 
 if __name__ == "__main__":

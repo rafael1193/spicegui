@@ -27,8 +27,8 @@ from __future__ import print_function
 
 from gi.repository import Gio, Gtk
 
-import spicegui.gui as gui
-import spicegui.preferences_gui as preferences_gui
+import gui
+import preferences_gui
 
 
 class SpiceGUI(Gtk.Application):
