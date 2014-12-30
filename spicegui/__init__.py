@@ -24,6 +24,9 @@ from __future__ import print_function
 
 def start():
     """Starts SpiceGUI application."""
+    import gettext
+    gettext.install('messages', './locales')
+    
     import application
     import sys
     app = application.SpiceGUI()
