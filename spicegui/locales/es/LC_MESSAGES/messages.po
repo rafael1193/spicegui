@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SpiceGUI\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-30 17:32+0100\n"
-"PO-Revision-Date: 2014-12-30 17:32+0100\n"
+"POT-Creation-Date: 2014-12-30 19:09+0100\n"
+"PO-Revision-Date: 2014-12-30 19:09+0100\n"
 "Last-Translator: Rafael Bailón <rafaelbailon@ieee.org>\n"
 "Language-Team: SpiceGUI\n"
 "Language: es\n"
@@ -19,99 +19,240 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-Basepath: ../../../\n"
 "X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: ./data\n"
 
-#: application.py:199
+#: application.py:166
 msgid "About SpiceGUI"
 msgstr "Acerca de SpiceGUI"
 
-#: application.py:202
+#: application.py:169
 msgid "Graphical user interface for circuit simulation using ngspice."
 msgstr "Interfaz gráfica para simulación de circuitos usando ngspice."
+
+#: application.py:178
+msgid "translator-credits"
+msgstr "Rafael Bailón Ruiz <rafaelbailon@ieee.org>, 2014"
 
 #: ngspice_simulation.py:231
 msgid "No simulations were done."
 msgstr "No se han realizado ninguna simulación."
 
-#: gui.py:140 gui.py:384
+#: gui.py:41 gui.py:282
 msgid "Simulation output"
 msgstr "Resultados de la simulación"
 
-#: gui.py:141 gui.py:602 gui.py:623
+#: gui.py:42 gui.py:500 gui.py:521
 msgid "Execution log"
 msgstr "Registro de ejecución"
 
-#: gui.py:188
+#: gui.py:89
 msgid "Circuit"
 msgstr "Circuito"
 
-#: gui.py:194 running_dialog.py:28 running_dialog.py:35
+#: gui.py:95 running_dialog.py:28 running_dialog.py:35
 msgid "Simulation"
 msgstr "Simulación"
 
-#: gui.py:242
+#: gui.py:143
 msgid "Use the <b>Open</b> button to load a circuit"
-msgstr "Usa el botón <b>Open</b> para abrir un circuito"
+msgstr "Usa el botón <b>Abrir</b> para cargar un circuito"
 
-#: gui.py:326
+#: gui.py:224
 msgid "Save plot"
 msgstr "Guardar gráfica"
 
-#: gui.py:330
+#: gui.py:228
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: gui.py:335
+#: gui.py:233
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
-#: gui.py:362
+#: gui.py:260
 msgid "Save simulation data"
 msgstr "Guardar resultados"
 
-#: gui.py:366
+#: gui.py:264
 msgid "Comma-separated values"
 msgstr "Valores separados por comas"
 
-#: gui.py:481
+#: gui.py:379
 msgid "Open"
 msgstr "Abrir"
 
-#: gui.py:602 gui.py:607
+#: gui.py:500 gui.py:505
 msgid "Simulation failed."
 msgstr "La simulación falló."
 
-#: gui.py:654
+#: gui.py:552
 msgid "Opened file changed on disk."
 msgstr "El archivo ha cambiado en el disco."
 
-#: gui.py:654
+#: gui.py:552
 msgid "Reload"
 msgstr "Recargar"
 
-#: gui.py:680
+#: gui.py:578
 msgid "Schematic could not be converted to netlist."
 msgstr "El esquemático no pudo se convertido a netlist."
 
-#: gui.py:716
+#: gui.py:614
 msgid "Please choose a file"
 msgstr "Elija un archivo"
 
-#: gui.py:720
+#: gui.py:618
 msgid "Netlist"
 msgstr "Netlist"
 
-#: gui.py:727
+#: gui.py:625
 msgid "GEDA schematic"
 msgstr "Esquemático de GEDA"
 
-#: gui.py:732
+#: gui.py:630
 msgid "Supported files"
 msgstr "Archivos soportados"
 
-#: gui.py:749
+#: gui.py:647
 msgid "File could not be loaded."
 msgstr "El archivo no pudo ser abierto."
 
 #: running_dialog.py:49
 msgid "Running ngspice…"
 msgstr "Ejecutando ngspice…"
+
+#: data/preferences.glade:7
+msgid "Preferences"
+msgstr "Preferencias"
+
+#: data/preferences.glade:48
+msgid "Show legend"
+msgstr "Mostrar leyenda"
+
+#: data/preferences.glade:67
+msgid "Best"
+msgstr "Óptima"
+
+#: data/preferences.glade:68
+msgid "Upper right"
+msgstr "Arriba derecha"
+
+#: data/preferences.glade:69
+msgid "Upper left"
+msgstr "Arriba izquierda"
+
+#: data/preferences.glade:70
+msgid "Lower left"
+msgstr "Abajo izquierda"
+
+#: data/preferences.glade:71
+msgid "Lower right"
+msgstr "Abajo derecha"
+
+#: data/preferences.glade:72
+msgid "Right"
+msgstr "Derecha"
+
+#: data/preferences.glade:73
+msgid "Center left"
+msgstr "Centro izquierda"
+
+#: data/preferences.glade:74
+msgid "Center right"
+msgstr "Centro derecha"
+
+#: data/preferences.glade:75
+msgid "Lower center"
+msgstr "Abajo centro"
+
+#: data/preferences.glade:76
+msgid "Upper center"
+msgstr "Arriba centro"
+
+#: data/preferences.glade:77
+msgid "Center"
+msgstr "Centro"
+
+#: data/preferences.glade:90
+msgid "Legend position:"
+msgstr "Posición de la leyenda:"
+
+#: data/preferences.glade:100
+msgid "Show grids"
+msgstr "Mostrar rejillas"
+
+#: data/menu.ui:7
+msgid "_New window"
+msgstr "_Nueva ventana"
+
+#: data/menu.ui:14
+msgid "_Preferences"
+msgstr "_Preferencias"
+
+#: data/menu.ui:20
+msgid "_Help"
+msgstr "A_yuda"
+
+#: data/menu.ui:24
+msgid "_About"
+msgstr "_Acerca de"
+
+#: data/menu.ui:28
+msgid "_Quit"
+msgstr "_Salir"
+
+#: data/menu.ui:37
+msgid "_Save"
+msgstr "_Guardar"
+
+#: data/menu.ui:42
+msgid "S_ave as..."
+msgstr "Guardar c_omo..."
+
+#: data/menu.ui:48 data/menu.ui:78
+msgid "_Close"
+msgstr "_Cerrar"
+
+#: data/menu.ui:56
+msgid "_Save plot"
+msgstr "_Guardar gráfica"
+
+#: data/menu.ui:60
+msgid "Save _data"
+msgstr "Guardar _datos"
+
+#: data/menu.ui:66
+msgid "Simulation _output"
+msgstr "_Resultados de la simulación"
+
+#: data/menu.ui:72
+msgid "_Plot preferences"
+msgstr "_Preferencias de gráfica"
+
+#: data/menu.ui:86
+msgid "._ac"
+msgstr "._ac"
+
+#: data/menu.ui:90
+msgid "._dc"
+msgstr "._dc"
+
+#: data/menu.ui:94
+msgid "._tran"
+msgstr "._tran"
+
+#: data/menu.ui:100
+msgid "._print"
+msgstr "._tran"
+
+#: data/menu.ui:106
+msgid "._model"
+msgstr "._tran"
+
+#: data/menu.ui:110
+msgid "._lib"
+msgstr "._tran"
+
+#: data/menu.ui:114
+msgid "._include"
+msgstr "._tran"
