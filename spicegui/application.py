@@ -171,10 +171,12 @@ class SpiceGUI(Gtk.Application):
         aboutdialog.set_logo_icon_name("spicegui")
         aboutdialog.set_website("http://github.com/rafael1193/spicegui")
         aboutdialog.set_license_type(Gtk.License.GPL_3_0)
-
-        authors = ["Rafael Bailón Ruiz <rafaelbailon at ieee dot org>"]
-
+        
+        authors = ["Rafael Bailón Ruiz <rafaelbailon@ieee.org>"]
         aboutdialog.set_authors(authors)
+        
+        translators = _("translator-credits")
+        aboutdialog.set_translator_credits(translators)
 
         aboutdialog.show()
 
