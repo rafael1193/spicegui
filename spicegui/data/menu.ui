@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<interface domain="spicegui">
+<interface domain="messages">
     <!-- interface-requires gtk+ 3.6 -->
     <menu id="appmenu">
         <section>
@@ -57,19 +57,19 @@
                 <attribute name="action">win.save-plot</attribute>
             </item>
             <item>
-                <attribute name="label" translatable="yes">Save data</attribute>
+                <attribute name="label" translatable="yes">Save _data</attribute>
                 <attribute name="action">win.save-data</attribute>
             </item>
         </section>
         <section>
             <item>
-                <attribute name="label" translatable="yes">Simulation output</attribute>
+                <attribute name="label" translatable="yes">Simulation _output</attribute>
                 <attribute name="action">win.simulation-output</attribute>
             </item>
         </section>
         <section>
             <item>
-                <attribute name="label" translatable="yes">Plot preferences</attribute>
+                <attribute name="label" translatable="yes">_Plot preferences</attribute>
                 <attribute name="action">win.plot-preferences</attribute>
             </item>
         </section>
