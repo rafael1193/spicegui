@@ -196,11 +196,10 @@ class SpiceGUI(Gtk.Application):
         """
         aboutdialog = Gtk.AboutDialog()
         aboutdialog.connect("response", lambda w, r: aboutdialog.destroy())
-        aboutdialog.set_title("About SpiceGUI")
+        aboutdialog.set_title(_("About SpiceGUI"))
         aboutdialog.set_program_name("SpiceGUI")
         aboutdialog.set_version("0.3")
-        aboutdialog.set_comments("Graphical user interface for\
-        circuit simulation using ngspice")
+        aboutdialog.set_comments(_("Graphical user interface for circuit simulation using ngspice"))
         aboutdialog.set_copyright("Copyright \xc2\xa9 2014 Rafael Bailón-Ruiz")
         aboutdialog.set_logo_icon_name("spicegui")
         aboutdialog.set_website("http://github.com/rafael1193/spicegui")

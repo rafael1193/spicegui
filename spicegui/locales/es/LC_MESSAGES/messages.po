@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SpiceGUI\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-30 15:05+0100\n"
-"PO-Revision-Date: 2014-12-30 15:18+0100\n"
+"POT-Creation-Date: 2014-12-30 16:43+0100\n"
+"PO-Revision-Date: 2014-12-30 16:44+0100\n"
 "Last-Translator: Rafael Bailón <rafaelbailon@ieee.org>\n"
 "Language-Team: SpiceGUI\n"
 "Language: es\n"
@@ -19,6 +19,14 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-Basepath: ../../../\n"
 "X-Poedit-SearchPath-0: .\n"
+
+#: application.py:199
+msgid "About SpiceGUI"
+msgstr "Acerca de SpiceGUI"
+
+#: application.py:202
+msgid "Graphical user interface for circuit simulation using ngspice"
+msgstr "Interfaz gráfica para simulación de circuitos usando ngspice"
 
 #: gui.py:140 gui.py:384
 msgid "Simulation output"
