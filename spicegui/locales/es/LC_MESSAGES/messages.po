@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SpiceGUI\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-30 16:43+0100\n"
-"PO-Revision-Date: 2014-12-30 16:44+0100\n"
+"POT-Creation-Date: 2014-12-30 17:32+0100\n"
+"PO-Revision-Date: 2014-12-30 17:32+0100\n"
 "Last-Translator: Rafael Bailón <rafaelbailon@ieee.org>\n"
 "Language-Team: SpiceGUI\n"
 "Language: es\n"
@@ -25,8 +25,12 @@ msgid "About SpiceGUI"
 msgstr "Acerca de SpiceGUI"
 
 #: application.py:202
-msgid "Graphical user interface for circuit simulation using ngspice"
-msgstr "Interfaz gráfica para simulación de circuitos usando ngspice"
+msgid "Graphical user interface for circuit simulation using ngspice."
+msgstr "Interfaz gráfica para simulación de circuitos usando ngspice."
+
+#: ngspice_simulation.py:231
+msgid "No simulations were done."
+msgstr "No se han realizado ninguna simulación."
 
 #: gui.py:140 gui.py:384
 msgid "Simulation output"
@@ -40,7 +44,7 @@ msgstr "Registro de ejecución"
 msgid "Circuit"
 msgstr "Circuito"
 
-#: gui.py:194
+#: gui.py:194 running_dialog.py:28 running_dialog.py:35
 msgid "Simulation"
 msgstr "Simulación"
 
@@ -73,20 +77,20 @@ msgid "Open"
 msgstr "Abrir"
 
 #: gui.py:602 gui.py:607
-msgid "Simulation failed"
-msgstr "La simulación falló"
+msgid "Simulation failed."
+msgstr "La simulación falló."
 
 #: gui.py:654
-msgid "Opened file changed on disk"
-msgstr "El archivo ha cambiado en el disco"
+msgid "Opened file changed on disk."
+msgstr "El archivo ha cambiado en el disco."
 
 #: gui.py:654
 msgid "Reload"
 msgstr "Recargar"
 
 #: gui.py:680
-msgid "Schematic could not be converted to netlist"
-msgstr "El esquemático no pudo se convertido a netlist"
+msgid "Schematic could not be converted to netlist."
+msgstr "El esquemático no pudo se convertido a netlist."
 
 #: gui.py:716
 msgid "Please choose a file"
@@ -105,5 +109,9 @@ msgid "Supported files"
 msgstr "Archivos soportados"
 
 #: gui.py:749
-msgid "File could not be loaded"
-msgstr "El archivo no pudo ser abierto"
+msgid "File could not be loaded."
+msgstr "El archivo no pudo ser abierto."
+
+#: running_dialog.py:49
+msgid "Running ngspice…"
+msgstr "Ejecutando ngspice…"
