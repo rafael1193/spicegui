@@ -1,0 +1,21 @@
+# SpiceGUI
+# Copyright (C) 2014 Rafael Bailón <rafaelbailon@ieee.org>
+# This file is distributed under the same license as the SpiceGUI package.
+msgid ""
+msgstr ""
+"Project-Id-Version: SpiceGUI\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-12-30 13:33+0100\n"
+"PO-Revision-Date: 2014-12-30 13:33+0100\n"
+"Last-Translator: Rafael Bailón <rafaelbailon@ieee.org>\n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-Basepath: ../../../\n"
+"X-Poedit-SearchPath-0: .\n"
+
