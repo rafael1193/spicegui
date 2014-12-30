@@ -25,6 +25,9 @@
 
 from __future__ import print_function
 
+import os
+import os.path
+
 from gi.repository import Gio, Gtk
 
 import gui
@@ -79,6 +82,7 @@ class SpiceGUI(Gtk.Application):
                                  flags=Gio.ApplicationFlags.HANDLES_OPEN)
 
         self.builder = Gtk.Builder()
+        self.builder.set_translation_domain("messages")
 
         self.connect("activate", self.on_activate)
         self.connect("startup", self.on_startup)
@@ -96,7 +100,7 @@ class SpiceGUI(Gtk.Application):
         """
         #Gtk.Application.do_startup(self)
 
-        self.builder.add_from_string(self.app_menu_xml)
+        self.builder.add_from_file(os.path.join(os.path.dirname(__file__), "data", "menu.ui"))
 
         appmenu = self.builder.get_object('appmenu')
         self.set_app_menu(appmenu)
