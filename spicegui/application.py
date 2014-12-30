@@ -38,43 +38,6 @@ class SpiceGUI(Gtk.Application):
     """SpiceGUI Application."""
     GSETTINGS_BASE_KEY = "org.rafael1193.spicegui"
 
-    app_menu_xml = """
-    <?xml version="1.0" encoding="UTF-8"?>
-    <interface domain="spicegui">
-        <!-- interface-requires gtk+ 3.6 -->
-        <menu id="appmenu">
-            <section>
-              <item>
-                <attribute name="label" translatable="yes">_New window</attribute>
-                <attribute name="action">app.new</attribute>
-                <attribute name="accel">&lt;Primary&gt;n</attribute>
-              </item>
-            </section>
-            <section>
-              <item>
-                <attribute name="label" translatable="yes">_Preferences</attribute>
-                <attribute name="action">app.preferences</attribute>
-              </item>
-            </section>
-            <section>
-              <item>
-                <attribute name="label" translatable="yes">_Help</attribute>
-                <attribute name="action">app.help</attribute>
-              </item>
-              <item>
-                <attribute name="label" translatable="yes">_About</attribute>
-                <attribute name="action">app.about</attribute>
-              </item>
-              <item>
-                <attribute name="label" translatable="yes">_Quit</attribute>
-                <attribute name="action">app.quit</attribute>
-                <attribute name="accel">&lt;Primary&gt;q</attribute>
-              </item>
-           </section>
-        </menu>
-    </interface>
-    """
-
     def __init__(self):
         """Inits SpiceGUI Application."""
         Gtk.Application.__init__(self,
