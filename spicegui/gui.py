@@ -137,8 +137,8 @@ class MainWindow(Gtk.ApplicationWindow):
         self.circuit = None
         self.netlist_file_path = None
         self.file_monitor = None
-        self.raw_data_window = console_gui.ConsoleOutputWindow("Simulation output")
-        self.execution_log_window = console_gui.ConsoleOutputWindow("Execution log")
+        self.raw_data_window = console_gui.ConsoleOutputWindow(_("Simulation output"))
+        self.execution_log_window = console_gui.ConsoleOutputWindow(_("Execution log"))
         self._create_menu_models()
 
         ##########
@@ -185,13 +185,13 @@ class MainWindow(Gtk.ApplicationWindow):
 
 
         self.infobar = None
-        self.stack.add_titled(self.overview_box, "overview", "Circuit")
+        self.stack.add_titled(self.overview_box, "overview", _("Circuit"))
 
         ## Simulation stack
         self.simulation_box = Gtk.Box()
         self.canvas = Gtk.DrawingArea()
         self.simulation_box.pack_start(self.canvas, True, True, 0)
-        self.stack.add_titled(self.simulation_box, "simulation", "Simulation")
+        self.stack.add_titled(self.simulation_box, "simulation", _("Simulation"))
 
         if self.csd_are_supported() == True:
             self.add(self.stack)
@@ -239,7 +239,7 @@ class MainWindow(Gtk.ApplicationWindow):
                 emptyPageImage = Gtk.Image(icon_name='document-open-symbolic', icon_size=Gtk.IconSize.DIALOG)
                 emptyPageImage.get_style_context().add_class('dim-label')
                 self.emptyGrid.add(emptyPageImage)
-                emptyPageDirections = Gtk.Label(label="Use the <b>Open</b> button to load a circuit", use_markup=True, max_width_chars=30, halign=Gtk.Align.CENTER, valign=Gtk.Align.CENTER )
+                emptyPageDirections = Gtk.Label(label=_("Use the <b>Open</b> button to load a circuit"), use_markup=True, max_width_chars=30, halign=Gtk.Align.CENTER, valign=Gtk.Align.CENTER )
                 emptyPageDirections.get_style_context().add_class('dim-label');
                 self.emptyGrid.add(emptyPageDirections);
                 self.emptyGrid.show_all();
@@ -323,16 +323,16 @@ class MainWindow(Gtk.ApplicationWindow):
         self.on_save_button_clicked_overview(None)
 
     def save_plot_cb(self, action, parameters):
-        dialog = Gtk.FileChooserDialog("Save plot", self, Gtk.FileChooserAction.SAVE,
+        dialog = Gtk.FileChooserDialog(_("Save plot"), self, Gtk.FileChooserAction.SAVE,
                                        (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, Gtk.STOCK_SAVE, Gtk.ResponseType.OK))
 
         png_filter = Gtk.FileFilter()
-        png_filter.set_name("Portable Network Graphics")
+        png_filter.set_name(_("Portable Network Graphics"))
         png_filter.add_mime_type("image/png")
         dialog.add_filter(png_filter)
 
         svg_filter = Gtk.FileFilter()
-        svg_filter.set_name("Scalable Vector Graphics")
+        svg_filter.set_name(_("Scalable Vector Graphics"))
         svg_filter.add_mime_type("image/svg+xml")
         dialog.add_filter(svg_filter)
 
@@ -359,11 +359,11 @@ class MainWindow(Gtk.ApplicationWindow):
             dialog.destroy()
 
     def save_data_cb(self, action, parameters):
-        dialog = Gtk.FileChooserDialog("Save simulation data", self, Gtk.FileChooserAction.SAVE,
+        dialog = Gtk.FileChooserDialog(_("Save simulation data"), self, Gtk.FileChooserAction.SAVE,
                                        (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, Gtk.STOCK_SAVE, Gtk.ResponseType.OK))
 
         csv_filter = Gtk.FileFilter()
-        csv_filter.set_name("Comma-separated values")
+        csv_filter.set_name(_("Comma-separated values"))
         csv_filter.add_mime_type("text/csv")
         dialog.add_filter(csv_filter)
 
@@ -381,7 +381,7 @@ class MainWindow(Gtk.ApplicationWindow):
 
     def simulation_output_action_cb(self, action, parameters):
         if self.raw_data_window is None:
-            self.raw_data_window = console_gui.ConsoleOutputWindow("Simulation output")
+            self.raw_data_window = console_gui.ConsoleOutputWindow(_("Simulation output"))
         self.raw_data_window.show_all()
 
     def close_cb(self, action, parameters):
@@ -478,7 +478,7 @@ class MainWindow(Gtk.ApplicationWindow):
 
     def _add_load_button(self):
         self.load_button = Gtk.Button()
-        self.load_button.set_label("Open")
+        self.load_button.set_label(_("Open"))
 #        icon = Gio.ThemedIcon(name="document-open-symbolic")
 #        image = Gtk.Image.new_from_gicon(icon, Gtk.IconSize.MENU)
 #        self.load_button.set_image(image)
@@ -599,12 +599,12 @@ class MainWindow(Gtk.ApplicationWindow):
                 else:
                     errors_str = [str(x) for x in simulator.errors]
                     self.set_execution_log(self.netlist_file_path,"\n".join(errors_str))
-                    self.set_error(title="Simulation failed", actions=[("Execution log", 1000, self.on_execution_log_clicked)])
+                    self.set_error(title=_("Simulation failed"), actions=[(_("Execution log"), 1000, self.on_execution_log_clicked)])
             else:
                 simulator.terminate()
             self.set_output_file_content(self.netlist_file_path + ".out")
         except Exception as e:
-            self.set_error(title="Simulation failed", message=str(e))
+            self.set_error(title=_("Simulation failed"), message=str(e))
         finally:
             dialog.destroy()
 
@@ -620,7 +620,7 @@ class MainWindow(Gtk.ApplicationWindow):
 
     def on_execution_log_clicked(self, button, response_id):
         if self.execution_log_window is None:
-            self.execution_log_window = console_gui.ConsoleOutputWindow("Execution log")
+            self.execution_log_window = console_gui.ConsoleOutputWindow(_("Execution log"))
         self.execution_log_window.show_all()
 
     def set_execution_log(self, file_name, content):
@@ -651,7 +651,7 @@ class MainWindow(Gtk.ApplicationWindow):
         Callback function for file monitor on netlist file
         '''
         if event_type == Gio.FileMonitorEvent.CHANGED or event_type == Gio.FileMonitorEvent.CREATED:
-            self.set_error(title="Opened file changed on disk", message=None, message_type=Gtk.MessageType.WARNING, actions=[("Reload", 1000, self.on_infobar_reload_clicked)])
+            self.set_error(title=_("Opened file changed on disk"), message=None, message_type=Gtk.MessageType.WARNING, actions=[(_("Reload"), 1000, self.on_infobar_reload_clicked)])
 
     def on_infobar_reload_clicked(self, button, response_id):
         if self.schematic_file_path is not None:
@@ -677,7 +677,7 @@ class MainWindow(Gtk.ApplicationWindow):
                 self.netlist_file_path = path + ".net"
                 self.schematic_file_path = path
             except Exception as e:
-                self.set_error(title="Schematic could not be converted to netlist", message=str(e))
+                self.set_error(title=_("Schematic could not be converted to netlist"), message=str(e))
                 self.netlist_file_path = None
                 self.schematic_file_path = None
                 return
@@ -713,23 +713,23 @@ class MainWindow(Gtk.ApplicationWindow):
 
     def on_button_open_clicked(self, button):
         #Filechooserdialog initialization
-        dialog = Gtk.FileChooserDialog("Please choose a file", self, Gtk.FileChooserAction.OPEN,
+        dialog = Gtk.FileChooserDialog(_("Please choose a file"), self, Gtk.FileChooserAction.OPEN,
                                        (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, Gtk.STOCK_OPEN, Gtk.ResponseType.OK))
 
         netlist_filter = Gtk.FileFilter()
-        netlist_filter.set_name("Netlist")
+        netlist_filter.set_name(_("Netlist"))
         netlist_filter.add_pattern("*.net")
         netlist_filter.add_pattern("*.cir")
         netlist_filter.add_pattern("*.ckt")
         dialog.add_filter(netlist_filter)
 
         gschem_filter = Gtk.FileFilter()
-        gschem_filter.set_name("GEDA schematic")
+        gschem_filter.set_name(_("GEDA schematic"))
         gschem_filter.add_mime_type("application/x-geda-schematic")
         dialog.add_filter(gschem_filter)
 
         all_filter = Gtk.FileFilter()
-        all_filter.set_name("Supported files")
+        all_filter.set_name(_("Supported files"))
         all_filter.add_pattern("*.net")
         all_filter.add_pattern("*.cir")
         all_filter.add_pattern("*.ckt")
@@ -746,7 +746,7 @@ class MainWindow(Gtk.ApplicationWindow):
                 dialog.destroy()
                 self.load_file(path)
             except Exception as e:
-                self.set_error(title="File could not be loaded", message=str(e.message))
+                self.set_error(title=_("File could not be loaded"), message=str(e.message))
         else:
             dialog.destroy()
 
