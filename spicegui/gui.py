@@ -254,7 +254,7 @@ class MainWindow(Gtk.ApplicationWindow):
         ## Create menu model
         builder = Gtk.Builder()
         builder.set_translation_domain("messages")
-        builder.add_from_string(self.gear_menu_xml)
+        builder.add_from_file(os.path.join(os.path.dirname(__file__), "data", "menu.ui"))
         self.gearmenu_overview = builder.get_object('gearmenu-overview')
 
         ## Bind actions
@@ -268,8 +268,6 @@ class MainWindow(Gtk.ApplicationWindow):
 
         # gear_menu simulation xml #
         ## Create menu model
-        builder = Gtk.Builder()
-        builder.add_from_string(self.gear_menu_xml)
         self.gearmenu_simulation = builder.get_object('gearmenu-simulation')
 
         ## Bind actions
@@ -287,8 +285,6 @@ class MainWindow(Gtk.ApplicationWindow):
 
         # insert_menu_xml #
         ## Create menu model
-        builder = Gtk.Builder()
-        builder.add_from_string(self.insert_menu_xml)
         self.insertmenu = builder.get_object('insertmenu')
 
         ## Bind actions
