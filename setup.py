@@ -39,7 +39,7 @@ params = {
 
     # include all resources
     "include_package_data": True,
-    "package_data": {'spicegui': ['data/*.glade']},
+    "package_data": {'spicegui': ['data/*.glade', 'data/*.ui']},
 
     "packages": find_packages(),
     
