@@ -1,14 +1,15 @@
 # SpiceGUI
 # Copyright (C) 2014 Rafael Bailón <rafaelbailon@ieee.org>
 # This file is distributed under the same license as the SpiceGUI package.
+# Rafael Bailón <rafaelbailon@ieee.org>, 2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: SpiceGUI\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-30 13:33+0100\n"
-"PO-Revision-Date: 2014-12-30 13:33+0100\n"
+"POT-Creation-Date: 2014-12-30 15:05+0100\n"
+"PO-Revision-Date: 2014-12-30 15:18+0100\n"
 "Last-Translator: Rafael Bailón <rafaelbailon@ieee.org>\n"
-"Language-Team: \n"
+"Language-Team: SpiceGUI\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,3 +20,82 @@ msgstr ""
 "X-Poedit-Basepath: ../../../\n"
 "X-Poedit-SearchPath-0: .\n"
 
+#: gui.py:140 gui.py:384
+msgid "Simulation output"
+msgstr "Resultados de la simulación"
+
+#: gui.py:141 gui.py:602 gui.py:623
+msgid "Execution log"
+msgstr "Registro de ejecución"
+
+#: gui.py:188
+msgid "Circuit"
+msgstr "Circuito"
+
+#: gui.py:194
+msgid "Simulation"
+msgstr "Simulación"
+
+#: gui.py:242
+msgid "Use the <b>Open</b> button to load a circuit"
+msgstr "Usa el botón <b>Open</b> para abrir un circuito"
+
+#: gui.py:326
+msgid "Save plot"
+msgstr "Guardar gráfica"
+
+#: gui.py:330
+msgid "Portable Network Graphics"
+msgstr "Portable Network Graphics"
+
+#: gui.py:335
+msgid "Scalable Vector Graphics"
+msgstr "Scalable Vector Graphics"
+
+#: gui.py:362
+msgid "Save simulation data"
+msgstr "Guardar resultados"
+
+#: gui.py:366
+msgid "Comma-separated values"
+msgstr "Valores separados por comas"
+
+#: gui.py:481
+msgid "Open"
+msgstr "Abrir"
+
+#: gui.py:602 gui.py:607
+msgid "Simulation failed"
+msgstr "La simulación falló"
+
+#: gui.py:654
+msgid "Opened file changed on disk"
+msgstr "El archivo ha cambiado en el disco"
+
+#: gui.py:654
+msgid "Reload"
+msgstr "Recargar"
+
+#: gui.py:680
+msgid "Schematic could not be converted to netlist"
+msgstr "El esquemático no pudo se convertido a netlist"
+
+#: gui.py:716
+msgid "Please choose a file"
+msgstr "Elija un archivo"
+
+#: gui.py:720
+msgid "Netlist"
+msgstr "Netlist"
+
+#: gui.py:727
+msgid "GEDA schematic"
+msgstr "Esquemático de GEDA"
+
+#: gui.py:732
+msgid "Supported files"
+msgstr "Archivos soportados"
+
+#: gui.py:749
+msgid "File could not be loaded"
+msgstr "El archivo no pudo ser abierto"
