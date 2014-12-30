@@ -25,8 +25,17 @@ from __future__ import print_function
 def start():
     """Starts SpiceGUI application."""
     import gettext
-    gettext.install('messages', './locales')
-    
+    import locale
+
+    domain = "messages"
+    locales_path = "./locales"
+
+    gettext.install(domain, locales_path)
+    locale.textdomain(domain)
+    locale.bindtextdomain(domain, locales_path)
+    locale.textdomain(domain)
+    locale.setlocale(locale.LC_ALL, '')
+
     import application
     import sys
     app = application.SpiceGUI()

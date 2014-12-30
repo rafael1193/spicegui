@@ -253,6 +253,7 @@ class MainWindow(Gtk.ApplicationWindow):
         # gear_menu overview xml #
         ## Create menu model
         builder = Gtk.Builder()
+        builder.set_translation_domain("messages")
         builder.add_from_string(self.gear_menu_xml)
         self.gearmenu_overview = builder.get_object('gearmenu-overview')
 

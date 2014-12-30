@@ -29,6 +29,7 @@ class Preferences(object):
        
         # Get window
         self.builder = Gtk.Builder()
+        self.builder.set_translation_domain("messages")
         self.builder.add_from_file(os.path.join(os.path.dirname(__file__), "data", "preferences.glade"))
 
         window = self.builder.get_object('preferences_window')
