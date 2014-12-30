@@ -25,14 +25,14 @@ class RunningDialog(Gtk.Dialog):
 
     def __init__(self, parent, event):
         if Gtk.check_version(3, 12, 0) is None: # Use header bar
-            Gtk.Dialog.__init__(self, "Simulation", parent, 
+            Gtk.Dialog.__init__(self, _("Simulation"), parent, 
                                 Gtk.DialogFlags.MODAL | 
                                 Gtk.DialogFlags.DESTROY_WITH_PARENT,
                                 (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL), 
                                 use_header_bar=True)
             self.get_header_bar().set_show_close_button(False)
         else: # Do not use header bar
-            Gtk.Dialog.__init__(self, "Simulation", parent, 
+            Gtk.Dialog.__init__(self, _("Simulation"), parent, 
                     Gtk.DialogFlags.MODAL | 
                     Gtk.DialogFlags.DESTROY_WITH_PARENT,
                     (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL))
@@ -46,7 +46,7 @@ class RunningDialog(Gtk.Dialog):
         self.progress_bar = Gtk.ProgressBar()
         self.progress_bar.activity_mode = True
         self.progress_bar.pulse()
-        self.progress_bar.set_text(u"Running ngspice…")
+        self.progress_bar.set_text(_(u"Running ngspice…"))
         self.progress_bar.set_show_text(True)
         
 #        self.label = Gtk.Label(label=u"Running ngspice…")

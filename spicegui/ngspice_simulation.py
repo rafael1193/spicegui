@@ -228,7 +228,7 @@ class NgspiceOutput():
             raise Exception("circuit_name is None")
 
         if n_simulations <= 0:
-            raise Exception("No simulations were done")
+            raise Exception(_("No simulations were done."))
 
         self.analysis = analysis
         self.data_lines = data_lines

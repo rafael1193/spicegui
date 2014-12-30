@@ -599,12 +599,12 @@ class MainWindow(Gtk.ApplicationWindow):
                 else:
                     errors_str = [str(x) for x in simulator.errors]
                     self.set_execution_log(self.netlist_file_path,"\n".join(errors_str))
-                    self.set_error(title=_("Simulation failed"), actions=[(_("Execution log"), 1000, self.on_execution_log_clicked)])
+                    self.set_error(title=_("Simulation failed."), actions=[(_("Execution log"), 1000, self.on_execution_log_clicked)])
             else:
                 simulator.terminate()
             self.set_output_file_content(self.netlist_file_path + ".out")
         except Exception as e:
-            self.set_error(title=_("Simulation failed"), message=str(e))
+            self.set_error(title=_("Simulation failed."), message=str(e))
         finally:
             dialog.destroy()
 
@@ -651,7 +651,7 @@ class MainWindow(Gtk.ApplicationWindow):
         Callback function for file monitor on netlist file
         '''
         if event_type == Gio.FileMonitorEvent.CHANGED or event_type == Gio.FileMonitorEvent.CREATED:
-            self.set_error(title=_("Opened file changed on disk"), message=None, message_type=Gtk.MessageType.WARNING, actions=[(_("Reload"), 1000, self.on_infobar_reload_clicked)])
+            self.set_error(title=_("Opened file changed on disk."), message=None, message_type=Gtk.MessageType.WARNING, actions=[(_("Reload"), 1000, self.on_infobar_reload_clicked)])
 
     def on_infobar_reload_clicked(self, button, response_id):
         if self.schematic_file_path is not None:
@@ -677,7 +677,7 @@ class MainWindow(Gtk.ApplicationWindow):
                 self.netlist_file_path = path + ".net"
                 self.schematic_file_path = path
             except Exception as e:
-                self.set_error(title=_("Schematic could not be converted to netlist"), message=str(e))
+                self.set_error(title=_("Schematic could not be converted to netlist."), message=str(e))
                 self.netlist_file_path = None
                 self.schematic_file_path = None
                 return
@@ -746,7 +746,7 @@ class MainWindow(Gtk.ApplicationWindow):
                 dialog.destroy()
                 self.load_file(path)
             except Exception as e:
-                self.set_error(title=_("File could not be loaded"), message=str(e.message))
+                self.set_error(title=_("File could not be loaded."), message=str(e.message))
         else:
             dialog.destroy()
 
