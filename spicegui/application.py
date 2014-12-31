@@ -30,22 +30,22 @@ import os.path
 
 from gi.repository import Gio, Gtk
 
+import constants
 import gui
 import preferences_gui
 
 
 class SpiceGUI(Gtk.Application):
     """SpiceGUI Application."""
-    GSETTINGS_BASE_KEY = "org.rafael1193.spicegui"
 
     def __init__(self):
         """Inits SpiceGUI Application."""
         Gtk.Application.__init__(self,
-                                 application_id="org.rafael1193.spicegui",
+                                 application_id=constants.APPLICATION_ID,
                                  flags=Gio.ApplicationFlags.HANDLES_OPEN)
 
         self.builder = Gtk.Builder()
-        self.builder.set_translation_domain("messages")
+        self.builder.set_translation_domain(constants.DOMAIN)
 
         self.connect("activate", self.on_activate)
         self.connect("startup", self.on_startup)
@@ -164,12 +164,12 @@ class SpiceGUI(Gtk.Application):
         aboutdialog = Gtk.AboutDialog()
         aboutdialog.connect("response", lambda w, r: aboutdialog.destroy())
         aboutdialog.set_title(_("About SpiceGUI"))
-        aboutdialog.set_program_name("SpiceGUI")
-        aboutdialog.set_version("0.3")
+        aboutdialog.set_program_name(constants.PROGRAM_NAME)
+        aboutdialog.set_version(constants.VERSION)
         aboutdialog.set_comments(_("Graphical user interface for circuit simulation using ngspice."))
         aboutdialog.set_copyright("Copyright \xc2\xa9 2014 Rafael Bailón-Ruiz")
-        aboutdialog.set_logo_icon_name("spicegui")
-        aboutdialog.set_website("http://github.com/rafael1193/spicegui")
+        aboutdialog.set_logo_icon_name(constants.PROGRAM_NAME_LOWER)
+        aboutdialog.set_website(constants.WEBSITE)
         aboutdialog.set_license_type(Gtk.License.GPL_3_0)
         
         authors = ["Rafael Bailón Ruiz <rafaelbailon@ieee.org>"]

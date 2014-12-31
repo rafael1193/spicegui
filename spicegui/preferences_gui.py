@@ -22,21 +22,22 @@ import os.path
 
 from gi.repository import Gio, Gtk
 
+import constants
 
 class Preferences(object):
-    GSETTINGS_BASE_KEY = "org.rafael1193.spicegui"
+    
     def __init__(self, parent):
        
         # Get window
         self.builder = Gtk.Builder()
-        self.builder.set_translation_domain("messages")
+        self.builder.set_translation_domain(constants.DOMAIN)
         self.builder.add_from_file(os.path.join(os.path.dirname(__file__), "data", "preferences.glade"))
 
         window = self.builder.get_object('preferences_window')
         window.set_transient_for(parent)
         
         # Get gsettings reference
-        settings = Gio.Settings.new(self.GSETTINGS_BASE_KEY)
+        settings = Gio.Settings.new(constants.GSETTINGS_BASE_KEY)
         
         ## Show legend setting
         show_legend_checkbutton = self.builder.get_object('show_legend_checkbutton')

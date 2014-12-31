@@ -8,12 +8,14 @@ from setuptools import setup, find_packages
 
 import subprocess
 
-__prj__ = "spicegui"
+import spicegui.constants
+
+__prj__ = spicegui.constants.PROGRAM_NAME_LOWER
 __author__ = "Rafael Bailón-Ruiz"
 __mail__ = "rafaelbailon at ieee dot org"
-__url__ = "https://github.com/rafael1193/spicegui"
-__source__ = "https://github.com/rafael1193/spicegui"
-__version__ = "0.3"
+__url__ = spicegui.constants.WEBSITE
+__source__ = spicegui.constants.WEBSITE
+__version__ = spicegui.constants.SPICEGUI_VERSION
 __license__ = "GPL3"
 
 dependencies = []
@@ -47,7 +49,8 @@ params = {
                   ('/usr/share/glib-2.0/schemas/', ['spicegui/data/org.rafael1193.spicegui.gschema.xml']),
                   ('/usr/share/gtksourceview-3.0/language-specs/', ['spicegui/data/spice-netlist.lang']),
                   ('/usr/share/icons/hicolor/scalable/apps/', ['spicegui/data/spicegui.svg']),
-                  ('/usr/share/appdata/',['spicegui/data/SpiceGUI.appdata.xml'])],
+                  ('/usr/share/appdata/',['spicegui/data/SpiceGUI.appdata.xml']),
+                  ('/usr/share/locale/',['spicegui/locale/*'])],
 
     #auto create scripts
     "entry_points": {

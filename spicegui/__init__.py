@@ -53,7 +53,7 @@ def start():
     import gettext
     import locale
 
-    domain = "messages"
+    domain = constants.DOMAIN
     locale_path = get_locale_path()
 
     gettext.install(domain, locale_path)

@@ -28,7 +28,7 @@ from gi.repository import Gio
 from matplotlib.figure import Figure
 from threading import Event, Lock, Thread
 
-import preferences_gui
+import constants
 
 
 class NgspiceOutput():
@@ -253,7 +253,7 @@ class NgspiceOutput():
         Returns:
             A ``matplotlib.figure.Figure`` object.
         """
-        settings = Gio.Settings.new(preferences_gui.Preferences.GSETTINGS_BASE_KEY)
+        settings = Gio.Settings.new(constants.GSETTINGS_BASE_KEY)
 
         f = Figure(figsize=(16, 7), dpi=100)
         a = f.add_subplot(111)
