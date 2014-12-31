@@ -24,7 +24,7 @@ APPLICATION_ID = "org.rafael1193.spicegui"
 DOMAIN = "spicegui"
 GSETTINGS_BASE_KEY = "org.rafael1193.spicegui"
 PROGRAM_NAME = "SpiceGUI"
-PROGRAM_NAME_LOWER = PROGRAM_NAME.tolower()
+PROGRAM_NAME_LOWER = PROGRAM_NAME.lower()
 VERSION = "0.3"
 PROGRAM_WEBSITE = "http://github.com/rafael1193/spicegui"
 

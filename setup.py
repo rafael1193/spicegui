@@ -13,9 +13,9 @@ import spicegui.constants
 __prj__ = spicegui.constants.PROGRAM_NAME_LOWER
 __author__ = "Rafael Bailón-Ruiz"
 __mail__ = "rafaelbailon at ieee dot org"
-__url__ = spicegui.constants.WEBSITE
-__source__ = spicegui.constants.WEBSITE
-__version__ = spicegui.constants.SPICEGUI_VERSION
+__url__ = spicegui.constants.PROGRAM_WEBSITE
+__source__ = spicegui.constants.PROGRAM_WEBSITE
+__version__ = spicegui.constants.VERSION
 __license__ = "GPL3"
 
 dependencies = []
@@ -50,7 +50,7 @@ params = {
                   ('/usr/share/gtksourceview-3.0/language-specs/', ['spicegui/data/spice-netlist.lang']),
                   ('/usr/share/icons/hicolor/scalable/apps/', ['spicegui/data/spicegui.svg']),
                   ('/usr/share/appdata/',['spicegui/data/SpiceGUI.appdata.xml']),
-                  ('/usr/share/locale/',['spicegui/locale/*'])],
+                  ('/usr/share/locale/es/LC_MESSAGES/',['spicegui/locale/es/LC_MESSAGES/spicegui.mo'])],
 
     #auto create scripts
     "entry_points": {
@@ -65,15 +65,23 @@ params = {
 
 def update_icon_cache():
     try:
-        subprocess.call(["gtk-update-icon-cache","/usr/share/icons/hicolor"])
+        subprocess.call(["gtk-update-icon-cache", "/usr/share/icons/hicolor"])
     except Exception: 
         pass
     
 def glib_compile_schemas():
     try:
-        subprocess.call(["glib-compile-schemas","/usr/share/glib-2.0/schemas/"])
+        subprocess.call(["glib-compile-schemas", "/usr/share/glib-2.0/schemas/"])
     except Exception:
         pass
+
+def compile_message_catalog():
+    try:
+        subprocess.call(["msgfmt", "-o", "spicegui/locale/es/LC_MESSAGES/spicegui.mo", "spicegui/locale/es/LC_MESSAGES/spicegui.po"])
+    except Exception:
+        pass
+
+compile_message_catalog()
 
 setup(**params)
 

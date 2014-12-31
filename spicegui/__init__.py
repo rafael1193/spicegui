@@ -24,6 +24,8 @@ from __future__ import print_function
 import os
 import os.path
 
+import constants
+
 
 def get_locale_path():
     """Get locale folder path.
@@ -35,11 +37,9 @@ def get_locale_path():
         IOError: If locale path cannot be found.
     """
     local = os.path.join(os.path.dirname(os.path.abspath(__file__)),"locale")
-    print(local)
     installed_base = os.path.join(" ",*(os.path.dirname(os.path.abspath(__file__)).split(os.sep)[:-4])).lstrip(" ")  # Remove lib/python2.7/site-packages/spicegui
     installed_ext = os.path.join("share", "locale")
     installed = os.path.join(installed_base, installed_ext)
-    print(installed)
 
     if os.path.exists(local):
         return local

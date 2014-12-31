@@ -221,7 +221,6 @@ class NgspiceOutput():
                 if stripped.startswith(self.circuit_name):
                     # table found!
                     analysis, date, data_lines = table_parser(i)
-                    print(analysis, date, data_lines)
                     n_simulations += 1
 
         if self.circuit_name is None:
@@ -337,7 +336,7 @@ class Ngspice():
         encoding = locale.getdefaultlocale()[1]
         stdout_b, stderr_b = process.communicate()
         stdout, stderr = stdout_b.decode(encoding), stderr_b.decode(encoding)
-        print(stdout, stderr)
+
         if stderr:
             stderr_l = stderr.split("\n")
             error_lines=""
@@ -347,7 +346,6 @@ class Ngspice():
                         error_lines += "\n"
                     error_lines += line
             if error_lines != "":
-                print(error_lines)
                 raise Exception(error_lines)
 
 
