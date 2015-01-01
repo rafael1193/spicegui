@@ -21,6 +21,7 @@ Requires:       pango
 Requires:       ngspice
 Requires:       geda-gnetlist
 Requires:       geda-gschem
+Requires:       gettext
 
 BuildArch:      noarch
 
@@ -64,6 +65,9 @@ fi
 
 
 %changelog
+* Sun Dec 21 2014 Rafael Bailón-Ruiz <rafaelbailon at ieee dot org> - 0.3-2
+- Add gettext dependency
+
 * Sun Dec 21 2014 Rafael Bailón-Ruiz <rafaelbailon at ieee dot org> - 0.3-1
 - Update to 0.3
 
