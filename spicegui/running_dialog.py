@@ -49,13 +49,6 @@ class RunningDialog(Gtk.Dialog):
         self.progress_bar.set_text(_(u"Running ngspice…"))
         self.progress_bar.set_show_text(True)
         
-#        self.label = Gtk.Label(label=u"Running ngspice…")
-#        self.label.set_vexpand(True)
-        
-#        self.spinner = Gtk.Spinner()
-#        self.spinner.start()
-#        self.spinner.set_vexpand(True)
-        
         self.hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
         self.hbox.set_margin_left(18)
         self.hbox.set_margin_top(18)
@@ -65,9 +58,6 @@ class RunningDialog(Gtk.Dialog):
         self.hbox.set_spacing(12)
         
         self.hbox.pack_start(self.progress_bar, True, True, 18)
-#        self.hbox.pack_start(self.spinner, True, True, 18)
-#        self.hbox.pack_start(self.label, True, True, 18)
-        
         
         box = self.get_content_area()
         box.add(self.hbox)

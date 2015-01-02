@@ -431,7 +431,6 @@ class Gnetlist():
         encoding = locale.getdefaultlocale()[1]
         stdout_b, stderr_b = process.communicate()
         stdout, stderr = stdout_b.decode(encoding), stderr_b.decode(encoding)
-#        print(stdout, stderr)
         if stderr:
             stderr_l = stderr.split("\n")
             error_lines=""
@@ -441,18 +440,13 @@ class Gnetlist():
                         error_lines += "\n"
                     error_lines += line
             if error_lines != "":
-#                print(error_lines)
                 raise ExecutionError(error_lines)
-#            print("Error: " + stderr)
 
 
 class Netlist(object):
 
     def __init__(self, source):
         self.source = source
-#        self.regex = {}
-#        self.regex["comment"] = re.compile("^\*.")
-#        self.regex["device"] = re.compile("^(?P<device>[a-zA-Z])(?<name>.*?)\s") #R, L, C
 
     def get_title(self):
         match = re.search("^\.title (?P<title>.*)$", self.source, flags=re.MULTILINE | re.IGNORECASE)
@@ -465,69 +459,3 @@ class Netlist(object):
                     return title[1:].strip()
                 else:
                     return title.strip()
-
-    def parse(self, netlist):
-        devices = []
-        nodes = set()
-        devices = self._tokenize(netlist)
-        return devices, nodes
-
-    def _get_number_of_terminals(self, device):
-        component_pin_number = {
-            'A':None,  # TODO: check pin numbervalue
-            'B':2,
-            'C':2,
-            'D':2,
-            'E':4,  # TODO: check non linear version
-            'F':2,
-            'G':4,
-            'H':2,
-            'I':2,
-            'J':3,
-            'K':0,
-            'L':2,
-            'M':4,
-            'N':None,
-            'O':4,
-            'P':None,
-            'Q':3,  # TODO: Detect substrate pin!
-            'R':2,
-            'S':4,
-            'T':4,
-            'U':3,
-            'V':2,
-            'W':2,
-            'X':None,  # TODO: parameters - 1
-            'Y':4,
-            'Z':3}
-        if component_pin_number[device] is not None:
-            return component_pin_number[device]
-        else:
-            raise NotImplementedError("component type '"+str(device)+"' handling is not implemented")
-
-    def _tokenize(self, raw_netlist):
-
-        # Now, it is only needed information about device names and terminals, not other parameters or directives
-        tokens = []
-        nodes = set()
-
-        for line in raw_netlist.split("\n"):
-            tok = {}
-            line = line.strip()  # remove begining and leading spaces
-            if re.match(self.regex["comment"], line):  # Discard comments
-                continue
-            splitted = line.split()
-            m = re.match(self.regex["device"], line)
-            if m:  # is a device
-                tok = m.groupdict()
-                tok = {}
-                tokens.append(tok)
-                # basic device terminal handling
-                if self._get_number_of_terminals(tok["device"]) == 2:
-                    tok["terminals"] = (splitted[1 + 0], splitted[1 + 1])
-                if self._get_number_of_terminals(tok["device"]) == 3:
-                    tok["terminals"] = (splitted[1 + 0], splitted[1 + 1], splitted[1 + 2])
-                for pin in tok["terminals"]:
-                    nodes.add(pin)
-
-        return tokens, nodes

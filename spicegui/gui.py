@@ -61,18 +61,13 @@ class MainWindow(Gtk.ApplicationWindow):
 
         self._add_insert_button()
         self._add_simulate_button()
-#        self._add_save_button() #Save button is no loger needed
         self._add_gear_button()
 
         self.hb.pack_end(self.hb_rbox)
 
         ## Left side of headerbar
-#        self._add_back_button()
-#        self.back_button.props.visible = False
         self._add_arrow_buttons()
         self._add_load_button()
-
-#        self.simulate_button.props.sensitive = False
 
         ########
         #Content
@@ -151,7 +146,6 @@ class MainWindow(Gtk.ApplicationWindow):
                 self.simulate_button.props.sensitive = False
                 self.forward_button.props.sensitive = False # TODO: let see why this is not effective...
                 self.lookup_action("save").props.enabled = False
-                # TODO: Disable "save" action -> self.actions ... .set_enable(False)
 
     def _create_menu_models(self):
         # gear_menu overview xml #
@@ -353,14 +347,6 @@ class MainWindow(Gtk.ApplicationWindow):
         #Pack
         self.hb_rbox.pack_start(self.insert_button, False, False, 0)
 
-    def _add_save_button(self):
-        self.save_button = Gtk.Button()
-        icon = Gio.ThemedIcon(name="document-save-symbolic")
-        image = Gtk.Image.new_from_gicon(icon, Gtk.IconSize.MENU)
-        self.save_button.add(image)
-        #self.save_button.get_style_context().add_class("image-buton")
-        self.hb.pack_end(self.save_button)
-
     def _add_arrow_buttons(self):
         self.arrow_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
         Gtk.StyleContext.add_class(self.arrow_box.get_style_context(), "linked")
@@ -380,16 +366,12 @@ class MainWindow(Gtk.ApplicationWindow):
     def _add_load_button(self):
         self.load_button = Gtk.Button()
         self.load_button.set_label(_("Open"))
-#        icon = Gio.ThemedIcon(name="document-open-symbolic")
-#        image = Gtk.Image.new_from_gicon(icon, Gtk.IconSize.MENU)
-#        self.load_button.set_image(image)
 
         self.load_button.connect("clicked", self.on_button_open_clicked)
         self.hb.pack_start(self.load_button)
 
     def _add_simulate_button(self):
         self.simulate_button = Gtk.Button()
-#        self.simulate_button.set_label("Simulate")
         icon = Gio.ThemedIcon(name="media-playback-start-symbolic")
         image = Gtk.Image.new_from_gicon(icon, Gtk.IconSize.MENU)
         self.simulate_button.add(image)
@@ -443,7 +425,7 @@ class MainWindow(Gtk.ApplicationWindow):
 
         if actions is not None:
             for action in actions:
-                self.infobar.add_button(action[0], action[1]) #TODO: Fix self.infobar.add_button(action[0],action[1]) -> TypeError: Must be number, not str
+                self.infobar.add_button(action[0], action[1])
                 self.infobar.user_responses[action[1]] = action[2]
 
         self.infobar.show_all()
@@ -652,10 +634,12 @@ class MainWindow(Gtk.ApplicationWindow):
             dialog.destroy()
 
     def on_save_button_clicked_overview(self, button):
+        """Save file on self.netlist_file_path path.
+        
+        Args:
+            button: Caller object
+        """
         self.stop_file_monitor()
-        if not self.netlist_file_path:
-            #TODO: Show a save file dialog
-            pass
         with open(self.netlist_file_path, "w") as f:
             f.write(self.source_buffer.props.text)
         self.start_file_monitor()

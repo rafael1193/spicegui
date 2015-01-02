@@ -61,7 +61,7 @@ class SpiceGUI(Gtk.Application):
         Args:
             app: Appliction.
         """
-        #Gtk.Application.do_startup(self)
+        Gtk.Application.do_startup(self)
 
         self.builder.add_from_file(os.path.join(os.path.dirname(__file__), "data", "menu.ui"))
 
