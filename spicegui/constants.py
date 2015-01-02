@@ -23,6 +23,7 @@
 APPLICATION_ID = "org.rafael1193.spicegui"
 DOMAIN = "spicegui"
 GSETTINGS_BASE_KEY = "org.rafael1193.spicegui"
+HELP_URL = "https://github.com/rafael1193/spicegui/wiki"
 PROGRAM_NAME = "SpiceGUI"
 PROGRAM_NAME_LOWER = PROGRAM_NAME.lower()
 VERSION = "0.3"

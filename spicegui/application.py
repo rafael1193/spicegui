@@ -27,6 +27,7 @@ from __future__ import print_function
 
 import os
 import os.path
+import webbrowser
 
 from gi.repository import Gio, Gtk
 
@@ -76,9 +77,9 @@ class SpiceGUI(Gtk.Application):
         preferences_action.connect("activate", self.on_preferences_action)
         self.add_action(preferences_action)
 
-#        help_action = Gio.SimpleAction.new("help", None)
-#        help_action.connect("activate", self.on_help_action)
-#        self.add_action(help_action)
+        help_action = Gio.SimpleAction.new("help", None)
+        help_action.connect("activate", self.on_help_action)
+        self.add_action(help_action)
 
         about_action = Gio.SimpleAction.new("about", None)
         about_action.connect("activate", self.on_about_action)
@@ -139,18 +140,15 @@ class SpiceGUI(Gtk.Application):
         preferences_gui.Preferences(self.get_active_window())
 
     def on_help_action(self, action, parameter):
-        """Shows Help window.
+        """Shows Help web page.
 
         ``help`` action ``activate`` signal handler.
 
         Args:
             action: GAction.
             parameter: The parameter to the activation.
-
-        Raises:
-            NotImplementedError: Not implemented method
         """
-        raise NotImplementedError()
+        webbrowser.open(constants.HELP_URL)
 
     def on_about_action(self, action, parameter):
         """Shows About dialog.
