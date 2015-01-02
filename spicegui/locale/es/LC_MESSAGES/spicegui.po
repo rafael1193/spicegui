@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SpiceGUI\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-30 19:09+0100\n"
-"PO-Revision-Date: 2014-12-30 22:42+0100\n"
+"POT-Creation-Date: 2015-01-02 02:05+0100\n"
+"PO-Revision-Date: 2015-01-02 02:05+0100\n"
 "Last-Translator: Rafael Bailón <rafaelbailon@ieee.org>\n"
 "Language-Team: SpiceGUI\n"
 "Language: es\n"
@@ -33,87 +33,87 @@ msgstr "Interfaz gráfica para simulación de circuitos usando ngspice."
 msgid "translator-credits"
 msgstr "Rafael Bailón Ruiz <rafaelbailon@ieee.org>, 2014"
 
-#: ngspice_simulation.py:231
+#: ngspice_simulation.py:230
 msgid "No simulations were done."
 msgstr "No se han realizado ninguna simulación."
 
-#: gui.py:41 gui.py:282
+#: gui.py:42 gui.py:285
 msgid "Simulation output"
 msgstr "Resultados de la simulación"
 
-#: gui.py:42 gui.py:500 gui.py:521
+#: gui.py:43 gui.py:503 gui.py:524
 msgid "Execution log"
 msgstr "Registro de ejecución"
 
-#: gui.py:89
+#: gui.py:90
 msgid "Circuit"
 msgstr "Circuito"
 
-#: gui.py:95 running_dialog.py:28 running_dialog.py:35
+#: gui.py:96 running_dialog.py:28 running_dialog.py:35
 msgid "Simulation"
 msgstr "Simulación"
 
-#: gui.py:143
+#: gui.py:145
 msgid "Use the <b>Open</b> button to load a circuit"
 msgstr "Usa el botón <b>Abrir</b> para cargar un circuito"
 
-#: gui.py:224
+#: gui.py:227
 msgid "Save plot"
 msgstr "Guardar gráfica"
 
-#: gui.py:228
+#: gui.py:231
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: gui.py:233
+#: gui.py:236
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
-#: gui.py:260
+#: gui.py:263
 msgid "Save simulation data"
 msgstr "Guardar resultados"
 
-#: gui.py:264
+#: gui.py:267
 msgid "Comma-separated values"
 msgstr "Valores separados por comas"
 
-#: gui.py:379
+#: gui.py:382
 msgid "Open"
 msgstr "Abrir"
 
-#: gui.py:500 gui.py:505
+#: gui.py:503 gui.py:508
 msgid "Simulation failed."
 msgstr "La simulación falló."
 
-#: gui.py:552
+#: gui.py:555
 msgid "Opened file changed on disk."
 msgstr "El archivo ha cambiado en el disco."
 
-#: gui.py:552
+#: gui.py:555
 msgid "Reload"
 msgstr "Recargar"
 
-#: gui.py:578
+#: gui.py:581
 msgid "Schematic could not be converted to netlist."
 msgstr "El esquemático no pudo se convertido a netlist."
 
-#: gui.py:614
+#: gui.py:617
 msgid "Please choose a file"
 msgstr "Elija un archivo"
 
-#: gui.py:618
+#: gui.py:621
 msgid "Netlist"
 msgstr "Netlist"
 
-#: gui.py:625
+#: gui.py:628
 msgid "GEDA schematic"
 msgstr "Esquemático de GEDA"
 
-#: gui.py:630
+#: gui.py:633
 msgid "Supported files"
 msgstr "Archivos soportados"
 
-#: gui.py:647
+#: gui.py:650
 msgid "File could not be loaded."
 msgstr "El archivo no pudo ser abierto."
 
@@ -247,12 +247,12 @@ msgstr "._tran"
 
 #: data/menu.ui:106
 msgid "._model"
-msgstr "._tran"
+msgstr "._model"
 
 #: data/menu.ui:110
 msgid "._lib"
-msgstr "._tran"
+msgstr "._lib"
 
 #: data/menu.ui:114
 msgid "._include"
-msgstr "._tran"
+msgstr "._include"
