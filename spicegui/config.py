@@ -19,6 +19,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import os
+
 
 APPLICATION_ID = "org.rafael1193.spicegui"
 DOMAIN = "spicegui"
@@ -28,4 +30,13 @@ PROGRAM_NAME = "SpiceGUI"
 PROGRAM_NAME_LOWER = PROGRAM_NAME.lower()
 VERSION = "0.3"
 PROGRAM_WEBSITE = "http://github.com/rafael1193/spicegui"
+
+
+def csd_are_supported():
+    sessionType = os.environ.get('DESKTOP_SESSION')
+    if sessionType == "gnome":
+        return True
+    # Other desktop environments doesn't play well with csd for now
+    else:
+        return False
 

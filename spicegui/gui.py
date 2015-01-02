@@ -18,7 +18,6 @@
 
 from __future__ import print_function
 
-import os
 import os.path
 
 from gi.repository import Gtk, Gdk, Gio, GtkSource, Pango
@@ -48,7 +47,7 @@ class MainWindow(Gtk.ApplicationWindow):
         self.hb = Gtk.HeaderBar()
         self.hb.props.show_close_button = True
 
-        if self.csd_are_supported() == True:
+        if config.csd_are_supported() == True:
             self.set_titlebar(self.hb)
         else: #disable headerbar as titlebar if not supported
             self.no_csd_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
@@ -90,7 +89,7 @@ class MainWindow(Gtk.ApplicationWindow):
         self.simulation_box.pack_start(self.canvas, True, True, 0)
         self.stack.add_titled(self.simulation_box, "simulation", _("Simulation"))
 
-        if self.csd_are_supported() == True:
+        if config.csd_are_supported() == True:
             self.add(self.stack)
         else: #disable headerbar as titlebar if not supported
             self.no_csd_box.pack_end(self.stack, True, True, 0)
@@ -391,13 +390,6 @@ class MainWindow(Gtk.ApplicationWindow):
         self.simulation_box.pack_start(self.canvas, True, True, 0)
         self.canvas.show()
 
-    def csd_are_supported(self):
-        sessionType = os.environ.get('DESKTOP_SESSION')
-        if sessionType == "gnome":
-            return True
-        # Other desktop environments doesn't play well with csd for now
-        else:
-            return False
 
     def set_error(self, title=None, message=None, message_type=Gtk.MessageType.ERROR, actions=None):
         '''set_error(self, title=None, message=None, message_type=Gtk.MessageType.ERROR, actions=None) -> None
