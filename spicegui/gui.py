@@ -129,8 +129,9 @@ class MainWindow(Gtk.ApplicationWindow):
             self.source_scrolled.add(self.sourceview)
             self.overview_box.pack_end(self.source_scrolled, True, True, 0)
             self.overview_box.show_all()
-            self.insert_button.props.sensitive = False
-            self.simulate_button.props.sensitive = False
+            self.insert_button.props.sensitive = True
+            self.simulate_button.props.sensitive = True
+            self.lookup_action("save").props.enabled = True
         elif state == "new":
             if self.source_view is not None:
                 self.overview_box.remove(self.source_scrolled)
@@ -149,6 +150,7 @@ class MainWindow(Gtk.ApplicationWindow):
                 self.insert_button.props.sensitive = False
                 self.simulate_button.props.sensitive = False
                 self.forward_button.props.sensitive = False # TODO: let see why this is not effective...
+                self.lookup_action("save").props.enabled = False
                 # TODO: Disable "save" action -> self.actions ... .set_enable(False)
 
     def _create_menu_models(self):
