@@ -14,12 +14,12 @@
  </description>
  <screenshots>
   <screenshot>
-   <image>https://cloud.githubusercontent.com/assets/436547/4139260/06007db0-3399-11e4-8127-2fa4eded0590.png</image>
-   <caption>Netlist view</caption>
+   <image>https://cloud.githubusercontent.com/assets/436547/5596934/d94405de-9299-11e4-961b-e3e8d75476ee.png</image>
+   <caption>Editor view</caption>
   </screenshot>
   <screenshot type="default">
-   <image>https://cloud.githubusercontent.com/assets/436547/4139264/0a6d404a-3399-11e4-9ac1-92799f66ba3b.png</image>
-   <caption>Simulation results view</caption>
+   <image>https://cloud.githubusercontent.com/assets/436547/5596935/dbbd7160-9299-11e4-837b-53fa54b42ecc.png</image>
+   <caption>Simulation plot</caption>
   </screenshot>
  </screenshots>
  <url type="homepage">https://github.com/rafael1193/spicegui</url>
