@@ -38,10 +38,6 @@
                 <attribute name="action">win.save</attribute>
                 <attribute name="accel">&lt;Primary&gt;S</attribute>
             </item>
-            <item>
-                <attribute name="label" translatable="yes">S_ave as...</attribute>
-                <attribute name="action">win.save-as</attribute>
-            </item>
         </section>
         <section>
             <item>
