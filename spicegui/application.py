@@ -31,7 +31,7 @@ import webbrowser
 
 from gi.repository import Gio, Gtk
 
-import constants
+import config
 import gui
 import preferences_gui
 
@@ -42,11 +42,11 @@ class SpiceGUI(Gtk.Application):
     def __init__(self):
         """Inits SpiceGUI Application."""
         Gtk.Application.__init__(self,
-                                 application_id=constants.APPLICATION_ID,
+                                 application_id=config.APPLICATION_ID,
                                  flags=Gio.ApplicationFlags.HANDLES_OPEN)
 
         self.builder = Gtk.Builder()
-        self.builder.set_translation_domain(constants.DOMAIN)
+        self.builder.set_translation_domain(config.DOMAIN)
 
         self.connect("activate", self.on_activate)
         self.connect("startup", self.on_startup)
@@ -148,7 +148,7 @@ class SpiceGUI(Gtk.Application):
             action: GAction.
             parameter: The parameter to the activation.
         """
-        webbrowser.open(constants.HELP_URL)
+        webbrowser.open(config.HELP_URL)
 
     def on_about_action(self, action, parameter):
         """Shows About dialog.
@@ -162,12 +162,12 @@ class SpiceGUI(Gtk.Application):
         aboutdialog = Gtk.AboutDialog()
         aboutdialog.connect("response", lambda w, r: aboutdialog.destroy())
         aboutdialog.set_title(_("About SpiceGUI"))
-        aboutdialog.set_program_name(constants.PROGRAM_NAME)
-        aboutdialog.set_version(constants.VERSION)
+        aboutdialog.set_program_name(config.PROGRAM_NAME)
+        aboutdialog.set_version(config.VERSION)
         aboutdialog.set_comments(_("Graphical user interface for circuit simulation using ngspice."))
         aboutdialog.set_copyright("Copyright \xc2\xa9 2014 Rafael Bailón-Ruiz")
-        aboutdialog.set_logo_icon_name(constants.PROGRAM_NAME_LOWER)
-        aboutdialog.set_website(constants.PROGRAM_WEBSITE)
+        aboutdialog.set_logo_icon_name(config.PROGRAM_NAME_LOWER)
+        aboutdialog.set_website(config.PROGRAM_WEBSITE)
         aboutdialog.set_license_type(Gtk.License.GPL_3_0)
         
         authors = ["Rafael Bailón Ruiz <rafaelbailon@ieee.org>"]

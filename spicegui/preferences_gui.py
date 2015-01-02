@@ -22,7 +22,7 @@ import os.path
 
 from gi.repository import Gio, Gtk
 
-import constants
+import config
 
 class Preferences(object):
     
@@ -30,14 +30,14 @@ class Preferences(object):
        
         # Get window
         self.builder = Gtk.Builder()
-        self.builder.set_translation_domain(constants.DOMAIN)
+        self.builder.set_translation_domain(config.DOMAIN)
         self.builder.add_from_file(os.path.join(os.path.dirname(__file__), "data", "preferences.glade"))
 
         window = self.builder.get_object('preferences_window')
         window.set_transient_for(parent)
         
         # Get gsettings reference
-        settings = Gio.Settings.new(constants.GSETTINGS_BASE_KEY)
+        settings = Gio.Settings.new(config.GSETTINGS_BASE_KEY)
         
         ## Show legend setting
         show_legend_checkbutton = self.builder.get_object('show_legend_checkbutton')

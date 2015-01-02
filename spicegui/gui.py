@@ -24,7 +24,7 @@ import os.path
 from gi.repository import Gtk, Gdk, Gio, GtkSource, Pango
 from matplotlib.backends.backend_gtk3cairo import FigureCanvasGTK3Cairo as FigureCanvas
 
-import constants
+import config
 import console_gui
 import ngspice_simulation
 import running_dialog
@@ -151,7 +151,7 @@ class MainWindow(Gtk.ApplicationWindow):
         # gear_menu overview xml #
         ## Create menu model
         builder = Gtk.Builder()
-        builder.set_translation_domain(constants.DOMAIN)
+        builder.set_translation_domain(config.DOMAIN)
         builder.add_from_file(os.path.join(os.path.dirname(__file__), "data", "menu.ui"))
         self.gearmenu_overview = builder.get_object('gearmenu-overview')
 

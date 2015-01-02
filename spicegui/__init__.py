@@ -24,7 +24,7 @@ from __future__ import print_function
 import os
 import os.path
 
-import constants
+import config
 
 
 def get_locale_path():
@@ -53,7 +53,7 @@ def start():
     import gettext
     import locale
 
-    domain = constants.DOMAIN
+    domain = config.DOMAIN
     locale_path = get_locale_path()
 
     gettext.install(domain, locale_path)
