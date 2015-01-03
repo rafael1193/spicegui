@@ -116,6 +116,7 @@ class MainWindow(Gtk.ApplicationWindow):
             self.source_scrolled.set_vexpand(True)
 
             self.source_buffer = GtkSource.Buffer()
+            self.source_buffer.connect("modified-changed", self.on_source_buffer_modified_changed)
             self.source_buffer.set_highlight_syntax(True)
             self.source_buffer.set_language(GtkSource.LanguageManager.get_default().get_language("spice-netlist"))
             self.sourceview = GtkSource.View()
@@ -234,7 +235,7 @@ class MainWindow(Gtk.ApplicationWindow):
         svg_filter.add_mime_type("image/svg+xml")
         dialog.add_filter(svg_filter)
 
-        dialog.set_current_name(self.hb.get_title()+" - "+self.simulation_output.analysis)
+        dialog.set_current_name(self.circuit_title + " - " + self.simulation_output.analysis)
 
         response = dialog.run()
         dialog.set_filter(png_filter)
@@ -265,7 +266,7 @@ class MainWindow(Gtk.ApplicationWindow):
         csv_filter.add_mime_type("text/csv")
         dialog.add_filter(csv_filter)
 
-        dialog.set_current_name(self.hb.get_title()+" - "+self.simulation_output.analysis)
+        dialog.set_current_name(self.circuit_title + " - " + self.simulation_output.analysis)
 
         response = dialog.run()
         if response == Gtk.ResponseType.OK:
@@ -540,6 +541,12 @@ class MainWindow(Gtk.ApplicationWindow):
         else:
             raise Exception("self.schematic_file_path and self.netlist_file_path are None")
 
+    def on_source_buffer_modified_changed(self, data):
+        if self.source_buffer.get_modified():
+            self.hb.set_title("* " + self.circuit_title)
+        else:
+            self.hb.set_title(self.circuit_title)
+
     def load_file(self, path):
         '''
         load a file, converts it to netlist if needed and updates program state
@@ -574,9 +581,9 @@ class MainWindow(Gtk.ApplicationWindow):
         if file_content is not None and self.netlist_file_path is not None:
             #Set window title
             netlist = ngspice_simulation.Netlist(file_content)
-            title = netlist.get_title()
-            if title is not None:
-                self.hb.set_title(title)
+            self.circuit_title = netlist.get_title()
+            if self.circuit_title is not None:
+                self.hb.set_title(self.circuit_title)
             else:
                 self.hb.set_title("")
             self.hb.set_subtitle(self.netlist_file_path)
@@ -587,6 +594,7 @@ class MainWindow(Gtk.ApplicationWindow):
             # Set content on source view
             self._open_state("opened")
             self.source_buffer.props.text = file_content
+            self.source_buffer.set_modified(False)
             self.simulate_button.props.sensitive = True
             self.canvas.show()
 
@@ -639,6 +647,7 @@ class MainWindow(Gtk.ApplicationWindow):
         with open(self.netlist_file_path, "w") as f:
             f.write(self.source_buffer.props.text)
         self.start_file_monitor()
+        self.source_buffer.set_modified(False)
 
 
 class InfoMessageBar(Gtk.InfoBar):
