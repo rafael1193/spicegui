@@ -382,9 +382,9 @@ class MainWindow(Gtk.ApplicationWindow):
 
         self.simulate_button.connect("clicked", self.on_simulate_button_clicked)
 
-        # Doesn't work on Gtk+>=3.12
-        if Gtk.check_version(3, 12, 0) is not None:
-            self.simulate_button.add_accelerator("clicked", Gtk.accel_groups_from_object(self)[0], Gdk.KEY_F5, 0, Gtk.AccelFlags.VISIBLE);
+        sim_accel = Gtk.AccelGroup()
+        self.add_accel_group(sim_accel)
+        self.simulate_button.add_accelerator("clicked", sim_accel, Gdk.KEY_F5, 0, Gtk.AccelFlags.VISIBLE);
 
         self.simulate_button.props.sensitive = False
         self.hb_rbox.pack_start(self.simulate_button, False, False, 0)
