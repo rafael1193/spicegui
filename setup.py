@@ -8,14 +8,14 @@ from setuptools import setup, find_packages
 
 import subprocess
 
-import spicegui.constants
+import spicegui.config
 
-__prj__ = spicegui.constants.PROGRAM_NAME_LOWER
+__prj__ = spicegui.config.PROGRAM_NAME_LOWER
 __author__ = "Rafael Bailón-Ruiz"
 __mail__ = "rafaelbailon at ieee dot org"
-__url__ = spicegui.constants.PROGRAM_WEBSITE
-__source__ = spicegui.constants.PROGRAM_WEBSITE
-__version__ = spicegui.constants.VERSION
+__url__ = spicegui.config.PROGRAM_WEBSITE
+__source__ = spicegui.config.PROGRAM_WEBSITE
+__version__ = spicegui.config.VERSION
 __license__ = "GPL3"
 
 dependencies = []
