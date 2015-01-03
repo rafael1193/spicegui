@@ -5,11 +5,12 @@
  <metadata_license>CC0-1.0</metadata_license>
  <project_license>GPL-3.0+</project_license>
  <name>SpiceGUI</name>
+ <summary>Run circuit simulations and view its results</summary>
  <description>
   <p>
-	SpiceGUI is a graphical user interface for ngspice circuit simulator. It aims 
-	to make easier circuit simulation on GNU/Linux and integrate well with the GNOME 
-	desktop.
+    SpiceGUI is a graphical user interface for ngspice circuit simulator. It aims 
+    to make easier circuit simulation on GNU/Linux and integrate well with the GNOME 
+    desktop.
   </p>
  </description>
  <screenshots>
