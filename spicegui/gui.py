@@ -79,7 +79,6 @@ class MainWindow(Gtk.ApplicationWindow):
         self.source_view = None
         self._open_state("new")
 
-
         self.infobar = None
         self.stack.add_titled(self.overview_box, "overview", _("Circuit"))
 
@@ -95,6 +94,10 @@ class MainWindow(Gtk.ApplicationWindow):
             self.no_csd_box.pack_end(self.stack, True, True, 0)
 
         self.overview_view()
+        self.forward_button.props.sensitive = False  # HACK: self._open_state("new") sets it to
+                                                     # False but self.overview_view() sets it to
+                                                     # True. This line fixes the incongruence.
+
         self.connect_after('destroy', self._on_destroy)
 
         if file_path is not None:
@@ -105,6 +108,7 @@ class MainWindow(Gtk.ApplicationWindow):
         show sourceview state="opened" or suggest opening a file state="new"
         """
         if state == "opened":
+            self.overview_view()
             for child in self.overview_box.get_children():
                 self.overview_box.remove(child)
             self.source_scrolled = Gtk.ScrolledWindow(None, None)
@@ -627,7 +631,7 @@ class MainWindow(Gtk.ApplicationWindow):
 
     def on_save_button_clicked_overview(self, button):
         """Save file on self.netlist_file_path path.
-        
+
         Args:
             button: Caller object
         """
