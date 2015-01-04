@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SpiceGUI\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-02 02:05+0100\n"
-"PO-Revision-Date: 2015-01-02 02:05+0100\n"
+"POT-Creation-Date: 2015-01-03 03:15+0100\n"
+"PO-Revision-Date: 2015-01-03 03:16+0100\n"
 "Last-Translator: Rafael Bailón <rafaelbailon@ieee.org>\n"
 "Language-Team: SpiceGUI\n"
 "Language: es\n"
@@ -21,99 +21,99 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ./data\n"
 
-#: application.py:166
+#: application.py:164
 msgid "About SpiceGUI"
 msgstr "Acerca de SpiceGUI"
 
-#: application.py:169
+#: application.py:167
 msgid "Graphical user interface for circuit simulation using ngspice."
 msgstr "Interfaz gráfica para simulación de circuitos usando ngspice."
 
-#: application.py:178
+#: application.py:176
 msgid "translator-credits"
 msgstr "Rafael Bailón Ruiz <rafaelbailon@ieee.org>, 2014"
 
 #: ngspice_simulation.py:230
 msgid "No simulations were done."
-msgstr "No se han realizado ninguna simulación."
+msgstr "No se ha realizado ninguna simulación."
 
-#: gui.py:42 gui.py:285
+#: gui.py:41 gui.py:283
 msgid "Simulation output"
 msgstr "Resultados de la simulación"
 
-#: gui.py:43 gui.py:503 gui.py:524
+#: gui.py:42 gui.py:482 gui.py:503
 msgid "Execution log"
 msgstr "Registro de ejecución"
 
-#: gui.py:90
+#: gui.py:83
 msgid "Circuit"
 msgstr "Circuito"
 
-#: gui.py:96 running_dialog.py:28 running_dialog.py:35
+#: gui.py:89 running_dialog.py:28 running_dialog.py:35
 msgid "Simulation"
 msgstr "Simulación"
 
-#: gui.py:145
+#: gui.py:144
 msgid "Use the <b>Open</b> button to load a circuit"
 msgstr "Usa el botón <b>Abrir</b> para cargar un circuito"
 
-#: gui.py:227
+#: gui.py:225
 msgid "Save plot"
 msgstr "Guardar gráfica"
 
-#: gui.py:231
+#: gui.py:229
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: gui.py:236
+#: gui.py:234
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
-#: gui.py:263
+#: gui.py:261
 msgid "Save simulation data"
 msgstr "Guardar resultados"
 
-#: gui.py:267
+#: gui.py:265
 msgid "Comma-separated values"
 msgstr "Valores separados por comas"
 
-#: gui.py:382
+#: gui.py:372
 msgid "Open"
 msgstr "Abrir"
 
-#: gui.py:503 gui.py:508
+#: gui.py:482 gui.py:487
 msgid "Simulation failed."
 msgstr "La simulación falló."
 
-#: gui.py:555
+#: gui.py:534
 msgid "Opened file changed on disk."
 msgstr "El archivo ha cambiado en el disco."
 
-#: gui.py:555
+#: gui.py:534
 msgid "Reload"
 msgstr "Recargar"
 
-#: gui.py:581
+#: gui.py:566
 msgid "Schematic could not be converted to netlist."
-msgstr "El esquemático no pudo se convertido a netlist."
+msgstr "El esquemático no pudo ser convertido a netlist."
 
-#: gui.py:617
+#: gui.py:603
 msgid "Please choose a file"
 msgstr "Elija un archivo"
 
-#: gui.py:621
+#: gui.py:607
 msgid "Netlist"
 msgstr "Netlist"
 
-#: gui.py:628
+#: gui.py:614
 msgid "GEDA schematic"
 msgstr "Esquemático de GEDA"
 
-#: gui.py:633
+#: gui.py:619
 msgid "Supported files"
 msgstr "Archivos soportados"
 
-#: gui.py:650
+#: gui.py:636
 msgid "File could not be loaded."
 msgstr "El archivo no pudo ser abierto."
 
@@ -205,54 +205,53 @@ msgstr "_Salir"
 msgid "_Save"
 msgstr "_Guardar"
 
-#: data/menu.ui:42
-msgid "S_ave as..."
-msgstr "Guardar c_omo..."
-
-#: data/menu.ui:48 data/menu.ui:78
+#: data/menu.ui:44 data/menu.ui:74
 msgid "_Close"
 msgstr "_Cerrar"
 
-#: data/menu.ui:56
+#: data/menu.ui:52
 msgid "_Save plot"
 msgstr "_Guardar gráfica"
 
-#: data/menu.ui:60
+#: data/menu.ui:56
 msgid "Save _data"
 msgstr "Guardar _datos"
 
-#: data/menu.ui:66
+#: data/menu.ui:62
 msgid "Simulation _output"
 msgstr "_Resultados de la simulación"
 
-#: data/menu.ui:72
+#: data/menu.ui:68
 msgid "_Plot preferences"
 msgstr "_Preferencias de gráfica"
 
-#: data/menu.ui:86
+#: data/menu.ui:82
 msgid "._ac"
 msgstr "._ac"
 
-#: data/menu.ui:90
+#: data/menu.ui:86
 msgid "._dc"
 msgstr "._dc"
 
-#: data/menu.ui:94
+#: data/menu.ui:90
 msgid "._tran"
 msgstr "._tran"
 
-#: data/menu.ui:100
+#: data/menu.ui:96
 msgid "._print"
 msgstr "._tran"
 
-#: data/menu.ui:106
+#: data/menu.ui:102
 msgid "._model"
 msgstr "._model"
 
-#: data/menu.ui:110
+#: data/menu.ui:106
 msgid "._lib"
 msgstr "._lib"
 
-#: data/menu.ui:114
+#: data/menu.ui:110
 msgid "._include"
 msgstr "._include"
+
+#~ msgid "S_ave as..."
+#~ msgstr "Guardar c_omo..."

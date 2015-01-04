@@ -89,6 +89,8 @@ class SpiceGUI(Gtk.Application):
         quit_action.connect("activate", self.on_quit_action)
         self.add_action(quit_action)
 
+        self.set_accels_for_action("win.save", ["<Primary>S"]);
+
     def on_activate(self, app):
         """Starts SpiceGUI.
 
@@ -169,10 +171,10 @@ class SpiceGUI(Gtk.Application):
         aboutdialog.set_logo_icon_name(config.PROGRAM_NAME_LOWER)
         aboutdialog.set_website(config.PROGRAM_WEBSITE)
         aboutdialog.set_license_type(Gtk.License.GPL_3_0)
-        
+
         authors = ["Rafael Bailón Ruiz <rafaelbailon@ieee.org>"]
         aboutdialog.set_authors(authors)
-        
+
         translators = _("translator-credits")
         aboutdialog.set_translator_credits(translators)
 

@@ -61,7 +61,12 @@ class NgspiceOutput():
                 values: Column data.
             """
             self.name = name
-            self.values = values
+            # Cairo limitation. See backend_cairo.py line 142 in matplotlib package.
+            if len(values) > 18980:
+                raise ValueError(_("There are too much data points in simulation."))
+            else:
+                self.values = values
+
             if name in ["Index", "time", "frequency", "v-sweep", "res-sweep", "temp-sweep", "i-sweep"]:
                 self.independent = True
             else:

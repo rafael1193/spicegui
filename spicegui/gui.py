@@ -109,6 +109,7 @@ class MainWindow(Gtk.ApplicationWindow):
         """
         if state == "opened":
             self.overview_view()
+            self.forward_button.props.sensitive = False  # Don go forward until having some simulations
             for child in self.overview_box.get_children():
                 self.overview_box.remove(child)
             self.source_scrolled = Gtk.ScrolledWindow(None, None)
@@ -219,7 +220,7 @@ class MainWindow(Gtk.ApplicationWindow):
         self.add_action(insert_include_action)
 
     def save_cb(self, action, parameters):
-        self.on_save_button_clicked_overview(None)
+        self.save_netlist_file()
 
     def save_plot_cb(self, action, parameters):
         dialog = Gtk.FileChooserDialog(_("Save plot"), self, Gtk.FileChooserAction.SAVE,
@@ -382,9 +383,9 @@ class MainWindow(Gtk.ApplicationWindow):
 
         self.simulate_button.connect("clicked", self.on_simulate_button_clicked)
 
-        # Doesn't work on Gtk+>=3.12
-        if Gtk.check_version(3, 12, 0) is not None:
-            self.simulate_button.add_accelerator("clicked", Gtk.accel_groups_from_object(self)[0], Gdk.KEY_F5, 0, Gtk.AccelFlags.VISIBLE);
+        sim_accel = Gtk.AccelGroup()
+        self.add_accel_group(sim_accel)
+        self.simulate_button.add_accelerator("clicked", sim_accel, Gdk.KEY_F5, 0, Gtk.AccelFlags.VISIBLE);
 
         self.simulate_button.props.sensitive = False
         self.hb_rbox.pack_start(self.simulate_button, False, False, 0)
@@ -466,7 +467,7 @@ class MainWindow(Gtk.ApplicationWindow):
         dialog = running_dialog.RunningDialog(self,simulator.end_event)
         try:
             # First, save changes on disk
-            self.on_save_button_clicked_overview(None)
+            self.save_netlist_file()
             # Start simulation
             simulator.simulatefile(self.netlist_file_path)
             # Show dialog
@@ -483,6 +484,7 @@ class MainWindow(Gtk.ApplicationWindow):
             else:
                 simulator.terminate()
             self.set_output_file_content(self.netlist_file_path + ".out")
+            self.forward_button.props.sensitive = True  # You are allowed now to go forward
         except Exception as e:
             self.set_error(title=_("Simulation failed."), message=str(e))
         finally:
@@ -637,12 +639,8 @@ class MainWindow(Gtk.ApplicationWindow):
         else:
             dialog.destroy()
 
-    def on_save_button_clicked_overview(self, button):
-        """Save file on self.netlist_file_path path.
-
-        Args:
-            button: Caller object
-        """
+    def save_netlist_file(self):
+        """Save file on self.netlist_file_path path."""
         self.stop_file_monitor()
         with open(self.netlist_file_path, "w") as f:
             f.write(self.source_buffer.props.text)
