@@ -109,6 +109,7 @@ class MainWindow(Gtk.ApplicationWindow):
         """
         if state == "opened":
             self.overview_view()
+            self.forward_button.props.sensitive = False  # Don go forward until having some simulations
             for child in self.overview_box.get_children():
                 self.overview_box.remove(child)
             self.source_scrolled = Gtk.ScrolledWindow(None, None)
@@ -483,6 +484,7 @@ class MainWindow(Gtk.ApplicationWindow):
             else:
                 simulator.terminate()
             self.set_output_file_content(self.netlist_file_path + ".out")
+            self.forward_button.props.sensitive = True  # You are allowed now to go forward
         except Exception as e:
             self.set_error(title=_("Simulation failed."), message=str(e))
         finally:
