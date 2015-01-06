@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SpiceGUI\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-03 03:15+0100\n"
-"PO-Revision-Date: 2015-01-03 03:16+0100\n"
+"POT-Creation-Date: 2015-01-06 22:49+0100\n"
+"PO-Revision-Date: 2015-01-06 22:49+0100\n"
 "Last-Translator: Rafael Bailón <rafaelbailon@ieee.org>\n"
 "Language-Team: SpiceGUI\n"
 "Language: es\n"
@@ -21,27 +21,31 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ./data\n"
 
-#: application.py:164
+#: application.py:166
 msgid "About SpiceGUI"
 msgstr "Acerca de SpiceGUI"
 
-#: application.py:167
+#: application.py:169
 msgid "Graphical user interface for circuit simulation using ngspice."
 msgstr "Interfaz gráfica para simulación de circuitos usando ngspice."
 
-#: application.py:176
+#: application.py:178
 msgid "translator-credits"
 msgstr "Rafael Bailón Ruiz <rafaelbailon@ieee.org>, 2014"
 
-#: ngspice_simulation.py:230
+#: ngspice_simulation.py:66
+msgid "There are too much data points in simulation."
+msgstr "Hay demasiados puntos de datos en la simulación."
+
+#: ngspice_simulation.py:235
 msgid "No simulations were done."
 msgstr "No se ha realizado ninguna simulación."
 
-#: gui.py:41 gui.py:283
+#: gui.py:41 gui.py:284
 msgid "Simulation output"
 msgstr "Resultados de la simulación"
 
-#: gui.py:42 gui.py:482 gui.py:503
+#: gui.py:42 gui.py:483 gui.py:505
 msgid "Execution log"
 msgstr "Registro de ejecución"
 
@@ -53,67 +57,67 @@ msgstr "Circuito"
 msgid "Simulation"
 msgstr "Simulación"
 
-#: gui.py:144
+#: gui.py:145
 msgid "Use the <b>Open</b> button to load a circuit"
 msgstr "Usa el botón <b>Abrir</b> para cargar un circuito"
 
-#: gui.py:225
+#: gui.py:226
 msgid "Save plot"
 msgstr "Guardar gráfica"
 
-#: gui.py:229
+#: gui.py:230
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: gui.py:234
+#: gui.py:235
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
-#: gui.py:261
+#: gui.py:262
 msgid "Save simulation data"
 msgstr "Guardar resultados"
 
-#: gui.py:265
+#: gui.py:266
 msgid "Comma-separated values"
 msgstr "Valores separados por comas"
 
-#: gui.py:372
+#: gui.py:373
 msgid "Open"
 msgstr "Abrir"
 
-#: gui.py:482 gui.py:487
+#: gui.py:483 gui.py:489
 msgid "Simulation failed."
 msgstr "La simulación falló."
 
-#: gui.py:534
+#: gui.py:536
 msgid "Opened file changed on disk."
 msgstr "El archivo ha cambiado en el disco."
 
-#: gui.py:534
+#: gui.py:536
 msgid "Reload"
 msgstr "Recargar"
 
-#: gui.py:566
+#: gui.py:568
 msgid "Schematic could not be converted to netlist."
 msgstr "El esquemático no pudo ser convertido a netlist."
 
-#: gui.py:603
+#: gui.py:605
 msgid "Please choose a file"
 msgstr "Elija un archivo"
 
-#: gui.py:607
+#: gui.py:609
 msgid "Netlist"
 msgstr "Netlist"
 
-#: gui.py:614
+#: gui.py:616
 msgid "GEDA schematic"
 msgstr "Esquemático de GEDA"
 
-#: gui.py:619
+#: gui.py:621
 msgid "Supported files"
 msgstr "Archivos soportados"
 
-#: gui.py:636
+#: gui.py:638
 msgid "File could not be loaded."
 msgstr "El archivo no pudo ser abierto."
 
@@ -125,59 +129,59 @@ msgstr "Ejecutando ngspice…"
 msgid "Preferences"
 msgstr "Preferencias"
 
-#: data/preferences.glade:48
+#: data/preferences.glade:49
 msgid "Show legend"
 msgstr "Mostrar leyenda"
 
-#: data/preferences.glade:67
+#: data/preferences.glade:68
 msgid "Best"
 msgstr "Óptima"
 
-#: data/preferences.glade:68
+#: data/preferences.glade:69
 msgid "Upper right"
 msgstr "Arriba derecha"
 
-#: data/preferences.glade:69
+#: data/preferences.glade:70
 msgid "Upper left"
 msgstr "Arriba izquierda"
 
-#: data/preferences.glade:70
+#: data/preferences.glade:71
 msgid "Lower left"
 msgstr "Abajo izquierda"
 
-#: data/preferences.glade:71
+#: data/preferences.glade:72
 msgid "Lower right"
 msgstr "Abajo derecha"
 
-#: data/preferences.glade:72
+#: data/preferences.glade:73
 msgid "Right"
 msgstr "Derecha"
 
-#: data/preferences.glade:73
+#: data/preferences.glade:74
 msgid "Center left"
 msgstr "Centro izquierda"
 
-#: data/preferences.glade:74
+#: data/preferences.glade:75
 msgid "Center right"
 msgstr "Centro derecha"
 
-#: data/preferences.glade:75
+#: data/preferences.glade:76
 msgid "Lower center"
 msgstr "Abajo centro"
 
-#: data/preferences.glade:76
+#: data/preferences.glade:77
 msgid "Upper center"
 msgstr "Arriba centro"
 
-#: data/preferences.glade:77
+#: data/preferences.glade:78
 msgid "Center"
 msgstr "Centro"
 
-#: data/preferences.glade:90
+#: data/preferences.glade:91
 msgid "Legend position:"
 msgstr "Posición de la leyenda:"
 
-#: data/preferences.glade:100
+#: data/preferences.glade:101
 msgid "Show grids"
 msgstr "Mostrar rejillas"
 
