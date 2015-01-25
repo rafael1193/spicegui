@@ -34,6 +34,7 @@ class MainWindow(Gtk.ApplicationWindow):
     def __init__(self, file_path=None):
         Gtk.Window.__init__(self)
         self.set_default_size(900, 600)
+        self.set_icon_name(config.PROGRAM_NAME_LOWER)
 
         self.circuit = None
         self.netlist_file_path = None
