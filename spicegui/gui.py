@@ -27,6 +27,7 @@ import config
 import console_gui
 import ngspice_simulation
 import running_dialog
+import add_simulation_gui
 
 
 class MainWindow(Gtk.ApplicationWindow):
@@ -192,17 +193,9 @@ class MainWindow(Gtk.ApplicationWindow):
         self.insertmenu = builder.get_object('insertmenu')
 
         ## Bind actions
-        insert_ac_action = Gio.SimpleAction.new("insert-ac", None)
-        insert_ac_action.connect("activate", self.insert_ac_cb)
-        self.add_action(insert_ac_action)
-
-        insert_dc_action = Gio.SimpleAction.new("insert-dc", None)
-        insert_dc_action.connect("activate", self.insert_dc_cb)
-        self.add_action(insert_dc_action)
-
-        insert_tran_action = Gio.SimpleAction.new("insert-tran", None)
-        insert_tran_action.connect("activate", self.insert_tran_cb)
-        self.add_action(insert_tran_action)
+        insert_simulation_action = Gio.SimpleAction.new("insert-simulation", None)
+        insert_simulation_action.connect("activate", self.insert_simulation_action)
+        self.add_action(insert_simulation_action)
 
         insert_print_action = Gio.SimpleAction.new("insert-print", None)
         insert_print_action.connect("activate", self.insert_print_cb)
@@ -287,15 +280,16 @@ class MainWindow(Gtk.ApplicationWindow):
 
     def close_cb(self, action, parameters):
         self.destroy()
-
-    def insert_ac_cb(self, action, parameters):
-        self.source_buffer.insert_at_cursor(".ac dec nd fstart fstop")
-
-    def insert_dc_cb(self, action, parameters):
-        self.source_buffer.insert_at_cursor(".dc srcnam vstart vstop vincr")
-
-    def insert_tran_cb(self, action, parameters):
-        self.source_buffer.insert_at_cursor(".tran tstep tstop tstart")
+    
+    def insert_simulation_action(self, action, parameters):
+        dialog = add_simulation_gui.AddSimulation(self,[])
+        
+        response = dialog.run()
+        
+        if response == Gtk.ResponseType.OK:
+            self.source_buffer.insert_at_cursor(dialog.statement)
+            dialog.destroy()
+        dialog.destroy()
 
     def insert_print_cb(self, action, parameters):
         self.source_buffer.insert_at_cursor(".print ")

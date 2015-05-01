@@ -79,16 +79,8 @@
     <menu id="insertmenu">
     <section>
         <item>
-            <attribute name="label" translatable="yes">._ac</attribute>
-            <attribute name="action">win.insert-ac</attribute>
-        </item>
-        <item>
-            <attribute name="label" translatable="yes">._dc</attribute>
-            <attribute name="action">win.insert-dc</attribute>
-        </item>
-        <item>
-            <attribute name="label" translatable="yes">._tran</attribute>
-            <attribute name="action">win.insert-tran</attribute>
+            <attribute name="label" translatable="yes">Simulation</attribute>
+            <attribute name="action">win.insert-simulation</attribute>
         </item>
     </section>
     <section>
