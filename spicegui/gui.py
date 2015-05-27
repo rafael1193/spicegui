@@ -37,6 +37,8 @@ class MainWindow(Gtk.ApplicationWindow):
         self.set_default_size(900, 600)
         self.set_icon_name(config.PROGRAM_NAME_LOWER)
 
+        self.settings = Gio.Settings.new(config.GSETTINGS_BASE_KEY)
+
         self.circuit = None
         self.netlist_file_path = None
         self.file_monitor = None
@@ -123,6 +125,8 @@ class MainWindow(Gtk.ApplicationWindow):
             self.source_buffer.set_highlight_syntax(True)
             self.source_buffer.set_language(GtkSource.LanguageManager.get_default().get_language("spice-netlist"))
             self.sourceview = GtkSource.View()
+            self.settings.bind('show-line-numbers', self.sourceview, 'show-line-numbers', Gio.SettingsBindFlags.DEFAULT)
+            self.settings.bind('highlight-current-line', self.sourceview, 'highlight-current-line', Gio.SettingsBindFlags.DEFAULT)
             font_desc = Pango.FontDescription('monospace')
             if font_desc:
                 self.sourceview.modify_font(font_desc)

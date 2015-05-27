@@ -39,6 +39,22 @@ class Preferences(object):
         # Get gsettings reference
         settings = Gio.Settings.new(config.GSETTINGS_BASE_KEY)
 
+        ## Display line numbers setting
+        show_line_numbers_checkbutton = self.builder.get_object('show_line_numbers_checkbutton')
+        show_line_numbers_checkbutton.set_active(settings.get_boolean('show-line-numbers'))
+        # If setting is changed externally
+        settings.connect('changed::show-line-numbers', self.on_show_line_numbers_setting_changed, show_line_numbers_checkbutton)
+        # If checkbox is toggled
+        show_line_numbers_checkbutton.connect('toggled', self.on_show_line_numbers_checkbutton_toggled, settings)
+
+        ## Highlight current line setting
+        highlight_current_line_checkbutton = self.builder.get_object('highlight_current_line_checkbutton')
+        highlight_current_line_checkbutton.set_active(settings.get_boolean('highlight-current-line'))
+        # If setting is changed externally
+        settings.connect('changed::highlight-current-line', self.on_highlight_current_line_setting_changed, highlight_current_line_checkbutton)
+        # If checkbox is toggled
+        highlight_current_line_checkbutton.connect('toggled', self.on_highlight_current_line_checkbutton_toggled, settings)
+
         ## Show legend setting
         show_legend_checkbutton = self.builder.get_object('show_legend_checkbutton')
         show_legend_checkbutton.set_active(settings.get_boolean("show-legend"))
@@ -67,6 +83,19 @@ class Preferences(object):
         window.connect_after('destroy', self.on_window_destroy)
         window.show_all()
         Gtk.main()
+
+
+    def on_highlight_current_line_setting_changed(self, settings, key, check_button):
+        check_button.set_active(settings.get_boolean('highlight-current-line'))
+
+    def on_highlight_current_line_checkbutton_toggled(self, button, settings):
+        settings.set_boolean('highlight-current-line', button.get_active())
+
+    def on_show_line_numbers_setting_changed(self, settings, key, check_button):
+        check_button.set_active(settings.get_boolean('show-line-numbers'))
+
+    def on_show_line_numbers_checkbutton_toggled(self, button, settings):
+        settings.set_boolean('show-line-numbers', button.get_active())
 
     def on_show_legend_setting_changed(self, settings, key, check_button):
         check_button.set_active(settings.get_boolean("show-legend"))
