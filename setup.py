@@ -1,12 +1,17 @@
 #!/usr/bin/env python
-#-*-coding:utf-8-*-
+# -*-coding:utf-8-*-
 
-"""Setup for SpiceGUI
-"""
+"""Setup for SpiceGUI"""
 
-from setuptools import setup, find_packages
+from __future__ import print_function
+
+from setuptools import find_packages
+
+from distutils.core import setup
+from distutils.command.install_data import install_data
 
 import subprocess
+import sys
 
 import spicegui.config
 
@@ -20,6 +25,42 @@ __license__ = "GPL3"
 
 dependencies = []
 
+
+class MyInstallData(install_data):
+
+    def update_icon_cache(self):
+        try:
+            root = self.root if self.root is not None else ''
+            subprocess.call(['gtk-update-icon-cache', root + '/usr/share/icons/hicolor'])
+        except:
+            print("ERROR: unable to update icon cache", file=sys.stderr)
+
+    def glib_compile_schemas(self):
+        try:
+            root = self.root if self.root is not None else ''
+            subprocess.call(['glib-compile-schemas', root + '/usr/share/glib-2.0/schemas/'])
+        except:
+            print("ERROR: unable to compile GSettings schemas", file=sys.stderr)
+
+    @classmethod
+    def compile_message_catalog(cls):
+        try:
+            subprocess.call(['msgfmt', '-o', 'spicegui/locale/es/LC_MESSAGES/spicegui.mo',
+                             'spicegui/locale/es/LC_MESSAGES/spicegui.po'])
+        except:
+            print("ERROR: unable to compile \"es\" message catalog", file=sys.stderr)
+
+    def run(self):
+        if sys.platform.startswith('linux'):
+            self.compile_message_catalog()
+        install_data.run(self)
+        if sys.platform.startswith('linux'):
+            self.update_icon_cache()
+            self.glib_compile_schemas()
+
+
+CMDCLASS = {'install_data': MyInstallData}
+
 params = {
     "name": __prj__,
     "version": __version__,
@@ -30,12 +71,12 @@ params = {
     "license": __license__,
     "keywords": "spice gui circuit simulator",
     "classifiers": ["Development Status :: Development Status :: 4 - Beta",
-               "Topic :: Engineering",
-               "License :: OSI Approved :: GNU General Public License (GPL)",
-               "Natural Language :: English",
-               "Operating System :: OS Independent",
-               "Programming Language :: Python :: 2",
-               "Programming Language :: Python :: 3"],
+                    "Topic :: Engineering",
+                    "License :: OSI Approved :: GNU General Public License (GPL)",
+                    "Natural Language :: English",
+                    "Operating System :: OS Independent",
+                    "Programming Language :: Python :: 2",
+                    "Programming Language :: Python :: 3"],
 
     "install_requires": dependencies,
 
@@ -44,15 +85,15 @@ params = {
     "package_data": {'spicegui': ['data/*.glade', 'data/*.ui']},
 
     "packages": find_packages(),
-    
-    "data_files":[('/usr/share/applications/', ['spicegui/data/SpiceGUI.desktop']),
-                  ('/usr/share/glib-2.0/schemas/', ['spicegui/data/org.rafael1193.spicegui.gschema.xml']),
-                  ('/usr/share/gtksourceview-3.0/language-specs/', ['spicegui/data/spice-netlist.lang']),
-                  ('/usr/share/icons/hicolor/scalable/apps/', ['spicegui/data/spicegui.svg']),
-                  ('/usr/share/appdata/',['spicegui/data/SpiceGUI.appdata.xml']),
-                  ('/usr/share/locale/es/LC_MESSAGES/',['spicegui/locale/es/LC_MESSAGES/spicegui.mo'])],
 
-    #auto create scripts
+    "data_files": [('/usr/share/applications/', ['spicegui/data/SpiceGUI.desktop']),
+                   ('/usr/share/glib-2.0/schemas/', ['spicegui/data/org.rafael1193.spicegui.gschema.xml']),
+                   ('/usr/share/gtksourceview-3.0/language-specs/', ['spicegui/data/spice-netlist.lang']),
+                   ('/usr/share/icons/hicolor/scalable/apps/', ['spicegui/data/spicegui.svg']),
+                   ('/usr/share/appdata/', ['spicegui/data/SpiceGUI.appdata.xml']),
+                   ('/usr/share/locale/es/LC_MESSAGES/', ['spicegui/locale/es/LC_MESSAGES/spicegui.mo'])],
+
+    # auto create scripts
     "entry_points": {
         'console_scripts': [
             'spicegui = spicegui:start',
@@ -60,32 +101,9 @@ params = {
         'gui_scripts': [
             'spicegui = spicegui:start',
         ]
-    }
+    },
+
+    'cmdclass': {'install_data': MyInstallData}
 }
 
-def update_icon_cache():
-    try:
-        subprocess.call(["gtk-update-icon-cache", "/usr/share/icons/hicolor"])
-    except Exception: 
-        pass
-    
-def glib_compile_schemas():
-    try:
-        subprocess.call(["glib-compile-schemas", "/usr/share/glib-2.0/schemas/"])
-    except Exception:
-        pass
-
-def compile_message_catalog():
-    try:
-        subprocess.call(["msgfmt", "-o", "spicegui/locale/es/LC_MESSAGES/spicegui.mo", "spicegui/locale/es/LC_MESSAGES/spicegui.po"])
-    except Exception:
-        pass
-
-compile_message_catalog()
-
 setup(**params)
-
-update_icon_cache()
-glib_compile_schemas()
-
-
