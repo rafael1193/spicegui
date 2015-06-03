@@ -35,6 +35,13 @@ class MyInstallData(install_data):
         except:
             print("ERROR: unable to update icon cache", file=sys.stderr)
 
+    @classmethod
+    def update_desktop_database(cls):
+        try:
+            subprocess.call(['update-desktop-database')
+        except:
+            print("ERROR: unable to update desktop database", file=sys.stderr)
+
     def glib_compile_schemas(self):
         try:
             root = self.root if self.root is not None else ''
@@ -55,6 +62,7 @@ class MyInstallData(install_data):
             self.compile_message_catalog()
         install_data.run(self)
         if sys.platform.startswith('linux'):
+            self.update_desktop_database()
             self.update_icon_cache()
             self.glib_compile_schemas()
 
