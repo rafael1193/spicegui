@@ -38,7 +38,7 @@ class MyInstallData(install_data):
     @classmethod
     def update_desktop_database(cls):
         try:
-            subprocess.call(['update-desktop-database')
+            subprocess.call(['update-desktop-database'])
         except:
             print("ERROR: unable to update desktop database", file=sys.stderr)
 
