@@ -1,28 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright 2014 Rafael Bailón-Ruiz <rafaelbailon_at_ieee.org> -->
+<!-- Copyright (C) 2014-2015 Rafael Bailón-Ruiz <rafaelbailon_at_ieee.org> -->
 <component type="desktop">
- <id>SpiceGUI.desktop</id>
- <metadata_license>CC0-1.0</metadata_license>
- <project_license>GPL-3.0+</project_license>
- <name>SpiceGUI</name>
- <summary>Run circuit simulations and view its results</summary>
- <description>
-  <p>
-    SpiceGUI is a graphical user interface for ngspice circuit simulator. It aims 
-    to make easier circuit simulation on GNU/Linux and integrate well with the GNOME 
-    desktop.
-  </p>
- </description>
- <screenshots>
-  <screenshot>
-   <image>https://cloud.githubusercontent.com/assets/436547/5596934/d94405de-9299-11e4-961b-e3e8d75476ee.png</image>
-   <caption>Editor view</caption>
-  </screenshot>
-  <screenshot type="default">
-   <image>https://cloud.githubusercontent.com/assets/436547/5596935/dbbd7160-9299-11e4-837b-53fa54b42ecc.png</image>
-   <caption>Simulation plot</caption>
-  </screenshot>
- </screenshots>
- <url type="homepage">https://github.com/rafael1193/spicegui</url>
- <updatecontact>rafaelbailon_at_ieee.org</updatecontact>
+  <id>SpiceGUI.desktop</id>
+  <name>SpiceGUI</name>
+  <summary>Run circuit simulations and display the results</summary>
+  <developer_name>Rafael Bailón-Ruiz</developer_name>
+  <description>
+    <p>
+     SpiceGUI is a graphical user interface for ngspice circuit simulator.
+    </p>
+    <p>
+     It aims to make easier circuit simulation on GNU/Linux and integrate well
+     with the GNOME desktop.
+    </p>
+  </description>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0+</project_license>
+  <url type="bugtracker">https://github.com/rafael1193/spicegui/issues</url>
+  <url type="help">https://github.com/rafael1193/spicegui/wiki</url>
+  <url type="homepage">https://github.com/rafael1193/spicegui</url>
+  <screenshots>
+    <screenshot>
+      <caption>Editor view</caption>
+      <image>https://cloud.githubusercontent.com/assets/436547/5596934/d94405de-9299-11e4-961b-e3e8d75476ee.png</image>
+    </screenshot>
+    <screenshot type="default">
+      <caption>Simulation plot</caption>
+      <image>https://cloud.githubusercontent.com/assets/436547/5596935/dbbd7160-9299-11e4-837b-53fa54b42ecc.png</image>
+    </screenshot>
+  </screenshots>
+  <updatecontact>rafaelbailon_at_ieee.org</updatecontact>
 </component>
