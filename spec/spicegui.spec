@@ -1,15 +1,32 @@
+# Conditional for release and snapshot builds. Uncomment for release-builds.
+#global rel_build 1
+
+# Settings used for build from snapshots.
+%{!?rel_build:%global commit		d9d2097ae3ae733a611178e765419eaae9ab75b7}
+%{!?rel_build:%global commit_date	20150606}
+%{!?rel_build:%global shortcommit	%(c=%{commit};echo ${c:0:7})}
+%{!?rel_build:%global gitver		git%{commit_date}-%{shortcommit}}
+%{!?rel_build:%global gitrel		.git%{commit_date}.%{shortcommit}}
+
+# Proper naming for the tarball from github.
+%global gittar %{name}-%{version}%{!?rel_build:-%{gitver}}.tar.gz
+
 Name:       spicegui
 Version:    0.3
-Release:    1%{?dist}
+Release:    3%{?gitrel}%{?dist}
 Summary:    SpiceGUI for circuit simulation
 
 License:    GPLv3
 URL:        http://github.com/rafael1193/spicegui
-Source0:    spicegui-%{version}.tar.gz
+# Sources for release-builds.
+%{?rel_build:Source0:	%{url}/archive/v%{version}.tar.gz#/%{gittar}}
+# Sources for snapshot-builds.
+%{!?rel_build:Source0:	%{url}/archive/%{commit}.tar.gz#/%{gittar}}
+#Source0:    spicegui-%{version}.tar.gz
 
 
 BuildRequires:  desktop-file-utils
-BuildRequires:  python2-devel
+#BuildRequires:  python2-devel
 BuildRequires:  python-setuptools
 Requires:       python
 Requires:       pygobject2
@@ -32,7 +49,7 @@ to make easier circuit simulation on GNU/Linux and integrate well with the GNOME
 desktop.
 
 %prep
-%setup -q
+%setup -q%{!?rel_build:n %{name}-%{commit}}
 
 
 %build
@@ -41,7 +58,7 @@ desktop.
 
 %install
 %{__python} setup.py install -O1 --skip-build --root %{buildroot} --record=INSTALLED_FILES
-
+rm %{buildroot}/usr/share/glib-2.0/schemas/gschemas.compiled
 
 %check
 %{__python} setup.py test
@@ -65,6 +82,10 @@ fi
 
 
 %changelog
+* Sat Jun 06 2015 Rafael Bailón-Ruiz <rafaelbailon at ieee dot org> - 0.3-3
+- Remove python2-devel build requirement
+- Implement snapshot builds
+
 * Sun Dec 21 2014 Rafael Bailón-Ruiz <rafaelbailon at ieee dot org> - 0.3-2
 - Add gettext dependency
 
