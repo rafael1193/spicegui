@@ -44,6 +44,8 @@ class SpiceGUI(Gtk.Application):
         Gtk.Application.__init__(self,
                                  application_id=config.APPLICATION_ID,
                                  flags=Gio.ApplicationFlags.HANDLES_OPEN)
+                                 
+        Gtk.Window.set_default_icon_name("spicegui")
 
         self.builder = Gtk.Builder()
         self.builder.set_translation_domain(config.DOMAIN)
