@@ -23,6 +23,7 @@ import locale
 import os.path
 import re
 import subprocess
+import datetime
 
 from gi.repository import Gio
 from matplotlib.figure import Figure
@@ -86,51 +87,63 @@ class NgspiceOutput():
                 If magnitude is unknown returns ``("","")``
             """
             if self.name == "Index":
-                return ("Index","")
+                return "Index", ""
             elif self.name == "time":
-                return ("Time", "s")
+                return "Time", "s"
             elif self.name == "frequency":
-                return ("Frequency", "Hz")
+                return "Frequency", "Hz"
             elif self.name == "v-sweep":
-                return ("Voltage", "V")
+                return "Voltage", "V"
             elif self.name == "res-sweep":
-                return ("Resistance", u"Ω")
+                return "Resistance", u"Ω"
             elif self.name == "temp-sweep":
-                return ("Temperature", u"℃")
+                return "Temperature", u"℃"
             elif self.name == "i-sweep":
-                return ("Current", "A")
+                return "Current", "A"
             elif self.name.endswith("#branch"):
-                return ("Current", "A")
+                return "Current", "A"
             elif self.name.startswith("v"):
                 if self.name.startswith("vdb("):
-                    return ("Voltage", u"dB")
+                    return "Voltage", u"dB"
                 elif self.name.startswith("vr("):
-                    return ("Voltage", "V")
+                    return "Voltage", "V"
                 elif self.name.startswith("vi("):
-                    return ("Voltage", "V")
+                    return "Voltage", "V"
                 elif self.name.startswith("vm("):
-                    return ("Voltage", "V")
+                    return "Voltage", "V"
                 elif self.name.startswith("vp("):
-                    return ("Phase", u"rad")
+                    return "Phase", u"rad"
                 else:
-                    return ("Voltage","V")
+                    return "Voltage", "V"
             elif self.name.startswith("i"):
-                return ("Current","A")
+                return "Current", "A"
             elif self.name.startswith("@"):
                 inst_parameter = self.name[self.name.find("[") + 1: -1]
                 if inst_parameter.startswith("i"):
-                    return ("Current","A")
+                    return "Current", "A"
                 elif inst_parameter.startswith("p"):
-                    return ("Power","W")
+                    return "Power", "W"
                 elif inst_parameter.startswith("c"):
-                    return ("Capacitance","F")
+                    return "Capacitance", "F"
                 elif inst_parameter == "gm":
-                    return ("Transconductance",u"A⁄V")
+                    return "Transconductance", u"A⁄V"
                 else:
-                    return ("","")
+                    return "", ""
             else:
-                return ("","")
+                return "", ""
 
+        def extend(self, other_data_line):
+            """Extends DataLine with contents of another one.
+
+            Args:
+                other_data_line: another DataLine.
+            Raises:
+                ValueError: If other_data_line has not the same name and magnitude.
+            """
+            if other_data_line.name == self.name and other_data_line.magnitude == self.magnitude:
+                self.values.extend(other_data_line.values)
+            else:
+                raise ValueError("Data lines have not the same name nor magnitude.")
 
     def __init__(self, raw_text):
         """Inits NgspiceOutput with ngspice output text.
@@ -151,6 +164,34 @@ class NgspiceOutput():
         with open(ngspice_result_file) as f:
             return cls(f.read())
 
+    @staticmethod
+    def _parse_ngspice_output_date(raw_date):
+        """Parses a date in the form 'Mon Jun  8 23:05:46  2015'.
+
+        Returns:
+            date: datetime.datetime object.
+        """
+        months = {'Jan': 1,
+                  'Feb': 2,
+                  'Mar': 3,
+                  'Apr': 4,
+                  'May': 5,
+                  'Jun': 6,
+                  'Jul': 7,
+                  'Aug': 8,
+                  'Sep': 9,
+                  'Oct': 10,
+                  'Nov': 11,
+                  'Dec': 12}
+
+        # separate (weekday month, day hour:minute:second, year)
+        wday_month, dhms, year = raw_date.split('  ')
+        month = months[wday_month.split(' ')[1]]  # discard week day
+        day, hms = dhms.split(' ')
+        hour, minute, second = hms.split(':')
+
+        return datetime.datetime(int(year), int(month), int(day), int(hour), int(minute), int(second))
+
     def _parse(self, raw_text):
         """Ngspice simulation output parser.
 
@@ -166,50 +207,78 @@ class NgspiceOutput():
          - "No. of Data Rows" value is not used
          - GUI can only handle one analysis, but parser could be extended
            to support more
+
+         Raises:
+             ValueError:
+             ExecutionError:
         """
 
         def table_parser(table_start_pos):
             """
-            Parses a ngspice output table.
+            Parses a ngspice output table handling page breaks.
 
             Returns:
                 (analysis, date, data_lines, table_end_pos)
             """
+
             table_content = file_content[table_start_pos:]
 
             # table_content[0] is circuit name
 
+            # table_content[1] is analysis and date
+            # extract data from it
             analysis_line = table_content[1].strip()
             analysis_sep_index = analysis_line.find("  ")
             analysis = analysis_line[:analysis_sep_index]
-            date = analysis_line[analysis_sep_index + 2:]
+            date = NgspiceOutput._parse_ngspice_output_date(analysis_line[analysis_sep_index + 2:].strip())
 
             # table_content[2] is a line of dashes
 
-            headers = tuple(filter(None, table_content[3].strip().split(" ")))
+            # table_content[3] contains column headers
+            columns_headers_line = table_content[3]
+            headers = tuple(filter(None, columns_headers_line.strip().split(" ")))
 
             # table_content[4] is a line of dashes
 
+            # from table_content[5] onwards, there is data
+            table_sep = '\f'
+            table_data = table_content[5:]
+            l = 0
             tuple_values = []
-            for row in table_content[5:]:
-                if row != "":
-                    tuple_values.append(tuple(filter(None, row.strip().split("\t"))))
-                else:
-                    break
 
-            # Simulation data is given as tuples and need to be converted to lists
+            while l < xrange(len(table_data)):
+                row = table_data[l]
+                if row != table_sep and row != '':
+                    splitted = row.strip().split("\t")
+                    if splitted:
+                        if splitted[0].isdigit():  # It's an Index row item
+                            tuple_values.append(tuple(filter(None, splitted)))
+                        else:
+                            raise ValueError(_("PARSING ERROR: Line has not digits"))
+                else:
+                    if table_data[l + 2].startswith('-----'):
+                        # new page header detected
+                        l += 2  # skip it
+                    else:
+                        # table ended
+                        break
+                l += 1
+
+            # Simulation data is given as tuples and it need to be converted to lists
             list_values = self._transpose_table(tuple_values)
             data_lines = []
 
-            #Finally, DataLine objects are created from list data
+            # Finally, DataLine objects are created from list data
             for i in range(len(headers)):
-                if headers != "Index":  # "Index" data-line is discarded because is not useful
+                if headers[i] != "Index":  # "Index" data-line is discarded because it's not useful
                     data_lines.append(NgspiceOutput.DataLine(headers[i], list_values[i]))
 
-            return analysis, date, data_lines
+            return analysis, date, data_lines, l
 
         file_content = raw_text.split("\n")
-        n_simulations = 0
+        tables = []  # List of (analysis, date, data_lines)
+
+        joined_tables = []
 
         self.circuit_name = None
         for i in range(len(file_content)):
@@ -220,23 +289,32 @@ class NgspiceOutput():
                 self.circuit_name = circuit_name
 
             elif stripped.startswith("Error"):
-                raise Exception(stripped)
+                raise ExecutionError(stripped)
 
             elif self.circuit_name is not None:
                 if stripped.startswith(self.circuit_name):
                     # table found!
-                    analysis, date, data_lines = table_parser(i)
-                    n_simulations += 1
+                    tables.append(table_parser(i))
+                    break  # TODO remove this when multiple table support is implemented
 
+        print(tables)
         if self.circuit_name is None:
-            raise Exception("circuit_name is None")
+            raise ValueError("circuit_name is None")
 
-        if n_simulations <= 0:
-            raise Exception(_("No simulations were done."))
-
-        self.analysis = analysis
-        self.data_lines = data_lines
-        self.date = date
+        if not tables:
+            raise ExecutionError(_("No simulations were done."))
+        else:
+            self.analysis = tables[0][0]  # analysis
+            self.date = tables[0][1]  # date
+            joined_tables = tables[0][2]  # Include first table
+            for table in tables[1:]:  # Include dependent data lines of other tables
+                # Process one type of simulation only.
+                if table[0] == self.analysis:
+                    # Discard independent data lines because they were just included.
+                    filtered = [d for d in table[2] if not d.independent]
+                    if filtered is not None:
+                        joined_tables.extend(filtered)
+            self.data_lines = joined_tables  # datalines
 
     def _transpose_table(self, table):
         """Returns a list of columns in table formed by rows"""
@@ -274,21 +352,21 @@ class NgspiceOutput():
 
         # Decorations
         if settings.get_boolean("show-legend"):
-            legend_position=settings.get_string("legend-position")
+            legend_position = settings.get_string("legend-position")
             a.legend(loc=legend_position)
         a.set_title(self.analysis)
 
         # Set x axis
         x_axe_magnitude, x_axe_unit = indep_data_line.get_magnitude_and_unit()
         if x_axe_magnitude and x_axe_unit:
-            a.set_xlabel(unicode(x_axe_magnitude) + " [" + unicode(x_axe_unit)+"]")
+            a.set_xlabel(unicode(x_axe_magnitude) + " [" + unicode(x_axe_unit) + "]")
             if x_axe_unit == "Hz":
                 a.set_xscale("log")
 
         # Set y axis
         y_axe_magnitude, y_axe_unit = dep_data_lines[0].get_magnitude_and_unit()
         if y_axe_magnitude and y_axe_unit:
-            a.set_ylabel(unicode(y_axe_magnitude) + " [" + unicode(y_axe_unit)+"]")
+            a.set_ylabel(unicode(y_axe_magnitude) + " [" + unicode(y_axe_unit) + "]")
             if self.analysis == "AC Analysis" and y_axe_unit == "V":
                 a.set_yscale("log")
 
@@ -311,13 +389,13 @@ class NgspiceOutput():
         with open(file_path, 'wb') as csvfile:
             writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
-            #column headers
+            # column headers
             row = []
             for line in self.data_lines:
                 row.append(line.name)
             writer.writerow(row)
 
-            #content
+            # content
             if self.data_lines is not None:
                 for row_i in xrange(len(self.data_lines[0].values)):  # assume all data lines have the same length
                     row = []
@@ -327,7 +405,6 @@ class NgspiceOutput():
 
 
 class Ngspice():
-
     @classmethod
     def simulatefile(cls, netlist_path):
         """Launches ngspice simulation o netlist file.
@@ -344,7 +421,7 @@ class Ngspice():
 
         if stderr:
             stderr_l = stderr.split("\n")
-            error_lines=""
+            error_lines = ""
             for line in stderr_l:
                 if line.startswith("Error:"):
                     if len(error_lines) > 0:
@@ -355,7 +432,6 @@ class Ngspice():
 
 
 class NgspiceAsync():
-
     def __init__(self):
         """Inits NgspiceAsync."""
         self.thread = None
@@ -389,9 +465,9 @@ class NgspiceAsync():
         self.process = subprocess.Popen(["ngspice", "-b", "-o",
                                          str(netlist_path) + ".out",
                                          str(netlist_path)],
-                                         shell=False,
-                                         stdout=subprocess.PIPE,
-                                         stderr=subprocess.PIPE)
+                                        shell=False,
+                                        stdout=subprocess.PIPE,
+                                        stderr=subprocess.PIPE)
 
         encoding = locale.getdefaultlocale()[1]
         stdout_b, stderr_b = self.process.communicate()
@@ -414,12 +490,13 @@ class NgspiceAsync():
             if self.process.poll() is None:
                 self.process.terminate()
 
+
 class ExecutionError(Exception):
     """Execution of process failed."""
     pass
 
-class Gnetlist():
 
+class Gnetlist():
     @classmethod
     def create_netlist_file(cls, schematic_path, netlist_path):
         """Creates a spice netlist file from a gschem file with spice-sdb backend.
@@ -431,14 +508,16 @@ class Gnetlist():
         Raises:
             ExecutionError: When gnetlist process writes on stderr.
         """
-        process = subprocess.Popen(["gnetlist", "-g", "spice-sdb", "-o", str(netlist_path), "--", str(schematic_path)], shell=False, cwd=os.path.dirname(netlist_path), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        process = subprocess.Popen(["gnetlist", "-g", "spice-sdb", "-o", str(netlist_path), "--", str(schematic_path)],
+                                   shell=False, cwd=os.path.dirname(netlist_path), stdout=subprocess.PIPE,
+                                   stderr=subprocess.PIPE)
 
         encoding = locale.getdefaultlocale()[1]
         stdout_b, stderr_b = process.communicate()
         stdout, stderr = stdout_b.decode(encoding), stderr_b.decode(encoding)
         if stderr:
             stderr_l = stderr.split("\n")
-            error_lines=""
+            error_lines = ""
             for line in stderr_l:
                 if line.startswith("ERROR:"):
                     if len(error_lines) > 0:
@@ -449,7 +528,6 @@ class Gnetlist():
 
 
 class Netlist(object):
-
     def __init__(self, source):
         self.source = source
 
