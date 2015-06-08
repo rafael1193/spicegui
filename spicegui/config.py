@@ -29,7 +29,7 @@ HELP_URL = "https://github.com/rafael1193/spicegui/wiki"
 PROGRAM_NAME = "SpiceGUI"
 PROGRAM_NAME_LOWER = PROGRAM_NAME.lower()
 VERSION = "0.3"
-PROGRAM_WEBSITE = "http://github.com/rafael1193/spicegui"
+PROGRAM_WEBSITE = "https://rafael1193.github.io/spicegui/"
 
 
 def csd_are_supported():
