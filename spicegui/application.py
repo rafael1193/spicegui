@@ -8,7 +8,7 @@
 """SpiceGUI Application module."""
 
 # SpiceGUI
-# Copyright (C) 2014 Rafael Bailón-Ruiz <rafaelbailon@ieee.org>
+# Copyright (C) 2014-2015 Rafael Bailón-Ruiz <rafaelbailon@ieee.org>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -167,7 +167,7 @@ class SpiceGUI(Gtk.Application):
         aboutdialog.set_program_name(config.PROGRAM_NAME)
         aboutdialog.set_version(config.VERSION)
         aboutdialog.set_comments(_("Graphical user interface for circuit simulation using ngspice."))
-        aboutdialog.set_copyright("Copyright \xc2\xa9 2014 Rafael Bailón-Ruiz")
+        aboutdialog.set_copyright("Copyright \xc2\xa9 2014-2015 Rafael Bailón-Ruiz")
         aboutdialog.set_logo_icon_name(config.PROGRAM_NAME_LOWER)
         aboutdialog.set_website(config.PROGRAM_WEBSITE)
         aboutdialog.set_license_type(Gtk.License.GPL_3_0)

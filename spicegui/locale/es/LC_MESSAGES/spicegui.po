@@ -1,7 +1,7 @@
 # SpiceGUI
-# Copyright (C) 2014 Rafael Bailón <rafaelbailon@ieee.org>
+# Copyright (C) 2014-2015 Rafael Bailón <rafaelbailon@ieee.org>
 # This file is distributed under the same license as the SpiceGUI package.
-# Rafael Bailón <rafaelbailon@ieee.org>, 2014.
+# Rafael Bailón <rafaelbailon@ieee.org>, 2014-2015.
 msgid ""
 msgstr ""
 "Project-Id-Version: SpiceGUI\n"
@@ -31,7 +31,7 @@ msgstr "Interfaz gráfica para simulación de circuitos usando ngspice."
 
 #: application.py:178
 msgid "translator-credits"
-msgstr "Rafael Bailón Ruiz <rafaelbailon@ieee.org>, 2014"
+msgstr "Rafael Bailón Ruiz <rafaelbailon@ieee.org>, 2014-2015"
 
 #: ngspice_simulation.py:66
 msgid "There are too much data points in simulation."
