@@ -2,8 +2,8 @@
 #global rel_build 1
 
 # Settings used for build from snapshots.
-%{!?rel_build:%global commit        d9d2097ae3ae733a611178e765419eaae9ab75b7}
-%{!?rel_build:%global commit_date   20150606}
+%{!?rel_build:%global commit        LONG_COMMIT}
+%{!?rel_build:%global commit_date   DATE}
 %{!?rel_build:%global shortcommit   %(c=%{commit};echo ${c:0:7})}
 %{!?rel_build:%global gitver        git%{commit_date}-%{shortcommit}}
 %{!?rel_build:%global gitrel        .git%{commit_date}.%{shortcommit}}
@@ -12,8 +12,8 @@
 %global gittar %{name}-%{version}%{!?rel_build:-%{gitver}}.tar.gz
 
 Name:       spicegui
-Version:    0.3
-Release:    4%{?gitrel}%{?dist}
+Version:    VERSION
+Release:    RELEASE%{?gitrel}%{?dist}
 Summary:    Run circuit simulations and display the results
 
 License:    GPLv3
@@ -57,7 +57,9 @@ desktop.
 %install
 %{__python} setup.py install -O1 --skip-build --root %{buildroot} --record=INSTALLED_FILES
 
-rm %{buildroot}/usr/share/glib-2.0/schemas/gschemas.compiled
+if [ -e %{buildroot}/usr/share/glib-2.0/schemas/gschemas.compiled ] ; then
+    rm %{buildroot}/usr/share/glib-2.0/schemas/gschemas.compiled
+fi
 
 %find_lang %{name}
 
