@@ -33,8 +33,8 @@ PROGRAM_WEBSITE = "https://rafael1193.github.io/spicegui/"
 
 
 def csd_are_supported():
-    sessionType = os.environ.get('DESKTOP_SESSION')
-    if sessionType == "gnome":
+    sessionType = os.environ.get('XDG_CURRENT_DESKTOP')
+    if sessionType == "GNOME":
         return True
     # Other desktop environments doesn't play well with csd for now
     else:
