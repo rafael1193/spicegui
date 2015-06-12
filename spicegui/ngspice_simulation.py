@@ -297,7 +297,6 @@ class NgspiceOutput():
                     tables.append(table_parser(i))
                     break  # TODO remove this when multiple table support is implemented
 
-        print(tables)
         if self.circuit_name is None:
             raise ValueError("circuit_name is None")
 
