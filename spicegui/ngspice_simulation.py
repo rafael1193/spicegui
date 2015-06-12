@@ -184,13 +184,13 @@ class NgspiceOutput():
                   'Nov': 11,
                   'Dec': 12}
 
+        # if day is less than 10, separation is two spaces. Removing this ambiguity
+        raw_date = raw_date.replace('  ', ' ')
         # separate (weekday month, day hour:minute:second, year)
-        wday_month, dhms, year = raw_date.split('  ')
-        month = months[wday_month.split(' ')[1]]  # discard week day
-        day, hms = dhms.split(' ')
+        wday, month, day, hms, year = raw_date.split(' ')
         hour, minute, second = hms.split(':')
 
-        return datetime.datetime(int(year), int(month), int(day), int(hour), int(minute), int(second))
+        return datetime.datetime(int(year), int(months[month]), int(day), int(hour), int(minute), int(second))
 
     def _parse(self, raw_text):
         """Ngspice simulation output parser.
