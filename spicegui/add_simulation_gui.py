@@ -30,7 +30,7 @@ class AddSimulation(Gtk.Dialog):
             parent: parent window.
             device_list: list of device names in netlist. Can't be None.
         '''
-        Gtk.Dialog.__init__(self, "Add simulation statement", parent, use_header_bar=True)
+        Gtk.Dialog.__init__(self, _("Add simulation statement"), parent, use_header_bar=True)
 
         self.statement = None
         

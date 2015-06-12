@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SpiceGUI\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-06 22:49+0100\n"
-"PO-Revision-Date: 2015-06-12 12:57+0100\n"
+"POT-Creation-Date: 2015-06-12 14:29+0100\n"
+"PO-Revision-Date: 2015-06-12 14:29+0100\n"
 "Last-Translator: Rafael Bailón <rafaelbailon@ieee.org>\n"
 "Language-Team: SpiceGUI\n"
 "Language: es\n"
@@ -15,175 +15,163 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.8.1\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-Basepath: ../../../\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ./data\n"
 
-#: application.py:166
-msgid "About SpiceGUI"
-msgstr "Acerca de SpiceGUI"
+#: data/add_simulation_dialog.glade:35
+msgid "Variation:"
+msgstr "Variación:"
 
-#: application.py:169
-msgid "Graphical user interface for circuit simulation using ngspice."
-msgstr "Interfaz gráfica para simulación de circuitos usando ngspice."
+#: data/add_simulation_dialog.glade:48
+msgid "Number of points:"
+msgstr "Número de puntos:"
 
-#: application.py:178
-msgid "translator-credits"
-msgstr "Rafael Bailón Ruiz <rafaelbailon@ieee.org>, 2014-2015"
+#: data/add_simulation_dialog.glade:60
+msgid "Starting frequency:"
+msgstr "Frecuencia inicial:"
 
-#: ngspice_simulation.py:66
-msgid "There are too much data points in simulation."
-msgstr "Hay demasiados puntos de datos en la simulación."
+#: data/add_simulation_dialog.glade:73
+msgid "Final frequency:"
+msgstr "Frecuencia final:"
 
-#: ngspice_simulation.py:235
-msgid "No simulations were done."
-msgstr "No se ha realizado ninguna simulación."
+#: data/add_simulation_dialog.glade:88
+msgid "Decade"
+msgstr "Década"
 
-#: gui.py:41 gui.py:284
-msgid "Simulation output"
-msgstr "Resultados de la simulación"
+#: data/add_simulation_dialog.glade:89
+msgid "Octave"
+msgstr "Octava"
 
-#: gui.py:42 gui.py:483 gui.py:505
-msgid "Execution log"
-msgstr "Registro de ejecución"
+#: data/add_simulation_dialog.glade:90
+msgid "Linear"
+msgstr "Lineal"
 
-#: gui.py:83
-msgid "Circuit"
-msgstr "Circuito"
+#: data/add_simulation_dialog.glade:140
+msgid "AC"
+msgstr "AC"
 
-#: gui.py:89 running_dialog.py:28 running_dialog.py:35
-msgid "Simulation"
-msgstr "Simulación"
+#: data/add_simulation_dialog.glade:158
+msgid "Source:"
+msgstr "Fuente:"
 
-#: gui.py:145
-msgid "Use the <b>Open</b> button to load a circuit"
-msgstr "Usa el botón <b>Abrir</b> para cargar un circuito"
+#: data/add_simulation_dialog.glade:171
+msgid "End:"
+msgstr "Fin:"
 
-#: gui.py:226
-msgid "Save plot"
-msgstr "Guardar gráfica"
+#: data/add_simulation_dialog.glade:184
+msgid "Increment:"
+msgstr "Incremento:"
 
-#: gui.py:230
-msgid "Portable Network Graphics"
-msgstr "Portable Network Graphics"
+#: data/add_simulation_dialog.glade:197
+msgid "Start:"
+msgstr "Inicio:"
 
-#: gui.py:235
-msgid "Scalable Vector Graphics"
-msgstr "Scalable Vector Graphics"
+#: data/add_simulation_dialog.glade:260
+msgid "DC"
+msgstr "DC"
 
-#: gui.py:262
-msgid "Save simulation data"
-msgstr "Guardar resultados"
+#: data/add_simulation_dialog.glade:279
+msgid "Time step:"
+msgstr "Intervalo de tiempo:"
 
-#: gui.py:266
-msgid "Comma-separated values"
-msgstr "Valores separados por comas"
+#: data/add_simulation_dialog.glade:292
+msgid "Final time:"
+msgstr "Tiempo final:"
 
-#: gui.py:373
-msgid "Open"
-msgstr "Abrir"
+#: data/add_simulation_dialog.glade:304
+msgid "Initial time:"
+msgstr "Tiempo inicial:"
 
-#: gui.py:483 gui.py:489
-msgid "Simulation failed."
-msgstr "La simulación falló."
+#: data/add_simulation_dialog.glade:317
+msgid "Max. time step:"
+msgstr "Intervalo de tiempo máximo:"
 
-#: gui.py:536
-msgid "Opened file changed on disk."
-msgstr "El archivo ha cambiado en el disco."
+#: data/add_simulation_dialog.glade:326
+msgid "Use initial conditions"
+msgstr "Usar condiciones iniciales"
 
-#: gui.py:536
-msgid "Reload"
-msgstr "Recargar"
-
-#: gui.py:568
-msgid "Schematic could not be converted to netlist."
-msgstr "El esquemático no pudo ser convertido a netlist."
-
-#: gui.py:605
-msgid "Please choose a file"
-msgstr "Elija un archivo"
-
-#: gui.py:609
-msgid "Netlist"
-msgstr "Netlist"
-
-#: gui.py:616
-msgid "GEDA schematic"
-msgstr "Esquemático de GEDA"
-
-#: gui.py:621
-msgid "Supported files"
-msgstr "Archivos soportados"
-
-#: gui.py:638
-msgid "File could not be loaded."
-msgstr "El archivo no pudo ser abierto."
-
-#: running_dialog.py:49
-msgid "Running ngspice…"
-msgstr "Ejecutando ngspice…"
+#: data/add_simulation_dialog.glade:396
+msgid "Transient"
+msgstr "Transitorio"
 
 #: data/preferences.glade:7
 msgid "Preferences"
 msgstr "Preferencias"
 
-#: data/preferences.glade:49
+#: data/preferences.glade:55
+msgid "Display line numbers"
+msgstr "Mostrar números de línea"
+
+#: data/preferences.glade:70
+msgid "Highlight current line"
+msgstr "Resaltar la línea actual"
+
+#: data/preferences.glade:92
+msgid "Editor"
+msgstr "Editor"
+
+#: data/preferences.glade:112
 msgid "Show legend"
 msgstr "Mostrar leyenda"
 
-#: data/preferences.glade:68
+#: data/preferences.glade:131
 msgid "Best"
 msgstr "Óptima"
 
-#: data/preferences.glade:69
+#: data/preferences.glade:132
 msgid "Upper right"
 msgstr "Arriba derecha"
 
-#: data/preferences.glade:70
+#: data/preferences.glade:133
 msgid "Upper left"
 msgstr "Arriba izquierda"
 
-#: data/preferences.glade:71
+#: data/preferences.glade:134
 msgid "Lower left"
 msgstr "Abajo izquierda"
 
-#: data/preferences.glade:72
+#: data/preferences.glade:135
 msgid "Lower right"
 msgstr "Abajo derecha"
 
-#: data/preferences.glade:73
+#: data/preferences.glade:136
 msgid "Right"
 msgstr "Derecha"
 
-#: data/preferences.glade:74
+#: data/preferences.glade:137
 msgid "Center left"
 msgstr "Centro izquierda"
 
-#: data/preferences.glade:75
+#: data/preferences.glade:138
 msgid "Center right"
 msgstr "Centro derecha"
 
-#: data/preferences.glade:76
+#: data/preferences.glade:139
 msgid "Lower center"
 msgstr "Abajo centro"
 
-#: data/preferences.glade:77
+#: data/preferences.glade:140
 msgid "Upper center"
 msgstr "Arriba centro"
 
-#: data/preferences.glade:78
+#: data/preferences.glade:141
 msgid "Center"
 msgstr "Centro"
 
-#: data/preferences.glade:91
+#: data/preferences.glade:153
 msgid "Legend position:"
 msgstr "Posición de la leyenda:"
 
-#: data/preferences.glade:101
+#: data/preferences.glade:164
 msgid "Show grids"
 msgstr "Mostrar rejillas"
+
+#: data/preferences.glade:187
+msgid "Plot"
+msgstr "Gráfico"
 
 #: data/menu.ui:7
 msgid "_New window"
@@ -229,33 +217,126 @@ msgstr "_Resultados de la simulación"
 msgid "_Plot preferences"
 msgstr "_Preferencias de gráfica"
 
-#: data/menu.ui:82
-msgid "._ac"
-msgstr "._ac"
+#: data/menu.ui:82 gui.py:93 running_dialog.py:28 running_dialog.py:35
+msgid "Simulation"
+msgstr "Simulación"
 
-#: data/menu.ui:86
-msgid "._dc"
-msgstr "._dc"
-
-#: data/menu.ui:90
-msgid "._tran"
-msgstr "._tran"
-
-#: data/menu.ui:96
+#: data/menu.ui:88
 msgid "._print"
 msgstr "._print"
 
-#: data/menu.ui:102
+#: data/menu.ui:94
 msgid "._model"
 msgstr "._model"
 
-#: data/menu.ui:106
+#: data/menu.ui:98
 msgid "._lib"
 msgstr "._lib"
 
-#: data/menu.ui:110
+#: data/menu.ui:102
 msgid "._include"
 msgstr "._include"
 
-#~ msgid "S_ave as..."
-#~ msgstr "Guardar c_omo..."
+#: add_simulation_gui.py:33
+msgid "Add simulation statement"
+msgstr "Añadir sentencia de simulación"
+
+#: application.py:168
+msgid "About SpiceGUI"
+msgstr "Acerca de SpiceGUI"
+
+#: application.py:171
+msgid "Graphical user interface for circuit simulation using ngspice."
+msgstr "Interfaz gráfica para simulación de circuitos usando ngspice."
+
+#: application.py:180
+msgid "translator-credits"
+msgstr "Rafael Bailón Ruiz <rafaelbailon@ieee.org>, 2014-2015"
+
+#: gui.py:45 gui.py:282
+msgid "Simulation output"
+msgstr "Resultados de la simulación"
+
+#: gui.py:46 gui.py:482 gui.py:504
+msgid "Execution log"
+msgstr "Registro de ejecución"
+
+#: gui.py:87
+msgid "Circuit"
+msgstr "Circuito"
+
+#: gui.py:151
+msgid "Use the <b>Open</b> button to load a circuit"
+msgstr "Usa el botón <b>Abrir</b> para cargar un circuito"
+
+#: gui.py:224
+msgid "Save plot"
+msgstr "Guardar gráfica"
+
+#: gui.py:228
+msgid "Portable Network Graphics"
+msgstr "Portable Network Graphics"
+
+#: gui.py:233
+msgid "Scalable Vector Graphics"
+msgstr "Scalable Vector Graphics"
+
+#: gui.py:260
+msgid "Save simulation data"
+msgstr "Guardar resultados"
+
+#: gui.py:264
+msgid "Comma-separated values"
+msgstr "Valores separados por comas"
+
+#: gui.py:372
+msgid "Open"
+msgstr "Abrir"
+
+#: gui.py:482 gui.py:488
+msgid "Simulation failed."
+msgstr "La simulación falló."
+
+#: gui.py:535
+msgid "Opened file changed on disk."
+msgstr "El archivo ha cambiado en el disco."
+
+#: gui.py:535
+msgid "Reload"
+msgstr "Recargar"
+
+#: gui.py:567
+msgid "Schematic could not be converted to netlist."
+msgstr "El esquemático no pudo ser convertido a netlist."
+
+#: gui.py:604
+msgid "Please choose a file"
+msgstr "Elija un archivo"
+
+#: gui.py:608
+msgid "Netlist"
+msgstr "Netlist"
+
+#: gui.py:615
+msgid "GEDA schematic"
+msgstr "Esquemático de GEDA"
+
+#: gui.py:620
+msgid "Supported files"
+msgstr "Archivos soportados"
+
+#: gui.py:637
+msgid "File could not be loaded."
+msgstr "El archivo no pudo ser abierto."
+
+#: ngspice_simulation.py:67
+msgid "There are too much data points in simulation."
+msgstr "Hay demasiados puntos de datos en la simulación."
+
+#: ngspice_simulation.py:305
+msgid "No simulations were done."
+msgstr "No se ha realizado ninguna simulación."
+
+#: running_dialog.py:49
+msgid "Running ngspice…"
+msgstr "Ejecutando ngspice…"

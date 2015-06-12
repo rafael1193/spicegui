@@ -254,7 +254,7 @@ class NgspiceOutput():
                         if splitted[0].isdigit():  # It's an Index row item
                             tuple_values.append(tuple(filter(None, splitted)))
                         else:
-                            raise ValueError(_("PARSING ERROR: Line has not digits"))
+                            raise ValueError("PARSING ERROR: Line has not digits")
                 else:
                     if table_data[l + 2].startswith('-----'):
                         # new page header detected
