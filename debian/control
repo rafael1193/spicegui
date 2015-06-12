@@ -1,0 +1,17 @@
+Source: spicegui
+Section: electronics
+Priority: optional
+Maintainer: Rafael Bailón-Ruiz <rafaelbailon@ieee.org> 
+Build-Depends: debhelper (>=9), python-all, dh-python, python-setuptools
+Standards-Version: 3.9.6
+
+Package: spicegui
+Architecture: all
+Homepage: http://rafael1193.github.io/spicegui
+XB-Python-Version: ${python:Versions}
+Depends: ${misc:Depends}, ${python:Depends}, python-matplotlib, gir1.2-gtk-3.0, gir1.2-glib-2.0, gir1.2-gtksource-3.0, gir1.2-pango-1.0, ngspice, geda-gnetlist, geda-gschem
+Description: Graphical user interface for circuit simulation with ngspice
+ SpiceGUI is a program that aims to make circuit simulation on GNU/Linux
+ operating systems easier with a modern and easy to use graphical user
+ interface. This program makes more straightforward the process from schematic
+ edition to result analysis with a modern Gtk3 interface.

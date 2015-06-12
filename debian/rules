@@ -1,0 +1,7 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+export PYBUILD_NAME=spicegui
+
+%:
+	dh $@ --with python2 --buildsystem=pybuild
