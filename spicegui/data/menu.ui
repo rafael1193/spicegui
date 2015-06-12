@@ -63,12 +63,14 @@
                 <attribute name="action">win.simulation-output</attribute>
             </item>
         </section>
+<!---
         <section>
             <item>
                 <attribute name="label" translatable="yes">_Plot preferences</attribute>
                 <attribute name="action">win.plot-preferences</attribute>
             </item>
         </section>
+!--->
         <section>
             <item>
                 <attribute name="label" translatable="yes">_Close</attribute>
