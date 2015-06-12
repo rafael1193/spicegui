@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: SpiceGUI\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-06-12 14:29+0100\n"
-"PO-Revision-Date: 2015-06-12 14:29+0100\n"
-"Last-Translator: Rafael Bailón <rafaelbailon@ieee.org>\n"
+"PO-Revision-Date: 2015-06-12 23:39+0100\n"
+"Last-Translator: Rafael Bailón-Ruiz <rafaelbailon@ieee.org>\n"
 "Language-Team: SpiceGUI\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -75,7 +75,7 @@ msgstr "DC"
 
 #: data/add_simulation_dialog.glade:279
 msgid "Time step:"
-msgstr "Intervalo de tiempo:"
+msgstr "Intervalo de muestreo:"
 
 #: data/add_simulation_dialog.glade:292
 msgid "Final time:"
@@ -87,7 +87,7 @@ msgstr "Tiempo inicial:"
 
 #: data/add_simulation_dialog.glade:317
 msgid "Max. time step:"
-msgstr "Intervalo de tiempo máximo:"
+msgstr "Intervalo máx. de muestreo:"
 
 #: data/add_simulation_dialog.glade:326
 msgid "Use initial conditions"
@@ -95,7 +95,7 @@ msgstr "Usar condiciones iniciales"
 
 #: data/add_simulation_dialog.glade:396
 msgid "Transient"
-msgstr "Transitorio"
+msgstr "Transitoria"
 
 #: data/preferences.glade:7
 msgid "Preferences"
