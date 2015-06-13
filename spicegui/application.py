@@ -174,7 +174,7 @@ class SpiceGUI(Gtk.Application):
         aboutdialog.set_website(config.PROGRAM_WEBSITE)
         aboutdialog.set_license_type(Gtk.License.GPL_3_0)
 
-        authors = ["Rafael Bailón Ruiz <rafaelbailon@ieee.org>"]
+        authors = ["Rafael Bailón-Ruiz <rafaelbailon@ieee.org>"]
         aboutdialog.set_authors(authors)
 
         translators = _("translator-credits")
