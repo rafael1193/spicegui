@@ -24,25 +24,28 @@
       <img src="https://cloud.githubusercontent.com/assets/436547/5596935/dbbd7160-9299-11e4-837b-53fa54b42ecc.png"/>
 
 <h2>
-<a id="installing" class="anchor" href="#installing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installing</h2>
+<a id="installation" class="anchor" href="#installing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<h3>
+<a id="ubuntu" class="anchor" href="#fedora" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ubuntu / Linux Mint / elementaryOS</h3>
+
+<p>Add <a href="https://launchpad.net/%7Erafael1193/+archive/ubuntu/spicegui">ppa:rafael1193/spicegui</a> repository.</p>
+
+<p>Run</p>
+
+<pre><code>$ sudo add-apt-repository ppa:rafael1193/spicegui
+$ sudo apt-get update
+$ sudo apt-get install spicegui
+
+</code></pre>
 
 <h3>
 <a id="fedora" class="anchor" href="#fedora" aria-hidden="true"><span class="octicon octicon-link"></span></a>Fedora</h3>
 
-<p>Get it from <a href="http://copr.fedoraproject.org/coprs/rafael1193/SpiceGUI/">rafael1193/SpiceGUI fedora copr repository</a></p>
+<p>Add <a href="http://copr.fedoraproject.org/coprs/rafael1193/SpiceGUI/">rafael1193/SpiceGUI</a>repository.</p>
 
-<p>Run</p>
-
-<pre><code>$ sudo dnf install dnf-plugins-core
-$ sudo dnf copr enable rafael1193/SpiceGUI
+<pre><code>$ sudo dnf copr enable rafael1193/SpiceGUI
 $ sudo dnf install spicegui
-</code></pre>
-
-<p>Or</p>
-
-<pre><code>$ cd /etc/yum.repos.d/
-$ sudo wget http://copr.fedoraproject.org/coprs/rafael1193/SpiceGUI/repo/fedora-21/rafael1193-SpiceGUI-fedora-21.repo
-$ sudo yum install spicegui
 </code></pre>
 
 <h3>
