@@ -1,3 +1,9 @@
+spicegui (1.0) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Rafael Bailón-Ruiz <rafaelbailon@ieee.org>  Sat, 13 Jun 2015 20:21:33 +0200
+
 spicegui (0.3) unstable; urgency=medium
 
   * Initial release. (Closes: #1)
