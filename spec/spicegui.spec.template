@@ -24,11 +24,11 @@ URL:        http://github.com/rafael1193/spicegui
 %{!?rel_build:Source0: %{url}/archive/%{commit}.tar.gz#/%{gittar}}
 
 BuildRequires:  desktop-file-utils
-BuildRequires:  python-setuptools
+BuildRequires:  python3-setuptools
 BuildRequires:  gettext
-Requires:       python
-Requires:       pygobject2
-Requires:       python-matplotlib
+Requires:       python3
+Requires:       python3-gobject
+Requires:       python3-matplotlib
 Requires:       gtk3
 Requires:       glib2
 Requires:       gtksourceview3

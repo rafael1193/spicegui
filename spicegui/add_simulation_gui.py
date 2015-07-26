@@ -168,5 +168,5 @@ class AddSimulation(Gtk.Dialog):
 if __name__ == '__main__':
     diag = AddSimulation(None, [])
     if diag.run() == int(Gtk.ResponseType.OK):
-        print diag.statement
+        print(diag.statement)
     diag.close()
