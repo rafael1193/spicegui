@@ -289,7 +289,10 @@ class NgspiceOutput():
                 self.circuit_name = circuit_name
 
             elif stripped.startswith("Error"):
-                raise ExecutionError(stripped)
+                # ngspice 26 in fedora 23 cannot load some files and shows error
+                # messages non related to simulation.
+                if not stripped.startswith("Error: Library ") and not stripped.endswith(" couldn't be loaded!"):
+                    raise ExecutionError(stripped)
 
             elif self.circuit_name is not None:
                 if stripped.startswith(self.circuit_name):
