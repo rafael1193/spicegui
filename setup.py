@@ -107,7 +107,7 @@ params = {
 
     # include all resources
     "include_package_data": True,
-    "package_data": {'spicegui': ['data/*.glade', 'data/*.ui']},
+    "package_data": {'spicegui': ['data/*.glade', 'data/*.ui', 'locale/es/LC_MESSAGES/spicegui.mo']},
 
     "packages": find_packages(),
 
@@ -116,8 +116,7 @@ params = {
                    ('/usr/share/gtksourceview-3.0/language-specs/', ['spicegui/data/spice-netlist.lang']),
                    ('/usr/share/icons/hicolor/scalable/apps/', ['spicegui/data/spicegui.svg']),
                    ('/usr/share/icons/hicolor/symbolic/apps/', ['spicegui/data/spicegui-symbolic.svg']),
-                   ('/usr/share/appdata/', ['spicegui/data/SpiceGUI.appdata.xml']),
-                   ('/usr/share/locale/es/LC_MESSAGES/', ['spicegui/locale/es/LC_MESSAGES/spicegui.mo'])],
+                   ('/usr/share/appdata/', ['spicegui/data/SpiceGUI.appdata.xml'])],
 
     # auto create scripts
     "entry_points": {
