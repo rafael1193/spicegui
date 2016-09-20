@@ -29,22 +29,17 @@ import config
 
 def get_locale_path():
     """Get locale folder path.
-    
+
     Returns:
         locale_path: Locale folder path.
-        
+
     Raises:
         IOError: If locale path cannot be found.
     """
     local = os.path.join(os.path.dirname(os.path.abspath(__file__)),"locale")
-    installed_base = os.path.join(" ",*(os.path.dirname(os.path.abspath(__file__)).split(os.sep)[:-4])).lstrip(" ")  # Remove lib/python2.7/site-packages/spicegui
-    installed_ext = os.path.join("share", "locale")
-    installed = os.path.join(installed_base, installed_ext)
 
     if os.path.exists(local):
         return local
-    elif os.path.exists(installed):
-        return installed
     else:
         raise IOError("Locale path not found.")
 
