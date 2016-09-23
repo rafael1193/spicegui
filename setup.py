@@ -25,6 +25,7 @@ from __future__ import print_function
 from setuptools import find_packages
 
 from distutils.core import setup
+from distutils.command.build import build
 from distutils.command.install_data import install_data
 
 import subprocess
@@ -41,6 +42,24 @@ __version__ = spicegui.config.VERSION
 __license__ = "GPL3"
 
 dependencies = []
+
+
+class MyBuild(build):
+
+    @classmethod
+    def compile_message_catalog(cls):
+        try:
+            subprocess.call(['msgfmt', '-o',
+                             'spicegui/locale/es/LC_MESSAGES/spicegui.mo',
+                             'spicegui/locale/es/LC_MESSAGES/spicegui.po'])
+        except:
+            print("ERROR: unable to compile \"es\" message catalog",
+                  file=sys.stderr)
+
+    def run(self):
+        if sys.platform.startswith('linux'):
+            self.compile_message_catalog()
+        build.run(self)
 
 
 class MyInstallData(install_data):
@@ -66,17 +85,7 @@ class MyInstallData(install_data):
         except:
             print("ERROR: unable to compile GSettings schemas", file=sys.stderr)
 
-    @classmethod
-    def compile_message_catalog(cls):
-        try:
-            subprocess.call(['msgfmt', '-o', 'spicegui/locale/es/LC_MESSAGES/spicegui.mo',
-                             'spicegui/locale/es/LC_MESSAGES/spicegui.po'])
-        except:
-            print("ERROR: unable to compile \"es\" message catalog", file=sys.stderr)
-
     def run(self):
-        if sys.platform.startswith('linux'):
-            self.compile_message_catalog()
         install_data.run(self)
         if sys.platform.startswith('linux'):
             self.update_desktop_database()
@@ -128,7 +137,8 @@ params = {
         ]
     },
 
-    'cmdclass': {'install_data': MyInstallData}
+    'cmdclass': {'build': MyBuild,
+                 'install_data': MyInstallData}
 }
 
 setup(**params)
