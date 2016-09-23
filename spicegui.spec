@@ -1,27 +1,11 @@
-# Conditional for release and snapshot builds. Uncomment for release-builds.
-#global rel_build 1
-
-# Settings used for build from snapshots.
-%{!?rel_build:%global commit        LONG_COMMIT}
-%{!?rel_build:%global commit_date   DATE}
-%{!?rel_build:%global shortcommit   %(c=%{commit};echo ${c:0:7})}
-%{!?rel_build:%global gitver        git%{commit_date}-%{shortcommit}}
-%{!?rel_build:%global gitrel        .git%{commit_date}.%{shortcommit}}
-
-# Proper naming for the tarball from github.
-%global gittar %{name}-%{version}%{!?rel_build:-%{gitver}}.tar.gz
-
 Name:       spicegui
-Version:    VERSION
-Release:    RELEASE%{?gitrel}%{?dist}
+Version:    1.0
+Release:    1
 Summary:    Run circuit simulations and display the results
 
 License:    GPLv3
 URL:        http://github.com/rafael1193/spicegui
-# Sources for release-builds.
-%{?rel_build:Source0:  %{url}/archive/v%{version}.tar.gz#/%{gittar}}
-# Sources for snapshot-builds.
-%{!?rel_build:Source0: %{url}/archive/%{commit}.tar.gz#/%{gittar}}
+Source0:    %{name}-%{version}.tar.gz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  python3-setuptools
@@ -48,7 +32,7 @@ to make easier circuit simulation on GNU/Linux and integrate well with the GNOME
 desktop.
 
 %prep
-%setup -q%{!?rel_build:n %{name}-%{commit}}
+%setup -q%{!?rel_build:n %{name}-%{version}}
 
 
 %build
@@ -62,7 +46,7 @@ if [ -e %{buildroot}/usr/share/glib-2.0/schemas/gschemas.compiled ] ; then
     rm %{buildroot}/usr/share/glib-2.0/schemas/gschemas.compiled
 fi
 
-%find_lang %{name}
+%find_lang %{name} --all-name
 
 for file in $RPM_BUILD_ROOT%{python_sitelib}/%{name}/{config,__init__}.py; do
    chmod a+x $file
