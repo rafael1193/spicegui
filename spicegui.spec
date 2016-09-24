@@ -1,6 +1,6 @@
 Name:       spicegui
 Version:    1.0
-Release:    1
+Release:    1%{dist}
 Summary:    Run circuit simulations and display the results
 
 License:    GPLv3
